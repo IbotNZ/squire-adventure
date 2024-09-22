@@ -1,0 +1,7 @@
+Dialogue displays
+	Regular dialogue
+	Intro dialogue and choices
+	Dramatic text/transition dialogue
+
+Should do all the logic in the dialogue manager.
+Such as just storing what type of logic check to do and running the check in the manager.

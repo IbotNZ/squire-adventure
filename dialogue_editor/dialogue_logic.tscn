@@ -1,0 +1,131 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn83vvpi6lula"]
+
+[ext_resource type="Script" path="res://dialogue_editor/dialogue_logic.gd" id="1_egokx"]
+
+[node name="DialogueLogic" type="GraphNode"]
+offset_left = 40.0
+offset_top = 385.0
+offset_right = 384.0
+offset_bottom = 529.0
+mouse_filter = 1
+position_offset = Vector2(0, 345)
+title = "Logic"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(0.239216, 0.866667, 0.254902, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(0.827451, 0, 0, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+script = ExtResource("1_egokx")
+
+[node name="ModeSelection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ModeSelector" type="OptionButton" parent="ModeSelection"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "Variable"
+popup/item_1/text = "Character Stat"
+popup/item_1/id = 1
+popup/item_2/text = "Character Trait"
+popup/item_2/id = 2
+
+[node name="True" type="Label" parent="ModeSelection"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "True"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="False" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "False"
+
+[node name="VariableLogic" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="VariableSelector" type="OptionButton" parent="VariableLogic"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VariableLogic"]
+layout_mode = 2
+text = "Greater Than"
+
+[node name="SpinBox" type="SpinBox" parent="VariableLogic"]
+layout_mode = 2
+
+[node name="StatLogic" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="StatSelector" type="OptionButton" parent="StatLogic"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatLogic"]
+layout_mode = 2
+text = "Greater Than"
+
+[node name="SpinBox" type="SpinBox" parent="StatLogic"]
+layout_mode = 2
+
+[node name="TraitLogic" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="TraitSelector" type="OptionButton" parent="TraitLogic"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TraitLogic"]
+layout_mode = 2
+text = "Is"
+
+[node name="TraitChecker" type="OptionButton" parent="TraitLogic"]
+layout_mode = 2
+
+[connection signal="item_selected" from="ModeSelection/ModeSelector" to="." method="_on_mode_selector_item_selected"]

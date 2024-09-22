@@ -1,5 +1,7 @@
 extends GraphNode
 
+var choice_box := preload("res://dialogue_editor/choice_box.tscn")
+const port_color := Color('White')
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,3 +11,19 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func clean_port(index: int):
+	clear_slot(index)
+
+
+func _on_add_choice_button_pressed() -> void:
+	var new_choice = choice_box.instantiate()
+	new_choice.delete_choice_pressed.connect(_on_delete_choice_button_pressed)
+	add_child(new_choice)
+	move_child(new_choice, -2)
+	set_slot(get_child_count() - 2, false, 0, port_color, true, 0, port_color)
+
+func _on_delete_choice_button_pressed(choice_reference: Node) -> void:
+	clean_port(choice_reference.get_index())
+	choice_reference.queue_free()

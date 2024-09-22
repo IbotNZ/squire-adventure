@@ -1,12 +1,17 @@
 extends Node
 class_name DialogueManager
 
+var Test_Display = preload("res://dialogue_displays/test_display/test_display.tscn")
+
 @export var Dialogue_Node_list: Array[DialogueType]
 
 # Store the previous hub so if an exposition node is ran it can return to that hub
 var Previous_Choice_Hub: DialogueHub
 # The current dialogue node that is to run
 var Current_Dialogue_Node: DialogueType
+
+# Stores the currently instantiated dialogue display
+var Current_Dialogue_Display: Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,24 +25,47 @@ func _process(delta: float) -> void:
 
 func initiate_dialogue_display():
 	# Initializes an instance of a dialogue display scene and links it to run dialogue in.
-	pass
+	var New_Display = Test_Display.instantiate()
+	New_Display.choice_pressed.connect(choice_has_been_pressed)
+	Current_Dialogue_Display = New_Display
+	add_child(New_Display)
+
+
+func choice_has_been_pressed(button_connection):
+	Current_Dialogue_Display.clear_choices()
+	Current_Dialogue_Node = button_connection
+	run_current_node()
 
 
 func run_current_node():
 	if Current_Dialogue_Node is DialogueNode:
 		run_dialogue_text()
-	if Current_Dialogue_Node is DialogueHub:
+	elif Current_Dialogue_Node is DialogueHub:
 		run_dialogue_hub()
-	if Current_Dialogue_Node is DialogueLogic:
+	elif Current_Dialogue_Node is DialogueLogic:
 		run_dialogue_logic()
 
 
 func run_dialogue_text():
-	pass
+	var text_node: DialogueNode = Current_Dialogue_Node
+	Current_Dialogue_Display.run_dialogue(text_node.text)
+	match text_node.node_type:
+		text_node.default:
+			Current_Dialogue_Node = text_node.next_dialogue_node
+		text_node.exposition:
+			Current_Dialogue_Node = Previous_Choice_Hub
+		text_node.start:
+			Current_Dialogue_Node = text_node.next_dialogue_node
+		text_node.end:
+			pass
+	run_current_node()
 
 
 func run_dialogue_hub():
-	pass
+	Previous_Choice_Hub = Current_Dialogue_Node
+	var hub_node: DialogueHub = Current_Dialogue_Node
+	for i in hub_node.choice_list:
+		Current_Dialogue_Display.create_choice(i.label, i.next_node)
 
 
 func run_dialogue_logic():

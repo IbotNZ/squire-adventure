@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://dluxdhe8b265c"]
+
+[ext_resource type="Script" path="res://dialogue_displays/test_display/test_display.gd" id="1_ri8lr"]
+[ext_resource type="PackedScene" uid="uid://dwasrgsngyd24" path="res://dialogue_displays/test_display/test_button.tscn" id="2_g1r13"]
+
+[node name="TestDisplay" type="PanelContainer"]
+anchors_preset = -1
+anchor_left = 0.652778
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+script = ExtResource("1_ri8lr")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Hello Hello"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Wassup"
+fit_content = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" parent="VBoxContainer/VBoxContainer2" instance=ExtResource("2_g1r13")]
+visible = false
+layout_mode = 2

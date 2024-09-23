@@ -16,9 +16,17 @@ func _enter_tree() -> void:
 	_make_visible(false)
 
 
+func is_dialogue_manager(node_reference: Node):
+	return node_reference is DialogueManager
+
+
 func _on_scene_changed(scene_root: Node):
-	if main_panel_instance:
-		main_panel_instance.clean_up()
+	main_panel_instance.clean_up()
+	# If needing to hide editor on scenes with no manager check for any manager and hide editor if false
+	if scene_root:
+		for i in scene_root.get_children():
+			if i is DialogueManager:
+				main_panel_instance.initialize_editor(i)
 
 
 func _exit_tree() -> void:

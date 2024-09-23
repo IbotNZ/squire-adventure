@@ -1,7 +1,7 @@
 extends Node
 class_name DialogueManager
 
-var Test_Display = preload("res://dialogue_displays/test_display/test_display.tscn")
+var Test_Display = preload("res://addons/dialogue_visual_editor/dialogue_displays/test_display/test_display.tscn")
 
 @export var Dialogue_Node_list: Array[DialogueType]
 

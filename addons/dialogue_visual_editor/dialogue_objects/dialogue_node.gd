@@ -4,11 +4,11 @@ class_name DialogueNode
 # Types of dialogue node behaviour
 enum {default, start, end, exposition}
 
-var text: String
-var node_type := default
+@export var text: String = ""
+@export var node_type: int = default
 
 # References for default node
-var next_dialogue_node: DialogueType
+@export var next_dialogue_node: DialogueType
 
 # References for start node
 var start_button: Node

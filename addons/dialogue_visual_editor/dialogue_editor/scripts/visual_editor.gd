@@ -38,6 +38,23 @@ func _input(event):
 		r_click_menu.show()
 
 
+func sync_with_dialogue_manager(resource_list: Array[DialogueType]):
+	var new_node: GraphNode
+	for i in resource_list:
+		if i is DialogueNode:
+			new_node = dialogue_scene.instantiate()
+		elif i is DialogueHub:
+			new_node = hub_scene.instantiate()
+		elif i is DialogueLogic:
+			new_node = logic_scene.instantiate()
+		elif i is DialogueVariable:
+			new_node = variable_scene.instantiate()
+		# await Engine.get_main_loop().process_frame
+		new_node.linked_node = i
+		new_node.sync_with_node()
+		add_child(new_node)
+
+
 func connection_conflict(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
 	var is_there_conflict: bool = false
 	for i in connection_list:

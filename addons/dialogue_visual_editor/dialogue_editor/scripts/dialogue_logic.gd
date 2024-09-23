@@ -9,6 +9,8 @@ extends GraphNode
 enum {variable, character_stat, character_trait}
 var logic_type := variable
 
+var linked_node: DialogueLogic
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -16,6 +18,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	pass
+
+
+func sync_with_node():
 	pass
 
 

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctv614jdkh4ou"]
+
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_manager.gd" id="1_he4f4"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_type.gd" id="2_qbhoj"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_node.gd" id="3_ba2ot"]
+
+[sub_resource type="Resource" id="Resource_ud3rw"]
+script = ExtResource("3_ba2ot")
+text = "Test"
+node_type = 1
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueManager" type="Node" parent="."]
+script = ExtResource("1_he4f4")
+Dialogue_Node_list = Array[ExtResource("2_qbhoj")]([SubResource("Resource_ud3rw")])

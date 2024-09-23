@@ -6,7 +6,11 @@ enum {default, exposition, start, end}
 
 const port_color := Color('White')
 var current_type := default
-@onready var assign_button := $Button
+@onready @export var assign_button := $Button
+@onready @export var option_button := $OptionButton
+@onready @export var text_box := $TextEdit
+
+var linked_node: DialogueNode
 
 signal node_type_changed(self_reference, new_type)
 
@@ -19,6 +23,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func sync_with_node():
+	text_box.text = linked_node.text
+	option_button.select(linked_node.node_type)
+	current_type = linked_node.node_type
+	set_ports()
 
 
 func set_ports():

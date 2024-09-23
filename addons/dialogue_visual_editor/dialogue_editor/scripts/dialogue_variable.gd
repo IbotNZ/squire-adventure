@@ -8,6 +8,7 @@ enum {bool_node, number_node}
 var default_bool := false
 var default_number := 0
 var node_type := bool_node
+var linked_node: DialogueVariable
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,6 +17,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	pass
+
+
+func sync_with_node():
 	pass
 
 

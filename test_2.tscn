@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b33lwnbdsixei"]
 
-[ext_resource type="Script" path="res://dialogue_objects/dialogue_manager.gd" id="1_6negn"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_manager.gd" id="1_6negn"]
 
 [node name="Test2" type="Node2D"]
 

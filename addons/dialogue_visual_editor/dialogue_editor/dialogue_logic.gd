@@ -1,3 +1,4 @@
+@tool
 extends GraphNode
 
 @onready var mode_selector := $ModeSelection/ModeSelector

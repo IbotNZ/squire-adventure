@@ -1,6 +1,7 @@
+@tool
 extends GraphNode
 
-var choice_box := preload("res://dialogue_editor/choice_box.tscn")
+var choice_box := preload("res://addons/dialogue_visual_editor/dialogue_editor/choice_box.tscn")
 const port_color := Color('White')
 
 signal choice_removed(node_name: String, connected_port: int)

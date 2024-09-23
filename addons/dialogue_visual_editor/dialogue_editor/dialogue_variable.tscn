@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d3d6gqydnrtmy"]
 
-[ext_resource type="Script" path="res://dialogue_editor/dialogue_variable.gd" id="1_8ck88"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/dialogue_variable.gd" id="1_8ck88"]
 
 [node name="DialogueVariable" type="GraphNode"]
 offset_left = 212.0

@@ -1,3 +1,4 @@
+@tool
 extends GraphNode
 
 # Match to option button indexes

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dluxdhe8b265c"]
 
-[ext_resource type="Script" path="res://dialogue_displays/test_display/test_display.gd" id="1_ri8lr"]
-[ext_resource type="PackedScene" uid="uid://dwasrgsngyd24" path="res://dialogue_displays/test_display/test_button.tscn" id="2_g1r13"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_displays/test_display/test_display.gd" id="1_ri8lr"]
+[ext_resource type="PackedScene" uid="uid://dwasrgsngyd24" path="res://addons/dialogue_visual_editor/dialogue_displays/test_display/test_button.tscn" id="2_g1r13"]
 
 [node name="TestDisplay" type="PanelContainer"]
 anchors_preset = -1

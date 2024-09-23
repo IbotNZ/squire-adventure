@@ -1,3 +1,4 @@
+@tool
 extends GraphNode
 
 enum {bool_node, number_node}

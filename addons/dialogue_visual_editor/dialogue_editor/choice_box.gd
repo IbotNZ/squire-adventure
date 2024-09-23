@@ -1,3 +1,4 @@
+@tool
 extends HBoxContainer
 
 signal delete_choice_pressed(self_reference)

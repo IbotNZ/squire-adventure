@@ -1,3 +1,4 @@
+@tool
 extends GraphEdit
 
 class Connection:
@@ -16,10 +17,10 @@ var connection_list: Array[Connection]
 
 @onready var r_click_menu := $"../RightClickMenu"
 
-var dialogue_scene := preload("res://dialogue_editor/dialogue_text.tscn")
-var hub_scene := preload("res://dialogue_editor/dialogue_hub.tscn")
-var logic_scene := preload("res://dialogue_editor/dialogue_logic.tscn")
-var variable_scene := preload("res://dialogue_editor/dialogue_variable.tscn")
+var dialogue_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_text.tscn")
+var hub_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_hub.tscn")
+var logic_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_logic.tscn")
+var variable_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_variable.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -7,6 +7,8 @@ const port_color := Color('White')
 var current_type := default
 @onready var assign_button := $Button
 
+signal node_type_changed(self_reference, new_type)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_ports()
@@ -40,3 +42,4 @@ func set_ports():
 func _on_option_button_item_selected(index: int) -> void:
 	current_type = index
 	set_ports()
+	node_type_changed.emit(self, current_type)

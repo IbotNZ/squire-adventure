@@ -3,6 +3,8 @@ extends GraphNode
 var choice_box := preload("res://dialogue_editor/choice_box.tscn")
 const port_color := Color('White')
 
+signal choice_removed(node_name: String, connected_port: int)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -14,7 +16,8 @@ func _process(delta: float) -> void:
 
 
 func clean_port(index: int):
-	clear_slot(index)
+	# The lowest slot will get cleared and connections moved upwards
+	clear_slot(get_child_count() - 2)
 
 
 func _on_add_choice_button_pressed() -> void:
@@ -25,5 +28,7 @@ func _on_add_choice_button_pressed() -> void:
 	set_slot(get_child_count() - 2, false, 0, port_color, true, 0, port_color)
 
 func _on_delete_choice_button_pressed(choice_reference: Node) -> void:
-	clean_port(choice_reference.get_index())
+	var port_index = choice_reference.get_index()
+	clean_port(port_index)
 	choice_reference.queue_free()
+	choice_removed.emit(name, port_index - 1)

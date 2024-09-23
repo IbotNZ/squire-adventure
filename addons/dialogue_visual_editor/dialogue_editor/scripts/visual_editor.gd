@@ -15,7 +15,7 @@ class Connection:
 
 var connection_list: Array[Connection]
 
-@onready var r_click_menu := $"../RightClickMenu"
+@onready var r_click_menu := $RightClickMenu
 
 var dialogue_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_text.tscn")
 var hub_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_hub.tscn")

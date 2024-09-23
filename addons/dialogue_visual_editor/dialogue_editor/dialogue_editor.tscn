@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://butajytyvae54"]
+[gd_scene load_steps=3 format=3 uid="uid://butajytyvae54"]
 
-[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/visual_editor.gd" id="1_w8lwv"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/dialogue_editor.gd" id="1_7oq0g"]
+[ext_resource type="PackedScene" uid="uid://c6l1lwg3bja11" path="res://addons/dialogue_visual_editor/dialogue_editor/visual_editor.tscn" id="2_bj5q6"]
 
 [node name="DialogueEditor" type="Control"]
 layout_mode = 3
@@ -11,31 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_7oq0g")
 
-[node name="VisualEditor" type="GraphEdit" parent="."]
+[node name="VisualEditor" parent="." instance=ExtResource("2_bj5q6")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_w8lwv")
-
-[node name="RightClickMenu" type="ItemList" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 136.0
-offset_top = 51.0
-offset_right = 242.0
-offset_bottom = 167.0
-auto_height = true
-item_count = 4
-item_0/text = "Dialogue"
-item_1/text = "Hub"
-item_2/text = "Logic"
-item_3/text = "Variable"
-
-[connection signal="connection_request" from="VisualEditor" to="VisualEditor" method="_on_connection_request"]
-[connection signal="delete_nodes_request" from="VisualEditor" to="VisualEditor" method="_on_delete_nodes_request"]
-[connection signal="disconnection_request" from="VisualEditor" to="VisualEditor" method="_on_disconnection_request"]
-[connection signal="item_clicked" from="RightClickMenu" to="VisualEditor" method="_on_right_click_menu_item_clicked"]

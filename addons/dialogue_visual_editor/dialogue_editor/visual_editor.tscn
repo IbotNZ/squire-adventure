@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6l1lwg3bja11"]
+
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/visual_editor.gd" id="1_ayqmn"]
+
+[node name="VisualEditor" type="GraphEdit"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ayqmn")
+
+[node name="RightClickMenu" type="ItemList" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 136.0
+offset_top = 51.0
+offset_right = 242.0
+offset_bottom = 167.0
+auto_height = true
+item_count = 4
+item_0/text = "Dialogue"
+item_1/text = "Hub"
+item_2/text = "Logic"
+item_3/text = "Variable"
+
+[connection signal="connection_request" from="." to="." method="_on_connection_request"]
+[connection signal="delete_nodes_request" from="." to="." method="_on_delete_nodes_request"]
+[connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]
+[connection signal="item_clicked" from="RightClickMenu" to="." method="_on_right_click_menu_item_clicked"]

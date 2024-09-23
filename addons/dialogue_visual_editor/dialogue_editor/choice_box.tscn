@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ct1bekuawvb7k"]
 
-[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/choice_box.gd" id="1_4j54y"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/choice_box.gd" id="1_4j54y"]
 
 [node name="ChoiceBox" type="HBoxContainer"]
 script = ExtResource("1_4j54y")

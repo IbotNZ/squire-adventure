@@ -8,11 +8,17 @@ var main_panel_instance
 
 func _enter_tree() -> void:
 	InputMap.load_from_project_settings()
+	scene_changed.connect(_on_scene_changed)
 	main_panel_instance = MainPanel.instantiate()
 	# Add the main panel to the editor's main viewport.
 	EditorInterface.get_editor_main_screen().add_child(main_panel_instance)
 	# Hide the main panel. Very much required.
 	_make_visible(false)
+
+
+func _on_scene_changed(scene_root: Node):
+	if main_panel_instance:
+		main_panel_instance.clean_up()
 
 
 func _exit_tree() -> void:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dlp42l7oipnhs"]
 
-[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/dialogue_hub.gd" id="1_u1rxw"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/dialogue_hub.gd" id="1_u1rxw"]
 [ext_resource type="PackedScene" uid="uid://ct1bekuawvb7k" path="res://addons/dialogue_visual_editor/dialogue_editor/choice_box.tscn" id="2_s7ffw"]
 
 [node name="DialogueHub" type="GraphNode"]

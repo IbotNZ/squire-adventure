@@ -1,0 +1,20 @@
+@tool
+extends Control
+
+var editor_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/visual_editor.tscn")
+@onready var visual_editor := $VisualEditor
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func clean_up():
+	visual_editor.queue_free()
+	visual_editor = editor_scene.instantiate()
+	add_child(visual_editor)

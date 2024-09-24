@@ -60,7 +60,7 @@ func sync_with_dialogue_manager(resource_list: Array[DialogueType]):
 	await Engine.get_main_loop().process_frame
 	for i in get_children():
 		if i is EditorNode:
-			i.position_changed.connect(_on_editor_node_dragged)
+			#i.position_changed.connect(_on_editor_node_dragged)
 			if i.linked_node is DialogueNode and i.linked_node.next_dialogue_node:
 				connect_node(i.name, 0, find_node_interface(i.linked_node.next_dialogue_node).name, 0)
 			if i.linked_node is DialogueHub:

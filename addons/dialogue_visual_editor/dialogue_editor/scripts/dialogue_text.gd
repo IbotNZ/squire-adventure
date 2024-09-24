@@ -10,13 +10,12 @@ var current_type := default
 @onready @export var option_button := $OptionButton
 @onready @export var text_box := $TextEdit
 
-var linked_node: DialogueNode
-
 signal node_type_changed(self_reference, new_type)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_ports()
+	position_offset_changed.connect(_on_editor_node_offset_changed)
 	#pass # Replace with function body.
 
 
@@ -55,3 +54,7 @@ func _on_option_button_item_selected(index: int) -> void:
 	current_type = index
 	set_ports()
 	node_type_changed.emit(self, current_type)
+
+
+#func _on_position_offset_changed() -> void:
+#	linked_node.graph_position = position_offset

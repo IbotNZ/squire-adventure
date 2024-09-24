@@ -4,12 +4,13 @@ extends EditorNode
 var choice_box := preload("res://addons/dialogue_visual_editor/dialogue_editor/choice_box.tscn")
 const port_color := Color('White')
 
-var linked_node: DialogueHub
+#var linked_node: DialogueHub
 
 signal choice_removed(node_name: String, connected_port: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	position_offset_changed.connect(_on_editor_node_offset_changed)
 	pass # Replace with function body.
 
 

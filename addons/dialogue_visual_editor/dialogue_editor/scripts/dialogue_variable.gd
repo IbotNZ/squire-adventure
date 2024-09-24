@@ -12,10 +12,11 @@ var var_name: String
 var default_bool := false
 var default_number := 0
 var node_type := bool_node
-var linked_node: DialogueVariable
+#var linked_node: DialogueVariable
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	position_offset_changed.connect(_on_editor_node_offset_changed)
 	pass # Replace with function body.
 
 

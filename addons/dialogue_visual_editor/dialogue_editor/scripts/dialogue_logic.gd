@@ -9,10 +9,11 @@ extends EditorNode
 enum {variable, character_stat, character_trait}
 var logic_type := variable
 
-var linked_node: DialogueLogic
+#var linked_node: DialogueLogic
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	position_offset_changed.connect(_on_editor_node_offset_changed)
 	pass # Replace with function body.
 
 

@@ -3,6 +3,7 @@ extends HBoxContainer
 
 signal delete_choice_pressed(self_reference)
 @onready @export var choice_name_box := $ChoiceName
+var linked_node: DialogueChoice
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -28,6 +28,7 @@ func sync_with_node():
 		move_child(new_choice, -2)
 		set_slot(get_child_count() - 2, false, 0, port_color, true, 0, port_color)
 		new_choice.choice_name_box.text = i.label
+		new_choice.linked_node = i
 
 
 func clean_port(index: int):

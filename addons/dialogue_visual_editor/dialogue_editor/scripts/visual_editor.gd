@@ -59,7 +59,7 @@ func sync_with_dialogue_manager(resource_list: Array[DialogueType]):
 	# When all nodes have been instantiated create the relevant connections
 	await Engine.get_main_loop().process_frame
 	for i in get_children():
-		if i is EditorNode:
+		if i is GraphNode:
 			#i.position_changed.connect(_on_editor_node_dragged)
 			if i.linked_node is DialogueNode and i.linked_node.next_dialogue_node:
 				connect_node(i.name, 0, find_node_interface(i.linked_node.next_dialogue_node).name, 0)
@@ -67,8 +67,9 @@ func sync_with_dialogue_manager(resource_list: Array[DialogueType]):
 			if i.linked_node is DialogueHub:
 				var hub: DialogueHub = i.linked_node
 				for choice in hub.choice_list:
-					connect_node(i.name, hub.choice_list.find(choice), find_node_interface(choice.next_node).name, 0)
-					connection_list.append(Connection.new(i.name, hub.choice_list.find(choice), find_node_interface(choice.next_node).name, 0))
+					if choice.next_node != null:
+						connect_node(i.name, hub.choice_list.find(choice), find_node_interface(choice.next_node).name, 0)
+						connection_list.append(Connection.new(i.name, hub.choice_list.find(choice), find_node_interface(choice.next_node).name, 0))
 			if i.linked_node is DialogueLogic:
 				if i.linked_node.node_connection_for_true != null:
 					connect_node(i.name, 0, find_node_interface(i.linked_node.node_connection_for_true).name, 0)
@@ -105,6 +106,25 @@ func _on_connection_request(from_node: StringName, from_port: int, to_node: Stri
 		# Add connection to array to reference later.
 		connection_list.append(new_connection)
 		connect_node(from_node,from_port,to_node,to_port)
+		
+		for i in get_children():
+			if i.name == from_node:
+				if i.linked_node is DialogueHub:
+					for choice in i.get_children():
+						if choice.get_index() == from_port + 1:
+							for g in get_children():
+								if g.name == to_node:
+									choice.linked_node.next_node = g.linked_node
+				elif i.linked_node is DialogueLogic:
+					for g in get_children():
+						if g.name == to_node and from_port == 0:
+							i.linked_node.node_connection_for_true = g.linked_node
+						elif g.name == to_node and from_port == 1:
+							i.linked_node.node_connection_for_false = g.linked_node
+				elif i.linked_node is DialogueNode:
+					for g in get_children():
+						if g.name == to_node:
+							i.linked_node.next_dialogue_node = g.linked_node
 	
 		# If any connection connect from the same port remove it.
 		for i in connection_list:

@@ -11,7 +11,7 @@
 [sub_resource type="Resource" id="Resource_6shg2"]
 script = ExtResource("4_hysgx")
 choice_list = Array[ExtResource("4_phue1")]([])
-graph_position = Vector2(0, 0)
+graph_position = Vector2(660, -40)
 
 [sub_resource type="Resource" id="Resource_fexqo"]
 script = ExtResource("6_n6lb4")
@@ -19,20 +19,20 @@ var_name = "Test"
 default_bool = true
 default_number = 4
 node_type = 0
-graph_position = Vector2(0, 0)
+graph_position = Vector2(300, 240)
 
 [sub_resource type="Resource" id="Resource_ud3rw"]
 script = ExtResource("3_ba2ot")
 text = "Test"
 node_type = 0
 next_dialogue_node = SubResource("Resource_6shg2")
-graph_position = Vector2(0, -220)
+graph_position = Vector2(240, 60)
 
 [sub_resource type="Resource" id="Resource_godrb"]
 script = ExtResource("7_4ms2y")
 node_connection_for_true = SubResource("Resource_6shg2")
 node_connection_for_false = SubResource("Resource_ud3rw")
-graph_position = Vector2(0, 0)
+graph_position = Vector2(-200, -40)
 
 [node name="Control" type="Control"]
 layout_mode = 3

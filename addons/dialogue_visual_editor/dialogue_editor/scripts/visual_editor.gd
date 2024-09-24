@@ -63,15 +63,19 @@ func sync_with_dialogue_manager(resource_list: Array[DialogueType]):
 			#i.position_changed.connect(_on_editor_node_dragged)
 			if i.linked_node is DialogueNode and i.linked_node.next_dialogue_node:
 				connect_node(i.name, 0, find_node_interface(i.linked_node.next_dialogue_node).name, 0)
+				connection_list.append(Connection.new(i.name, 0, find_node_interface(i.linked_node.next_dialogue_node).name, 0))
 			if i.linked_node is DialogueHub:
 				var hub: DialogueHub = i.linked_node
 				for choice in hub.choice_list:
 					connect_node(i.name, hub.choice_list.find(choice), find_node_interface(choice.next_node).name, 0)
+					connection_list.append(Connection.new(i.name, hub.choice_list.find(choice), find_node_interface(choice.next_node).name, 0))
 			if i.linked_node is DialogueLogic:
 				if i.linked_node.node_connection_for_true != null:
 					connect_node(i.name, 0, find_node_interface(i.linked_node.node_connection_for_true).name, 0)
+					connection_list.append(Connection.new(i.name, 0, find_node_interface(i.linked_node.node_connection_for_true).name, 0))
 				if i.linked_node.node_connection_for_false != null:
 					connect_node(i.name, 1, find_node_interface(i.linked_node.node_connection_for_false).name, 0)
+					connection_list.append(Connection.new(i.name, 1, find_node_interface(i.linked_node.node_connection_for_false).name, 0))
 			if i.linked_node is DialogueVariable:
 				pass
 

@@ -181,6 +181,11 @@ func _on_delete_nodes_request(nodes: Array[StringName]) -> void:
 	for i in nodes:
 		for g in get_children():
 			if i == g.name:
+				for c in connection_list:
+					if c.from_node == i or c.to_node == i:
+						disconnect_node(c.from_node,c.from_port,c.to_node,c.to_port)
+				if g.linked_node:
+					current_dialogue_manager.Dialogue_Node_list.erase(g.linked_node)
 				g.queue_free()
 
 
@@ -195,6 +200,7 @@ func _on_right_click_menu_item_clicked(index: int, at_position: Vector2, mouse_b
 		1: # Hub
 			new_node = hub_scene.instantiate()
 			new_node.choice_removed.connect(_on_dialogue_hub_choice_removed)
+			new_node.choice_added.connect(_on_dialogue_hub_choice_added)
 			add_child(new_node)
 		2: # Logic
 			new_node = logic_scene.instantiate()
@@ -208,6 +214,10 @@ func _on_right_click_menu_item_clicked(index: int, at_position: Vector2, mouse_b
 	new_node.position_offset = (get_local_mouse_position() + scroll_offset) / zoom
 	r_click_menu.hide()
 	r_click_menu.deselect_all()
+
+
+func _on_dialogue_hub_choice_added(new_choice):
+	pass
 
 
 func _on_dialogue_node_type_changed(node_changed: GraphNode, changed_to: int):

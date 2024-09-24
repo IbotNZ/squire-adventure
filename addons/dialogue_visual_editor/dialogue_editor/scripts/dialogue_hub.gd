@@ -7,6 +7,7 @@ const port_color := Color('White')
 #var linked_node: DialogueHub
 
 signal choice_removed(node_name: String, connected_port: int)
+signal choice_added(choice)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,6 +43,9 @@ func _on_add_choice_button_pressed() -> void:
 	add_child(new_choice)
 	move_child(new_choice, -2)
 	set_slot(get_child_count() - 2, false, 0, port_color, true, 0, port_color)
+	new_choice.linked_node = DialogueChoice.new()
+	linked_node.choice_list.append(new_choice.linked_node)
+	choice_added.emit(new_choice)
 
 
 func _on_delete_choice_button_pressed(choice_reference: Node) -> void:

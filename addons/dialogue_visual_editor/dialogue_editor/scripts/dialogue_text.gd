@@ -1,5 +1,5 @@
 @tool
-extends GraphNode
+extends EditorNode
 
 # Match to option button indexes
 enum {default, exposition, start, end}

@@ -14,8 +14,8 @@ var char_stat_to_check
 var char_trait_to_check
 
 # Node connections for either logic outcome
-var node_connection_for_true: DialogueType
-var node_connection_for_false: DialogueType
+@export var node_connection_for_true: DialogueType
+@export var node_connection_for_false: DialogueType
 
 func check_local_value() -> bool:
 	# Since there is only one scene planned for the demo local variables are really all that's needed.

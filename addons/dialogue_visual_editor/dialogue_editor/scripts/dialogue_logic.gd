@@ -1,5 +1,5 @@
 @tool
-extends GraphNode
+extends EditorNode
 
 @onready var mode_selector := $ModeSelection/ModeSelector
 @onready var variable_logic := $VariableLogic

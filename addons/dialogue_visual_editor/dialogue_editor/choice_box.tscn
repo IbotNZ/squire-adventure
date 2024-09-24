@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/choice_box.gd" id="1_4j54y"]
 
-[node name="ChoiceBox" type="HBoxContainer"]
+[node name="ChoiceBox" type="HBoxContainer" node_paths=PackedStringArray("choice_name_box")]
 script = ExtResource("1_4j54y")
+choice_name_box = NodePath("ChoiceName")
 
 [node name="ChoiceName" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 30)

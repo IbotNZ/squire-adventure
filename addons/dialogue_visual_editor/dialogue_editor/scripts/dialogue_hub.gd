@@ -1,5 +1,5 @@
 @tool
-extends GraphNode
+extends EditorNode
 
 var choice_box := preload("res://addons/dialogue_visual_editor/dialogue_editor/choice_box.tscn")
 const port_color := Color('White')
@@ -19,8 +19,9 @@ func _process(delta: float) -> void:
 
 
 func sync_with_node():
+	var new_choice
 	for i in linked_node.choice_list:
-		var new_choice = choice_box.instantiate()
+		new_choice = choice_box.instantiate()
 		new_choice.delete_choice_pressed.connect(_on_delete_choice_button_pressed)
 		add_child(new_choice)
 		move_child(new_choice, -2)

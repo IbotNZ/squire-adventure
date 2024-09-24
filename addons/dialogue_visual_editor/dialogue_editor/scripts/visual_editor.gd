@@ -45,14 +45,46 @@ func sync_with_dialogue_manager(resource_list: Array[DialogueType]):
 			new_node = dialogue_scene.instantiate()
 		elif i is DialogueHub:
 			new_node = hub_scene.instantiate()
+			new_node.choice_removed.connect(_on_dialogue_hub_choice_removed)
+			#add_child(new_node)
 		elif i is DialogueLogic:
 			new_node = logic_scene.instantiate()
 		elif i is DialogueVariable:
 			new_node = variable_scene.instantiate()
 		# await Engine.get_main_loop().process_frame
 		new_node.linked_node = i
-		new_node.sync_with_node()
+		new_node.position_offset = i.graph_position
 		add_child(new_node)
+		new_node.sync_with_node()
+	# When all nodes have been instantiated create the relevant connections
+	await Engine.get_main_loop().process_frame
+	for i in get_children():
+		if i is EditorNode:
+			i.position_changed.connect(_on_editor_node_dragged)
+			if i.linked_node is DialogueNode and i.linked_node.next_dialogue_node:
+				connect_node(i.name, 0, find_node_interface(i.linked_node.next_dialogue_node).name, 0)
+			if i.linked_node is DialogueHub:
+				var hub: DialogueHub = i.linked_node
+				for choice in hub.choice_list:
+					connect_node(i.name, hub.choice_list.find(choice), find_node_interface(choice.next_node).name, 0)
+			if i.linked_node is DialogueLogic:
+				if i.linked_node.node_connection_for_true != null:
+					connect_node(i.name, 0, find_node_interface(i.linked_node.node_connection_for_true).name, 0)
+				if i.linked_node.node_connection_for_false != null:
+					connect_node(i.name, 1, find_node_interface(i.linked_node.node_connection_for_false).name, 0)
+			if i.linked_node is DialogueVariable:
+				pass
+
+
+func _on_editor_node_dragged(from: Vector2, to: Vector2, node_moved: GraphNode):
+	node_moved.linked_node.graph_position = to
+
+
+func find_node_interface(target: DialogueType):
+	for i in get_children():
+		if i is GraphNode:
+			if i.linked_node == target:
+				return i
 
 
 func connection_conflict(from_node: StringName, from_port: int, to_node: StringName, to_port: int):

@@ -9,3 +9,4 @@ Such as just storing what type of logic check to do and running the check in the
 Store variables as a class object in dialogue manager.
 Create and edit the objects with visual editor.
 Manager handles local variables while singleton handles them across multiple scenes.
+Dialogue logic node is being left unfinished until the dialogue variable node works.

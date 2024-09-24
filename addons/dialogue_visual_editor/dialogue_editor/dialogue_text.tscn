@@ -66,4 +66,5 @@ custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "Assign Button"
 
+[connection signal="dragged" from="." to="." method="_on_dragged"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]

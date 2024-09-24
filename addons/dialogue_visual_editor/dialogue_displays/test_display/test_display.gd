@@ -3,7 +3,7 @@ extends PanelContainer
 @onready var text_box := $VBoxContainer/VBoxContainer
 @onready var choice_box := $VBoxContainer/VBoxContainer2
 
-var button_scene := preload("res://dialogue_displays/test_display/test_button.tscn")
+var button_scene := preload("res://addons/dialogue_visual_editor/dialogue_displays/test_display/test_button.tscn")
 
 signal choice_pressed(pressed_button)
 

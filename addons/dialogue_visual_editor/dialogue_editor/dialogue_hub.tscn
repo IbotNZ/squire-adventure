@@ -1,13 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlp42l7oipnhs"]
+[gd_scene load_steps=2 format=3 uid="uid://dlp42l7oipnhs"]
 
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/dialogue_hub.gd" id="1_u1rxw"]
-[ext_resource type="PackedScene" uid="uid://ct1bekuawvb7k" path="res://addons/dialogue_visual_editor/dialogue_editor/choice_box.tscn" id="2_s7ffw"]
 
 [node name="DialogueHub" type="GraphNode"]
 offset_left = 40.0
 offset_top = 221.0
 offset_right = 299.0
-offset_bottom = 346.0
+offset_bottom = 309.0
 mouse_filter = 1
 position_offset = Vector2(0, 181)
 title = "Choice Hub"
@@ -24,26 +23,14 @@ slot/1/left_enabled = false
 slot/1/left_type = 0
 slot/1/left_color = Color(1, 1, 1, 1)
 slot/1/left_icon = null
-slot/1/right_enabled = true
+slot/1/right_enabled = false
 slot/1/right_type = 0
 slot/1/right_color = Color(1, 1, 1, 1)
 slot/1/right_icon = null
 slot/1/draw_stylebox = true
-slot/2/left_enabled = false
-slot/2/left_type = 0
-slot/2/left_color = Color(1, 1, 1, 1)
-slot/2/left_icon = null
-slot/2/right_enabled = false
-slot/2/right_type = 0
-slot/2/right_color = Color(1, 1, 1, 1)
-slot/2/right_icon = null
-slot/2/draw_stylebox = true
 script = ExtResource("1_u1rxw")
 
 [node name="Control" type="Control" parent="."]
-layout_mode = 2
-
-[node name="ChoiceBox" parent="." instance=ExtResource("2_s7ffw")]
 layout_mode = 2
 
 [node name="AddChoiceButton" type="Button" parent="."]
@@ -51,5 +38,4 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Add Choice +"
 
-[connection signal="delete_choice_pressed" from="ChoiceBox" to="." method="_on_delete_choice_button_pressed"]
 [connection signal="pressed" from="AddChoiceButton" to="." method="_on_add_choice_button_pressed"]

@@ -23,12 +23,17 @@ var hub_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/di
 var logic_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_logic.tscn")
 var variable_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_variable.tscn")
 
+var is_mouse_on_graph: bool = false
+@export @onready var double_click_timer := $Timer
+@export var click_rect: Rect2
+
+var is_mouse_on_right_click_menu := false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
@@ -37,6 +42,42 @@ func _input(event):
 	if event.is_action_pressed("Right Click"):
 		r_click_menu.position = get_local_mouse_position()
 		r_click_menu.show()
+	if event.is_action_pressed("Left Click") and not is_mouse_on_right_click_menu:
+		r_click_menu.hide()
+	if event.is_action_pressed("Left Click") and is_mouse_on_graph:
+		if not double_click_timer.is_stopped():
+			var mouse_pos := get_local_mouse_position()
+			click_rect.position = Vector2(mouse_pos.x,mouse_pos.y) - (click_rect.size / 2)
+			var links_to_remove = get_connections_intersecting_with_rect(click_rect)
+			if not links_to_remove.is_empty():
+				var link_to_remove = get_closest_connection_at_point(mouse_pos)
+				remove_node_connecton(link_to_remove['from_node'],link_to_remove['from_port'],link_to_remove['to_node'],link_to_remove['to_port'])
+		double_click_timer.start()
+
+
+func remove_node_connecton(from_node,from_port,to_node,to_port):
+	disconnect_node(from_node,from_port,to_node,to_port)
+	#connection_list.erase(Connection.new(from_node,from_port,to_node,to_port))
+	# If any connection connect from the same port remove it.
+	for i in connection_list:
+		if i.from_node == from_node and i.from_port == from_port and i.to_node == to_node and i.to_port == to_port:
+			disconnect_node(i.from_node,i.from_port,i.to_node,i.to_port)
+			connection_list.erase(i)
+	for i in get_children():
+		if i is GraphNode:
+			if i.name == from_node:
+				if i.linked_node is DialogueNode:
+					i.linked_node.next_dialogue_node = null
+				elif i.linked_node is DialogueHub:
+					for c in i.linked_node.choice_list:
+						c.next_node = null
+				elif i.linked_node is DialogueLogic:
+					if from_port == 0:
+						i.linked_node.node_connection_for_true = null
+					elif from_port == 1:
+						i.linked_node.node_connection_for_false = null
+				elif i.linked_node is DialogueVariable:
+					pass
 
 
 func sync_with_dialogue_manager(resource_list: Array[DialogueType], manager:DialogueManager):
@@ -243,3 +284,19 @@ func _on_dialogue_node_type_changed(node_changed: GraphNode, changed_to: int):
 					erase_list.append(i)
 	for i in erase_list:
 		connection_list.erase(i)
+
+
+func _on_mouse_entered() -> void:
+	is_mouse_on_graph = true
+
+
+func _on_mouse_exited() -> void:
+	is_mouse_on_graph = false
+
+
+func _on_right_click_menu_mouse_entered() -> void:
+	is_mouse_on_right_click_menu = true
+
+
+func _on_right_click_menu_mouse_exited() -> void:
+	is_mouse_on_right_click_menu = false

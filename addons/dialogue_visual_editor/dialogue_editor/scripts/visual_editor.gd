@@ -14,6 +14,7 @@ class Connection:
 		to_port = receiving_port
 
 var connection_list: Array[Connection]
+var current_dialogue_manager: DialogueManager
 
 @onready var r_click_menu := $RightClickMenu
 
@@ -38,7 +39,8 @@ func _input(event):
 		r_click_menu.show()
 
 
-func sync_with_dialogue_manager(resource_list: Array[DialogueType]):
+func sync_with_dialogue_manager(resource_list: Array[DialogueType], manager:DialogueManager):
+	current_dialogue_manager = manager
 	var new_node: GraphNode
 	for i in resource_list:
 		if i is DialogueNode:
@@ -154,6 +156,25 @@ func _on_disconnection_request(from_node: StringName, from_port: int, to_node: S
 	for i in connection_list:
 		if i.from_node == removed_connection and i.from_port == removed_connection.from_port and i.to_node == removed_connection.to_node and i.to_port == removed_connection.to_port:
 			connection_list.erase(i)
+	
+	for i in get_children():
+		if i.name == from_node:
+			if i.linked_node is DialogueHub:
+				for choice in i.get_children():
+					if choice.get_index() == from_port + 1:
+						for g in get_children():
+							if g.name == to_node:
+								choice.linked_node.next_node = null
+			elif i.linked_node is DialogueLogic:
+				for g in get_children():
+					if g.name == to_node and from_port == 0:
+						i.linked_node.node_connection_for_true = null
+					elif g.name == to_node and from_port == 1:
+						i.linked_node.node_connection_for_false = null
+			elif i.linked_node is DialogueNode:
+				for g in get_children():
+					if g.name == to_node:
+						i.linked_node.next_dialogue_node = null
 
 
 func _on_delete_nodes_request(nodes: Array[StringName]) -> void:
@@ -164,7 +185,8 @@ func _on_delete_nodes_request(nodes: Array[StringName]) -> void:
 
 
 func _on_right_click_menu_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
-	var new_node: GraphNode
+	var new_node: EditorNode
+	var new_resource: DialogueType
 	match index:
 		0: # Dialogue
 			new_node = dialogue_scene.instantiate()
@@ -180,6 +202,9 @@ func _on_right_click_menu_item_clicked(index: int, at_position: Vector2, mouse_b
 		3: # Variable
 			new_node = variable_scene.instantiate()
 			add_child(new_node)
+	new_resource = DialogueNode.new()
+	new_node.linked_node = new_resource
+	current_dialogue_manager.Dialogue_Node_list.append(new_resource)
 	new_node.position_offset = (get_local_mouse_position() + scroll_offset) / zoom
 	r_click_menu.hide()
 	r_click_menu.deselect_all()

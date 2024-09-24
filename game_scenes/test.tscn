@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctv614jdkh4ou"]
+[gd_scene load_steps=14 format=3 uid="uid://ctv614jdkh4ou"]
 
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_manager.gd" id="1_he4f4"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_type.gd" id="2_4prwa"]
@@ -8,9 +8,17 @@
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_variable.gd" id="6_n6lb4"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_logic.gd" id="7_4ms2y"]
 
+[sub_resource type="Resource" id="Resource_ud3rw"]
+script = ExtResource("3_ba2ot")
+text = "Test"
+node_type = 0
+next_dialogue_node = null
+graph_position = Vector2(-40, -40)
+
 [sub_resource type="Resource" id="Resource_godrb"]
 script = ExtResource("7_4ms2y")
-graph_position = Vector2(700, 60)
+node_connection_for_true = SubResource("Resource_ud3rw")
+graph_position = Vector2(380, 340)
 
 [sub_resource type="Resource" id="Resource_5370m"]
 script = ExtResource("4_phue1")
@@ -20,7 +28,7 @@ next_node = SubResource("Resource_godrb")
 [sub_resource type="Resource" id="Resource_6shg2"]
 script = ExtResource("4_hysgx")
 choice_list = Array[ExtResource("4_phue1")]([SubResource("Resource_5370m")])
-graph_position = Vector2(360, 140)
+graph_position = Vector2(460, -240)
 
 [sub_resource type="Resource" id="Resource_fexqo"]
 script = ExtResource("6_n6lb4")
@@ -30,12 +38,12 @@ default_number = 4
 node_type = 0
 graph_position = Vector2(-420, -120)
 
-[sub_resource type="Resource" id="Resource_ud3rw"]
+[sub_resource type="Resource" id="Resource_v88cy"]
 script = ExtResource("3_ba2ot")
-text = "Test"
+text = ""
 node_type = 0
 next_dialogue_node = SubResource("Resource_6shg2")
-graph_position = Vector2(-40, -40)
+graph_position = Vector2(-240, 300)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -47,4 +55,4 @@ grow_vertical = 2
 
 [node name="DialogueManager" type="Node" parent="."]
 script = ExtResource("1_he4f4")
-Dialogue_Node_list = Array[ExtResource("2_4prwa")]([SubResource("Resource_6shg2"), SubResource("Resource_fexqo"), SubResource("Resource_ud3rw"), SubResource("Resource_godrb")])
+Dialogue_Node_list = Array[ExtResource("2_4prwa")]([SubResource("Resource_6shg2"), SubResource("Resource_fexqo"), SubResource("Resource_ud3rw"), SubResource("Resource_godrb"), SubResource("Resource_v88cy")])

@@ -24,4 +24,4 @@ func clean_up():
 
 func initialize_editor(new_scene_dialogue_manager: DialogueManager):
 	current_dialogue_manager = new_scene_dialogue_manager
-	visual_editor.sync_with_dialogue_manager(current_dialogue_manager.Dialogue_Node_list)
+	visual_editor.sync_with_dialogue_manager(current_dialogue_manager.Dialogue_Node_list, new_scene_dialogue_manager)

@@ -5,9 +5,12 @@ class_name DialogueLogic
 enum {local_var, character_stat, character_trait}
 
 # For selecting what variable to check
-var local_value_name: String
-var local_value: bool = true
-var node_type := local_var
+@export var local_value_name: String
+@export var local_value: bool = true
+@export var node_type: int = local_var
+
+@export var var_number: float
+@export var stat_number: float
 
 # For storing what trait should be checked if the option is selected
 var char_stat_to_check

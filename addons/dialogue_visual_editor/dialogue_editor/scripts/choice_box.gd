@@ -17,3 +17,7 @@ func _process(delta: float) -> void:
 
 func _on_delete_choice_button_pressed() -> void:
 	delete_choice_pressed.emit(self)
+
+
+func _on_choice_name_text_changed() -> void:
+	linked_node.label = choice_name_box.text

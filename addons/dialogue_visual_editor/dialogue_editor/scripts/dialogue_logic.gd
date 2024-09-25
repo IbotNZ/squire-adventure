@@ -45,3 +45,12 @@ func select_logic_type():
 func _on_mode_selector_item_selected(index: int) -> void:
 	logic_type = index
 	select_logic_type()
+	linked_node.node_type = logic_type
+
+
+func _on_var_num_picker_value_changed(value: float) -> void:
+	linked_node.var_number = value
+
+
+func _on_var_stat_picker_value_changed(value: float) -> void:
+	linked_node.stat_number = value

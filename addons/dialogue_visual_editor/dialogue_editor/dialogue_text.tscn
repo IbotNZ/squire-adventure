@@ -66,4 +66,5 @@ custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "Assign Button"
 
+[connection signal="text_changed" from="TextEdit" to="." method="_on_text_edit_text_changed"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]

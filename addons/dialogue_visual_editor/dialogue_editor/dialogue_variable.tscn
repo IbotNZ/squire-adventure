@@ -69,4 +69,7 @@ text = "Default To True"
 visible = false
 layout_mode = 2
 
+[connection signal="text_changed" from="TextEdit" to="." method="_on_text_edit_text_changed"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="toggled" from="DefaultBoolValue" to="." method="_on_default_bool_value_toggled"]
+[connection signal="value_changed" from="DefaultNumValue" to="." method="_on_default_num_value_value_changed"]

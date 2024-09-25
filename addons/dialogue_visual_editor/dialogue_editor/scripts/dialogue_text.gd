@@ -54,7 +54,12 @@ func _on_option_button_item_selected(index: int) -> void:
 	current_type = index
 	set_ports()
 	node_type_changed.emit(self, current_type)
+	linked_node.node_type = current_type
 
 
 #func _on_position_offset_changed() -> void:
 #	linked_node.graph_position = position_offset
+
+
+func _on_text_edit_text_changed() -> void:
+	linked_node.text = text_box.text

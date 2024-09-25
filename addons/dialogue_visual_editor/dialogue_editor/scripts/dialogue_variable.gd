@@ -47,3 +47,16 @@ func _on_option_button_item_selected(index: int) -> void:
 		1:
 			number_picker.show()
 			node_type = number_node
+	linked_node.node_type = node_type
+
+
+func _on_text_edit_text_changed() -> void:
+	linked_node.var_name = name_picker.text
+
+
+func _on_default_bool_value_toggled(toggled_on: bool) -> void:
+	linked_node.default_bool = toggled_on
+
+
+func _on_default_num_value_value_changed(value: float) -> void:
+	linked_node.default_number = value

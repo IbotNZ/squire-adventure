@@ -193,32 +193,6 @@ func _on_dialogue_hub_choice_removed(node_name: String, connected_port: int) -> 
 			connection_list.append(Connection.new(i.from_node,i.from_port - 1,i.to_node,i.to_port))
 
 
-func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
-	var removed_connection := Connection.new(from_node, from_port, to_node, to_port)
-	for i in connection_list:
-		if i.from_node == removed_connection and i.from_port == removed_connection.from_port and i.to_node == removed_connection.to_node and i.to_port == removed_connection.to_port:
-			connection_list.erase(i)
-	print('Howdy')
-	for i in get_children():
-		if i.name == from_node:
-			if i.linked_node is DialogueHub:
-				for choice in i.get_children():
-					if choice.get_index() == from_port + 1:
-						for g in get_children():
-							if g.name == to_node:
-								choice.linked_node.next_node = null
-			elif i.linked_node is DialogueLogic:
-				for g in get_children():
-					if g.name == to_node and from_port == 0:
-						i.linked_node.node_connection_for_true = null
-					elif g.name == to_node and from_port == 1:
-						i.linked_node.node_connection_for_false = null
-			elif i.linked_node is DialogueNode:
-				for g in get_children():
-					if g.name == to_node:
-						i.linked_node.next_dialogue_node = null
-
-
 func _on_delete_nodes_request(nodes: Array[StringName]) -> void:
 	for i in nodes:
 		for g in get_children():
@@ -279,7 +253,6 @@ func _on_dialogue_node_type_changed(node_changed: GraphNode, changed_to: int):
 					remove_node_connecton(i.from_node,i.from_port,i.to_node,i.to_port)
 					#erase_list.append(i)
 		node_changed.end:
-			print('hey')
 			for i in connection_list:
 				if i.from_node == node_changed.name:
 					remove_node_connecton(i.from_node,i.from_port,i.to_node,i.to_port)

@@ -93,6 +93,7 @@ func sync_with_dialogue_manager(resource_list: Array[DialogueType], manager:Dial
 			#add_child(new_node)
 		elif i is DialogueLogic:
 			new_node = logic_scene.instantiate()
+			new_node.current_dialogue_manager = current_dialogue_manager
 		elif i is DialogueVariable:
 			new_node = variable_scene.instantiate()
 		# await Engine.get_main_loop().process_frame

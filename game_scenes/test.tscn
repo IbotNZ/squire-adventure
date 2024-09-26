@@ -8,9 +8,17 @@
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_variable.gd" id="6_n6lb4"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_logic.gd" id="7_4ms2y"]
 
+[sub_resource type="Resource" id="Resource_fexqo"]
+script = ExtResource("6_n6lb4")
+var_name = "New Variable"
+default_bool = true
+default_number = 2.0
+node_type = 0
+graph_position = Vector2(-240, -260)
+
 [sub_resource type="Resource" id="Resource_godrb"]
 script = ExtResource("7_4ms2y")
-local_value_name = ""
+local_variable = SubResource("Resource_fexqo")
 local_value = true
 node_type = 0
 var_number = 0.0
@@ -38,18 +46,10 @@ script = ExtResource("4_hysgx")
 choice_list = Array[ExtResource("4_phue1")]([SubResource("Resource_5370m"), SubResource("Resource_1u2sk")])
 graph_position = Vector2(140, 120)
 
-[sub_resource type="Resource" id="Resource_fexqo"]
-script = ExtResource("6_n6lb4")
-var_name = "Testing"
-default_bool = true
-default_number = 2.0
-node_type = 0
-graph_position = Vector2(-240, -260)
-
 [sub_resource type="Resource" id="Resource_v88cy"]
 script = ExtResource("3_ba2ot")
 text = ""
-node_type = 0
+node_type = 2
 next_dialogue_node = SubResource("Resource_6shg2")
 graph_position = Vector2(-400, 100)
 

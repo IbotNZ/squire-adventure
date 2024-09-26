@@ -12,3 +12,5 @@ Manager handles local variables while singleton handles them across multiple sce
 Dialogue logic node is being left unfinished until the dialogue variable node works.
 
 Redo Dialogue logic so beneath variable type is variable picker which when picked shows the logic options.
+
+List all nodes in group for getting next dialogue button

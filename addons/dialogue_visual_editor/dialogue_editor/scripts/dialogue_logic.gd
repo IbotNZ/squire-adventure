@@ -2,6 +2,7 @@
 extends EditorNode
 
 @onready var mode_selector := $ModeSelection/ModeSelector
+@onready var variable_selector := $VariableSelection/VariableSelector
 @onready var variable_logic := $VariableLogic
 @onready var stat_logic := $StatLogic
 @onready var trait_logic := $TraitLogic
@@ -9,7 +10,11 @@ extends EditorNode
 enum {variable, character_stat, character_trait}
 var logic_type := variable
 
+var current_dialogue_manager: DialogueManager
 #var linked_node: DialogueLogic
+
+# The currently selected local variable.
+var current_variable: DialogueVariable
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,7 +30,19 @@ func _process(delta: float) -> void:
 func sync_with_node():
 	logic_type = linked_node.node_type
 	mode_selector.select(logic_type)
+	current_variable = linked_node.local_variable
+	if current_variable:
+		_on_variable_selector_pressed()
+		variable_selector.select(get_variables().find(current_variable))
 	select_logic_type()
+
+
+func is_variable(dialogue_node):
+	return dialogue_node is DialogueVariable
+
+
+func get_variables() -> Array[DialogueType]:
+	return current_dialogue_manager.Dialogue_Node_list.filter(is_variable)
 
 
 func select_logic_type():
@@ -56,3 +73,31 @@ func _on_var_num_picker_value_changed(value: float) -> void:
 
 func _on_var_stat_picker_value_changed(value: float) -> void:
 	linked_node.stat_number = value
+
+
+func _on_variable_selector_pressed() -> void:
+	variable_selector.clear()
+	match logic_type:
+		variable:
+			var all_current_variables = get_variables()
+			for i in all_current_variables:
+				variable_selector.add_item(i.var_name)
+		character_stat:
+			pass
+		character_trait:
+			pass
+
+
+func _on_variable_selector_item_selected(index: int) -> void:
+	match logic_type:
+		variable:
+			var all_current_variables = get_variables()
+			var selected_var_name: String = variable_selector.get_item_text(index)
+			for i in all_current_variables:
+				if i.var_name == selected_var_name:
+					current_variable = i
+					linked_node.local_variable = i
+		character_stat:
+			pass
+		character_trait:
+			pass

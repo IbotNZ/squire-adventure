@@ -86,6 +86,7 @@ func sync_with_dialogue_manager(resource_list: Array[DialogueType], manager:Dial
 	for i in resource_list:
 		if i is DialogueNode:
 			new_node = dialogue_scene.instantiate()
+			new_node.node_type_changed.connect(_on_dialogue_node_type_changed)
 		elif i is DialogueHub:
 			new_node = hub_scene.instantiate()
 			new_node.choice_removed.connect(_on_dialogue_hub_choice_removed)
@@ -197,7 +198,7 @@ func _on_disconnection_request(from_node: StringName, from_port: int, to_node: S
 	for i in connection_list:
 		if i.from_node == removed_connection and i.from_port == removed_connection.from_port and i.to_node == removed_connection.to_node and i.to_port == removed_connection.to_port:
 			connection_list.erase(i)
-	
+	print('Howdy')
 	for i in get_children():
 		if i.name == from_node:
 			if i.linked_node is DialogueHub:
@@ -270,20 +271,21 @@ func _on_dialogue_node_type_changed(node_changed: GraphNode, changed_to: int):
 		node_changed.exposition:
 			for i in connection_list:
 				if i.from_node == node_changed.name:
-					disconnect_node(i.from_node,i.from_port,i.to_node,i.to_port)
-					erase_list.append(i)
+					remove_node_connecton(i.from_node,i.from_port,i.to_node,i.to_port)
+					#erase_list.append(i)
 		node_changed.start:
 			for i in connection_list:
 				if i.to_node == node_changed.name:
-					disconnect_node(i.from_node,i.from_port,i.to_node,i.to_port)
-					erase_list.append(i)
+					remove_node_connecton(i.from_node,i.from_port,i.to_node,i.to_port)
+					#erase_list.append(i)
 		node_changed.end:
+			print('hey')
 			for i in connection_list:
 				if i.from_node == node_changed.name:
-					disconnect_node(i.from_node,i.from_port,i.to_node,i.to_port)
-					erase_list.append(i)
-	for i in erase_list:
-		connection_list.erase(i)
+					remove_node_connecton(i.from_node,i.from_port,i.to_node,i.to_port)
+					#erase_list.append(i)
+	#for i in erase_list:
+	#	connection_list.erase(i)
 
 
 func _on_mouse_entered() -> void:

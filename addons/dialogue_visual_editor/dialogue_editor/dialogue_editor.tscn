@@ -16,4 +16,3 @@ script = ExtResource("1_7oq0g")
 
 [node name="VisualEditor" parent="." instance=ExtResource("2_bj5q6")]
 layout_mode = 1
-click_rect = null

@@ -9,6 +9,8 @@ var current_type := default
 @onready @export var assign_button := $Button
 @onready @export var option_button := $OptionButton
 @onready @export var text_box := $TextEdit
+@onready @export var button_picker: AcceptDialog
+@onready @export var button_list: ItemList
 
 signal node_type_changed(self_reference, new_type)
 
@@ -46,7 +48,7 @@ func set_ports():
 			assign_button.visible = true
 		end:
 			set_slot(0, true, 0, port_color, false, 0, port_color)
-			assign_button.visible = true
+			assign_button.visible = false
 		
 
 
@@ -63,3 +65,7 @@ func _on_option_button_item_selected(index: int) -> void:
 
 func _on_text_edit_text_changed() -> void:
 	linked_node.text = text_box.text
+
+
+func _on_button_pressed() -> void:
+	button_picker.popup()

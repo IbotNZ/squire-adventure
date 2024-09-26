@@ -2,11 +2,9 @@
 
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/dialogue_text.gd" id="1_4si1o"]
 
-[node name="DialogueText" type="GraphNode" node_paths=PackedStringArray("assign_button", "option_button", "text_box")]
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 343.0
-offset_bottom = 178.0
+[node name="DialogueText" type="GraphNode" node_paths=PackedStringArray("assign_button", "option_button", "text_box", "button_picker", "button_list")]
+offset_right = 303.0
+offset_bottom = 138.0
 mouse_filter = 1
 title = "Dialogue"
 slot/0/left_enabled = true
@@ -40,6 +38,8 @@ script = ExtResource("1_4si1o")
 assign_button = NodePath("Button")
 option_button = NodePath("OptionButton")
 text_box = NodePath("TextEdit")
+button_picker = NodePath("ButtonPicker")
+button_list = NodePath("ButtonPicker/ItemList")
 
 [node name="TextEdit" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 50)
@@ -66,5 +66,22 @@ custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "Assign Button"
 
+[node name="ButtonPicker" type="AcceptDialog" parent="."]
+title = "Pick Assigned Button"
+initial_position = 4
+size = Vector2i(200, 300)
+exclusive = false
+popup_window = true
+ok_button_text = "Close"
+
+[node name="ItemList" type="ItemList" parent="ButtonPicker"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 251.0
+item_count = 1
+item_0/text = "Item 1"
+
 [connection signal="text_changed" from="TextEdit" to="." method="_on_text_edit_text_changed"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

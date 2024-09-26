@@ -49,7 +49,7 @@ graph_position = Vector2(-200, -100)
 [sub_resource type="Resource" id="Resource_v88cy"]
 script = ExtResource("3_ba2ot")
 text = ""
-node_type = 0
+node_type = 2
 next_dialogue_node = SubResource("Resource_6shg2")
 graph_position = Vector2(-260, 120)
 

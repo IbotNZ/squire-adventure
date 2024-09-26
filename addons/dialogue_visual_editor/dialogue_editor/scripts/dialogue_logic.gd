@@ -23,7 +23,9 @@ func _process(delta: float) -> void:
 
 
 func sync_with_node():
-	pass
+	logic_type = linked_node.node_type
+	mode_selector.select(logic_type)
+	select_logic_type()
 
 
 func select_logic_type():

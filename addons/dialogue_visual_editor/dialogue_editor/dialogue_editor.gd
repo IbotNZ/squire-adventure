@@ -6,13 +6,8 @@ var editor_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor
 var current_dialogue_manager: DialogueManager
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _ready():
+	#InputMap.load_from_project_settings()
 	pass
 
 
@@ -25,3 +20,11 @@ func clean_up():
 func initialize_editor(new_scene_dialogue_manager: DialogueManager):
 	current_dialogue_manager = new_scene_dialogue_manager
 	visual_editor.sync_with_dialogue_manager(current_dialogue_manager.Dialogue_Node_list, new_scene_dialogue_manager)
+
+
+func enable_input():
+	visual_editor.allow_input = true
+
+
+func disable_input():
+	visual_editor.allow_input = false

@@ -31,28 +31,25 @@ var is_mouse_on_right_click_menu := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-func _process(delta: float) -> void:
+	#InputMap.load_from_project_settings()
 	pass
 
-
 func _input(event):
-	if event.is_action_pressed("Right Click"):
-		r_click_menu.position = get_local_mouse_position()
-		r_click_menu.show()
-	if event.is_action_pressed("Left Click") and not is_mouse_on_right_click_menu:
-		r_click_menu.hide()
-	if event.is_action_pressed("Left Click") and is_mouse_on_graph:
-		if not double_click_timer.is_stopped():
-			var mouse_pos := get_local_mouse_position()
-			click_rect.position = Vector2(mouse_pos.x,mouse_pos.y) - (click_rect.size / 2)
-			var links_to_remove = get_connections_intersecting_with_rect(click_rect)
-			if not links_to_remove.is_empty():
-				var link_to_remove = get_closest_connection_at_point(mouse_pos)
-				remove_node_connecton(link_to_remove['from_node'],link_to_remove['from_port'],link_to_remove['to_node'],link_to_remove['to_port'])
-		double_click_timer.start()
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			r_click_menu.position = get_local_mouse_position()
+			r_click_menu.show()
+		if event.button_index == MOUSE_BUTTON_LEFT and not is_mouse_on_right_click_menu:
+			r_click_menu.hide()
+		if event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_graph:
+			if not double_click_timer.is_stopped():
+				var mouse_pos := get_local_mouse_position()
+				click_rect.position = Vector2(mouse_pos.x,mouse_pos.y) - (click_rect.size / 2)
+				var links_to_remove = get_connections_intersecting_with_rect(click_rect)
+				if not links_to_remove.is_empty():
+					var link_to_remove = get_closest_connection_at_point(mouse_pos)
+					remove_node_connecton(link_to_remove['from_node'],link_to_remove['from_port'],link_to_remove['to_node'],link_to_remove['to_port'])
+			double_click_timer.start()
 
 
 func remove_node_connecton(from_node,from_port,to_node,to_port):

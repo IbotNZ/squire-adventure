@@ -7,14 +7,22 @@ const MainPanel = preload("res://addons/dialogue_visual_editor/dialogue_editor/d
 var main_panel_instance
 
 func _enter_tree() -> void:
-	InputMap.load_from_project_settings()
+	# To prevent being spammed for non existent actions
+	#InputMap.add_action("spatial_editor/freelook_slow_modifier")
+	#InputMap.add_action("spatial_editor/freelook_left")
+	#InputMap.add_action("spatial_editor/freelook_right")
+	#InputMap.add_action("spatial_editor/freelook_forward")
+	#InputMap.add_action("spatial_editor/freelook_backwards")
+	#InputMap.add_action("spatial_editor/freelook_up")
+	#InputMap.add_action("spatial_editor/freelook_down")
+	#InputMap.add_action("spatial_editor/freelook_speed_modifier")
 	scene_changed.connect(_on_scene_changed)
 	main_panel_instance = MainPanel.instantiate()
 	# Add the main panel to the editor's main viewport.
 	EditorInterface.get_editor_main_screen().add_child(main_panel_instance)
 	# Hide the main panel. Very much required.
 	_make_visible(false)
-
+	set_process_input(not Engine.is_editor_hint())
 
 func is_dialogue_manager(node_reference: Node):
 	return node_reference is DialogueManager

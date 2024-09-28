@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://dw6f8fsvwa1je"]
+
+[ext_resource type="Script" path="res://game_scenes/location_figure.gd" id="1_30cuq"]
+[ext_resource type="Script" path="res://game_scenes/camera_gimble.gd" id="2_i0j85"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3wcsq"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kv6h5"]
+size = Vector3(1, 0.6, 1)
+
+[sub_resource type="Animation" id="Animation_ccd7l"]
+resource_name = "Hover"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 1, 0, 0.4, 0)
+
+[sub_resource type="Animation" id="Animation_i8r7c"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cngqp"]
+_data = {
+"Hover": SubResource("Animation_ccd7l"),
+"RESET": SubResource("Animation_i8r7c")
+}
+
+[node name="3DTest2" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 0, 0)
+
+[node name="LocationFigure" type="Area3D" parent="."]
+script = ExtResource("1_30cuq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LocationFigure"]
+mesh = SubResource("BoxMesh_3wcsq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LocationFigure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_kv6h5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LocationFigure"]
+libraries = {
+"": SubResource("AnimationLibrary_cngqp")
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LocationFigure"]
+visible = false
+offset_right = 98.0
+offset_bottom = 127.0
+theme_override_constants/separation = 1
+
+[node name="Button" type="Button" parent="LocationFigure/VBoxContainer"]
+layout_mode = 2
+text = "Test Button"
+
+[node name="Button2" type="Button" parent="LocationFigure/VBoxContainer"]
+layout_mode = 2
+text = "Test Button"
+
+[node name="Button3" type="Button" parent="LocationFigure/VBoxContainer"]
+layout_mode = 2
+text = "Test Button"
+
+[node name="Button4" type="Button" parent="LocationFigure/VBoxContainer"]
+layout_mode = 2
+text = "Test Button"
+
+[node name="Timer" type="Timer" parent="LocationFigure"]
+
+[node name="CameraGimble" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+script = ExtResource("2_i0j85")
+
+[node name="InnerGimble" type="Node3D" parent="CameraGimble"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraGimble/InnerGimble"]
+collision_mask = 2
+spring_length = 8.0
+margin = 0.1
+
+[node name="Camera3D" type="Camera3D" parent="CameraGimble/InnerGimble/SpringArm3D"]
+
+[connection signal="figure_selected" from="LocationFigure" to="CameraGimble" method="_on_location_figure_figure_selected"]

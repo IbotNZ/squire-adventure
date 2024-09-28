@@ -1,22 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwyei8she56jg"]
+[gd_scene load_steps=10 format=3 uid="uid://cwyei8she56jg"]
 
 [ext_resource type="Script" path="res://game_scenes/3d_test.gd" id="1_7e0vb"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_manager.gd" id="2_5yhol"]
 [ext_resource type="Script" path="res://game_scenes/button_holder.gd" id="2_orvx4"]
+[ext_resource type="Script" path="res://game_scenes/camera_holder.gd" id="4_jsshi"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6oq5k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gu45y"]
 size = Vector3(1, 2, 1)
-
-[sub_resource type="Animation" id="Animation_hhlnk"]
-length = 0.001
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
 
 [sub_resource type="Animation" id="Animation_078s2"]
 resource_name = "Hover"
@@ -28,6 +20,16 @@ tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 1, 0, 1, 0)
 
+[sub_resource type="Animation" id="Animation_hhlnk"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0lgdf"]
 _data = {
 "Hover": SubResource("Animation_078s2"),
@@ -36,6 +38,9 @@ _data = {
 
 [node name="3DTest" type="Node3D"]
 script = ExtResource("1_7e0vb")
+
+[node name="DialogueManager" type="Node" parent="."]
+script = ExtResource("2_5yhol")
 
 [node name="ButtonHolder" type="Area3D" parent="."]
 script = ExtResource("2_orvx4")
@@ -48,16 +53,43 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_gu45y")
 
+[node name="UIMarker" type="Marker3D" parent="ButtonHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ButtonHolder"]
 libraries = {
 "": SubResource("AnimationLibrary_0lgdf")
 }
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.7564, -0.454007, 0.470889, 0, 0.719894, 0.694084, -0.654109, 0.525005, -0.544528, 4.0298, 5.93987, -4.65999)
+[node name="LocationDialogueList" type="VBoxContainer" parent="ButtonHolder"]
+visible = false
+offset_right = 112.0
+offset_bottom = 95.0
+theme_override_constants/separation = 1
+
+[node name="Button" type="Button" parent="ButtonHolder/LocationDialogueList"]
+layout_mode = 2
+text = "Test Button 1"
+
+[node name="Button2" type="Button" parent="ButtonHolder/LocationDialogueList"]
+layout_mode = 2
+text = "Test Button 2"
+
+[node name="Button3" type="Button" parent="ButtonHolder/LocationDialogueList"]
+layout_mode = 2
+text = "Test Button 3"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.175453, -0.64426, 0.74441, 0, 0.756139, 0.654411, -0.984488, 0.114818, -0.132667, 0, 0, 0)
 
+[node name="CameraHolder" type="Node3D" parent="."]
+transform = Transform3D(0.604585, 0, -0.79654, 0, 1, 0, 0.79654, 0, 0.604585, 0, 0, 0)
+script = ExtResource("4_jsshi")
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+transform = Transform3D(-0.999976, 0.00490136, -0.00490921, 0, 0.707672, 0.706541, 0.00693712, 0.706524, -0.707655, -0.0769106, 11.0691, -11.959)
+
+[connection signal="camera_pan_request" from="ButtonHolder" to="CameraHolder" method="_on_button_holder_camera_pan_request"]
+[connection signal="input_event" from="ButtonHolder" to="ButtonHolder" method="_on_input_event"]
 [connection signal="mouse_entered" from="ButtonHolder" to="ButtonHolder" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="ButtonHolder" to="ButtonHolder" method="_on_mouse_exited"]

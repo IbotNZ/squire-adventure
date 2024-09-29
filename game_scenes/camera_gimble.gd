@@ -38,8 +38,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if event.button_mask == MOUSE_BUTTON_MASK_RIGHT:
 			mouse_motion = Vector3()
-			mouse_motion.x = event.relative.x * mouse_sensitivity
-			mouse_motion.z = event.relative.y * mouse_sensitivity
+			mouse_motion.x = (event.relative.x * mouse_sensitivity) * -1
+			mouse_motion.z = (event.relative.y * mouse_sensitivity) * -1
 			lerp_motion = position + mouse_motion.rotated(Vector3.UP, deg_to_rad(rotation_degrees.y))
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:

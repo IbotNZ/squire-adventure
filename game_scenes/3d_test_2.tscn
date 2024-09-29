@@ -94,3 +94,5 @@ margin = 0.1
 [node name="Camera3D" type="Camera3D" parent="CameraGimble/InnerGimble/SpringArm3D"]
 
 [connection signal="figure_selected" from="LocationFigure" to="CameraGimble" method="_on_location_figure_figure_selected"]
+[connection signal="mouse_entered" from="LocationFigure/VBoxContainer" to="LocationFigure" method="_on_v_box_container_mouse_entered"]
+[connection signal="mouse_exited" from="LocationFigure/VBoxContainer" to="LocationFigure" method="_on_v_box_container_mouse_exited"]

@@ -211,18 +211,21 @@ func _on_right_click_menu_item_clicked(index: int, at_position: Vector2, mouse_b
 			new_node = dialogue_scene.instantiate()
 			new_node.node_type_changed.connect(_on_dialogue_node_type_changed)
 			add_child(new_node)
+			new_resource = DialogueNode.new()
 		1: # Hub
 			new_node = hub_scene.instantiate()
 			new_node.choice_removed.connect(_on_dialogue_hub_choice_removed)
 			new_node.choice_added.connect(_on_dialogue_hub_choice_added)
 			add_child(new_node)
+			new_resource = DialogueHub.new()
 		2: # Logic
 			new_node = logic_scene.instantiate()
 			add_child(new_node)
+			new_resource = DialogueLogic.new()
 		3: # Variable
 			new_node = variable_scene.instantiate()
 			add_child(new_node)
-	new_resource = DialogueNode.new()
+			new_resource = DialogueVariable.new()
 	new_node.linked_node = new_resource
 	current_dialogue_manager.Dialogue_Node_list.append(new_resource)
 	new_node.position_offset = (get_local_mouse_position() + scroll_offset) / zoom

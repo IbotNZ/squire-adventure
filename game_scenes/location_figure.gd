@@ -8,6 +8,8 @@ var the_camera: Camera3D
 var is_mouse_on_figure: bool = false
 var is_mouse_on_menu: bool = false
 
+# List of dialogue nodes linked to this figure in Dialogue Editor
+@export var active_choices: Array[DialogueNode]
 
 signal figure_selected(figure_position: Vector3)
 

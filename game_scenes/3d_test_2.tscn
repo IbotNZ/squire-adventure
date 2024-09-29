@@ -1,7 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://dw6f8fsvwa1je"]
+[gd_scene load_steps=12 format=3 uid="uid://dw6f8fsvwa1je"]
 
 [ext_resource type="Script" path="res://game_scenes/location_figure.gd" id="1_30cuq"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_manager.gd" id="1_o7ls7"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_type.gd" id="2_3gl8d"]
 [ext_resource type="Script" path="res://game_scenes/camera_gimble.gd" id="2_i0j85"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_node.gd" id="3_5njb5"]
+
+[sub_resource type="Resource" id="Resource_n6vdb"]
+script = ExtResource("3_5njb5")
+button_title = ""
+button_description = ""
+button_selectable = false
+text = ""
+node_type = 0
+graph_position = Vector2(-480, -160)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3wcsq"]
 size = Vector3(1, 0.2, 1)
@@ -37,11 +49,16 @@ _data = {
 
 [node name="3DTest2" type="Node3D"]
 
+[node name="DialogueManager" type="Node" parent="."]
+script = ExtResource("1_o7ls7")
+Dialogue_Node_list = Array[ExtResource("2_3gl8d")]([SubResource("Resource_n6vdb")])
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 0, 0)
 
 [node name="LocationFigure" type="Area3D" parent="."]
 script = ExtResource("1_30cuq")
+active_choices = Array[ExtResource("3_5njb5")]([])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LocationFigure"]
 mesh = SubResource("BoxMesh_3wcsq")
@@ -64,20 +81,6 @@ theme_override_constants/separation = 1
 [node name="Button" type="Button" parent="LocationFigure/VBoxContainer"]
 layout_mode = 2
 text = "Test Button"
-
-[node name="Button2" type="Button" parent="LocationFigure/VBoxContainer"]
-layout_mode = 2
-text = "Test Button"
-
-[node name="Button3" type="Button" parent="LocationFigure/VBoxContainer"]
-layout_mode = 2
-text = "Test Button"
-
-[node name="Button4" type="Button" parent="LocationFigure/VBoxContainer"]
-layout_mode = 2
-text = "Test Button"
-
-[node name="Timer" type="Timer" parent="LocationFigure"]
 
 [node name="CameraGimble" type="Node3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)

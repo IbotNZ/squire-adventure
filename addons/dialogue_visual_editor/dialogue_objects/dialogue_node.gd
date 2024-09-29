@@ -4,6 +4,10 @@ class_name DialogueNode
 # Types of dialogue node behaviour
 enum {default, start, end, exposition}
 
+@export var button_title: String = ""
+@export var button_description: String = ""
+@export var button_selectable: bool
+
 @export var text: String = ""
 @export var node_type: int = default
 

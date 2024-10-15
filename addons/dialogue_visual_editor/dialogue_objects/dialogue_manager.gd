@@ -15,8 +15,8 @@ var Current_Dialogue_Display: Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	initiate_dialogue_display()
-	#pass # Replace with function body.
+	#initiate_dialogue_display()
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,6 +50,10 @@ func run_current_node():
 func run_dialogue_text():
 	var text_node: DialogueNode = Current_Dialogue_Node
 	Current_Dialogue_Display.run_dialogue(text_node.text)
+	print(text_node.default)
+	print(text_node.exposition)
+	print(text_node.start)
+	print(text_node.end)
 	match text_node.node_type:
 		text_node.default:
 			Current_Dialogue_Node = text_node.next_dialogue_node

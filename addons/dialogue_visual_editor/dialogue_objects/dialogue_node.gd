@@ -2,7 +2,7 @@ extends DialogueType
 class_name DialogueNode
 
 # Types of dialogue node behaviour
-enum {default, start, end, exposition}
+enum {default, exposition, start, end}
 
 @export var button_title: String = ""
 @export var button_description: String = ""

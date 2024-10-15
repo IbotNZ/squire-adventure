@@ -33,6 +33,7 @@ func list_options():
 
 
 func _on_figure_option_pressed(button_reference: FigureButton, linked_node: DialogueNode):
+	current_dialogue_manager.initiate_dialogue_display()
 	current_dialogue_manager.Current_Dialogue_Node = linked_node
 	current_dialogue_manager.run_current_node()
 	choice_box.hide()

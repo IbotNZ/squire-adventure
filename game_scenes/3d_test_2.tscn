@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dw6f8fsvwa1je"]
+[gd_scene load_steps=18 format=3 uid="uid://dw6f8fsvwa1je"]
 
 [ext_resource type="Script" path="res://game_scenes/location_figure.gd" id="1_30cuq"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_manager.gd" id="1_o7ls7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_node.gd" id="3_5njb5"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_choice.gd" id="3_njejb"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_hub.gd" id="4_nu630"]
+[ext_resource type="PackedScene" uid="uid://bu7j0yeo46d3o" path="res://game_assets/BoardPiece01.glb" id="7_qmlay"]
 
 [sub_resource type="Resource" id="Resource_lcql8"]
 script = ExtResource("3_njejb")
@@ -79,6 +80,8 @@ active_choices = Array[ExtResource("3_5njb5")]([null, SubResource("Resource_n6vd
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LocationFigure"]
 mesh = SubResource("BoxMesh_3wcsq")
+
+[node name="BoardPiece01" parent="LocationFigure/MeshInstance3D" instance=ExtResource("7_qmlay")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LocationFigure"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)

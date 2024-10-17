@@ -20,3 +20,13 @@ script = ExtResource("1_51bjh")
 [node name="NewButtonSetter" type="Button" parent="."]
 layout_mode = 2
 text = "Assign Button"
+
+[node name="ButtonPickerDialog" type="AcceptDialog" parent="."]
+
+[node name="ItemList" type="ItemList" parent="ButtonPickerDialog"]
+offset_right = 40.0
+offset_bottom = 40.0
+item_count = 1
+item_0/text = "Test"
+
+[connection signal="pressed" from="NewButtonSetter" to="." method="_on_new_button_setter_pressed"]

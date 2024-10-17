@@ -22,7 +22,9 @@ func _on_new_button_setter_pressed() -> void:
 	button_list_references.clear()
 	for i in EditorInterface.get_edited_scene_root().get_children():
 		if i is Area3D:
+			print(i.active_choices)
 			for dialogue in i.active_choices:
-				button_list.add_item(dialogue.name)
-				button_list_references.append(dialogue)
+				if dialogue != null:
+					button_list.add_item(dialogue.button_title)
+					button_list_references.append(dialogue)
 	button_picker_dialog.popup()

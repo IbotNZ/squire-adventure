@@ -20,11 +20,12 @@ offset_top = 51.0
 offset_right = 242.0
 offset_bottom = 167.0
 auto_height = true
-item_count = 4
+item_count = 5
 item_0/text = "Dialogue"
 item_1/text = "Hub"
 item_2/text = "Logic"
 item_3/text = "Variable"
+item_4/text = "Script"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25

@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://do3gbg25w4x4r"]
+
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/dialogue_end_scripter.gd" id="1_51bjh"]
+
+[node name="DialogueEndScripter" type="GraphNode"]
+offset_right = 195.0
+offset_bottom = 86.0
+title = "Dialogue End Script"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_51bjh")
+
+[node name="NewButtonSetter" type="Button" parent="."]
+layout_mode = 2
+text = "Assign Button"

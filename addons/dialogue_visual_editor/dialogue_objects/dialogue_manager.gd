@@ -13,6 +13,9 @@ var Current_Dialogue_Node: DialogueType
 # Stores the currently instantiated dialogue display
 var Current_Dialogue_Display: Control
 
+# List of effects to run when dialogue ends
+var Dialogue_End_List: Array
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#initiate_dialogue_display()
@@ -50,10 +53,6 @@ func run_current_node():
 func run_dialogue_text():
 	var text_node: DialogueNode = Current_Dialogue_Node
 	Current_Dialogue_Display.run_dialogue(text_node.text)
-	print(text_node.default)
-	print(text_node.exposition)
-	print(text_node.start)
-	print(text_node.end)
 	match text_node.node_type:
 		text_node.default:
 			Current_Dialogue_Node = text_node.next_dialogue_node
@@ -68,6 +67,10 @@ func run_dialogue_text():
 			run_current_node()
 		text_node.end:
 			pass
+
+
+func run_dialogue_end():
+	pass
 
 
 func run_dialogue_hub():

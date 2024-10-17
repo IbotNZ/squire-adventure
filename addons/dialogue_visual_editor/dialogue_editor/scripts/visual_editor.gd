@@ -22,6 +22,7 @@ var dialogue_scene := preload("res://addons/dialogue_visual_editor/dialogue_edit
 var hub_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_hub.tscn")
 var logic_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_logic.tscn")
 var variable_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_variable.tscn")
+var script_scene := preload("res://addons/dialogue_visual_editor/dialogue_editor/dialogue_end_scripter.tscn")
 
 var is_mouse_on_graph: bool = false
 @export @onready var double_click_timer := $Timer
@@ -226,6 +227,10 @@ func _on_right_click_menu_item_clicked(index: int, at_position: Vector2, mouse_b
 			new_node = variable_scene.instantiate()
 			add_child(new_node)
 			new_resource = DialogueVariable.new()
+		4: # Script
+			new_node = script_scene.instantiate()
+			add_child(new_node)
+			new_resource = DialogueEndScripter.new()
 	new_node.linked_node = new_resource
 	current_dialogue_manager.Dialogue_Node_list.append(new_resource)
 	new_node.position_offset = (get_local_mouse_position() + scroll_offset) / zoom

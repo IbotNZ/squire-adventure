@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dfbwgjgkd12eo"]
 
-[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/dialogue_var_setter.gd" id="1_eyewo"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/dialogue_var_setter.gd" id="1_eyewo"]
 
 [node name="DialogueVarSetter" type="GraphNode"]
 offset_right = 213.0

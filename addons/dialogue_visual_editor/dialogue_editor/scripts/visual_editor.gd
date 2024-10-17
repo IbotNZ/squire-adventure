@@ -94,6 +94,8 @@ func sync_with_dialogue_manager(resource_list: Array[DialogueType], manager:Dial
 			new_node.current_dialogue_manager = current_dialogue_manager
 		elif i is DialogueVariable:
 			new_node = variable_scene.instantiate()
+		elif i is DialogueEndScripter:
+			new_node = script_scene.instantiate()
 		# await Engine.get_main_loop().process_frame
 		new_node.linked_node = i
 		new_node.position_offset = i.graph_position

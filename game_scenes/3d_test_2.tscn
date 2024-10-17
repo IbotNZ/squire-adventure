@@ -21,7 +21,7 @@ label = "test"
 [sub_resource type="Resource" id="Resource_mrbca"]
 script = ExtResource("4_nu630")
 choice_list = Array[ExtResource("3_njejb")]([SubResource("Resource_lcql8"), SubResource("Resource_vci2f")])
-graph_position = Vector2(0, -120)
+graph_position = Vector2(-40, -140)
 
 [sub_resource type="Resource" id="Resource_n6vdb"]
 script = ExtResource("3_5njb5")
@@ -33,9 +33,10 @@ node_type = 2
 next_dialogue_node = SubResource("Resource_mrbca")
 graph_position = Vector2(-480, -160)
 
-[sub_resource type="Resource" id="Resource_me753"]
+[sub_resource type="Resource" id="Resource_ar8yq"]
 script = ExtResource("6_fp32k")
-graph_position = Vector2(0, 0)
+new_visible_dialogue = SubResource("Resource_n6vdb")
+graph_position = Vector2(-100, 140)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3wcsq"]
 size = Vector3(1, 0.2, 1)
@@ -73,7 +74,7 @@ _data = {
 
 [node name="DialogueManager" type="Node" parent="."]
 script = ExtResource("1_o7ls7")
-Dialogue_Node_list = Array[ExtResource("2_3gl8d")]([SubResource("Resource_n6vdb"), SubResource("Resource_mrbca"), SubResource("Resource_me753")])
+Dialogue_Node_list = Array[ExtResource("2_3gl8d")]([SubResource("Resource_n6vdb"), SubResource("Resource_mrbca"), SubResource("Resource_ar8yq")])
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 0, 0)

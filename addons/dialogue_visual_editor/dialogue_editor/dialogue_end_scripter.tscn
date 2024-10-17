@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/dialogue_end_scripter.gd" id="1_51bjh"]
 
-[node name="DialogueEndScripter" type="GraphNode"]
+[node name="DialogueEndScripter" type="GraphNode" node_paths=PackedStringArray("button_picker_dialog", "button_list")]
 offset_right = 195.0
 offset_bottom = 86.0
 title = "Dialogue End Script"
@@ -16,6 +16,8 @@ slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
 script = ExtResource("1_51bjh")
+button_picker_dialog = NodePath("ButtonPickerDialog")
+button_list = NodePath("ButtonPickerDialog/ItemList")
 
 [node name="NewButtonSetter" type="Button" parent="."]
 layout_mode = 2
@@ -30,4 +32,6 @@ offset_bottom = 40.0
 item_count = 1
 item_0/text = "Test"
 
+[connection signal="position_offset_changed" from="." to="." method="_on_position_offset_changed"]
 [connection signal="pressed" from="NewButtonSetter" to="." method="_on_new_button_setter_pressed"]
+[connection signal="item_clicked" from="ButtonPickerDialog/ItemList" to="." method="_on_item_list_item_clicked"]

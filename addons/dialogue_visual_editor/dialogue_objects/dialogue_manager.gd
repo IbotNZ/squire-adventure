@@ -14,7 +14,7 @@ var Current_Dialogue_Node: DialogueType
 var Current_Dialogue_Display: Control
 
 # List of effects to run when dialogue ends
-var Dialogue_End_List: Array
+var Dialogue_End_List: Array[DialogueEndScripter]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,6 +48,15 @@ func run_current_node():
 		run_dialogue_hub()
 	elif Current_Dialogue_Node is DialogueLogic:
 		run_dialogue_logic()
+	elif Current_Dialogue_Node is DialogueEndScripter:
+		run_dialogue_end_scripter()
+
+
+func run_dialogue_end_scripter():
+	var dialogue_script: DialogueEndScripter = Current_Dialogue_Node
+	Dialogue_End_List.append(dialogue_script)
+	Current_Dialogue_Node = Current_Dialogue_Node.next_dialogue_node
+	run_current_node()
 
 
 func run_dialogue_text():
@@ -66,11 +75,12 @@ func run_dialogue_text():
 			print("start")
 			run_current_node()
 		text_node.end:
-			pass
+			run_dialogue_end()
 
 
 func run_dialogue_end():
-	pass
+	for i in Dialogue_End_List:
+		i.new_visible_dialogue.button_selectable = i.is_dialogue_available
 
 
 func run_dialogue_hub():

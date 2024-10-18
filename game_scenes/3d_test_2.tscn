@@ -36,7 +36,7 @@ graph_position = Vector2(-480, -160)
 [sub_resource type="Resource" id="Resource_ar8yq"]
 script = ExtResource("6_fp32k")
 new_visible_dialogue = SubResource("Resource_n6vdb")
-graph_position = Vector2(-100, 140)
+graph_position = Vector2(0, 40)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3wcsq"]
 size = Vector3(1, 0.2, 1)

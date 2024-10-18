@@ -76,6 +76,8 @@ func remove_node_connecton(from_node,from_port,to_node,to_port):
 						i.linked_node.node_connection_for_false = null
 				elif i.linked_node is DialogueVariable:
 					pass
+				elif i.linked_node is DialogueEndScripter:
+					i.linked_node.next_dialogue_node = null
 
 
 func sync_with_dialogue_manager(resource_list: Array[DialogueType], manager:DialogueManager):
@@ -167,6 +169,10 @@ func _on_connection_request(from_node: StringName, from_port: int, to_node: Stri
 						elif g.name == to_node and from_port == 1:
 							i.linked_node.node_connection_for_false = g.linked_node
 				elif i.linked_node is DialogueNode:
+					for g in get_children():
+						if g.name == to_node:
+							i.linked_node.next_dialogue_node = g.linked_node
+				elif i.linked_node is DialogueEndScripter:
 					for g in get_children():
 						if g.name == to_node:
 							i.linked_node.next_dialogue_node = g.linked_node

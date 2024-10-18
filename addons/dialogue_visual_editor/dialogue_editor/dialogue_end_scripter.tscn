@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/dialogue_end_scripter.gd" id="1_51bjh"]
 
-[node name="DialogueEndScripter" type="GraphNode" node_paths=PackedStringArray("button_picker_dialog", "button_list")]
+[node name="DialogueEndScripter" type="GraphNode" node_paths=PackedStringArray("assign_button", "button_picker_dialog", "button_list")]
 offset_right = 195.0
 offset_bottom = 86.0
 title = "Dialogue End Script"
@@ -15,13 +15,27 @@ slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
 script = ExtResource("1_51bjh")
+assign_button = NodePath("NewButtonSetter")
 button_picker_dialog = NodePath("ButtonPickerDialog")
 button_list = NodePath("ButtonPickerDialog/ItemList")
 
 [node name="NewButtonSetter" type="Button" parent="."]
 layout_mode = 2
 text = "Assign Button"
+
+[node name="IsButtonSelectableSetter" type="CheckButton" parent="."]
+layout_mode = 2
+text = "Is Button Selectable"
 
 [node name="ButtonPickerDialog" type="AcceptDialog" parent="."]
 initial_position = 4
@@ -34,4 +48,5 @@ item_0/text = "Test"
 
 [connection signal="position_offset_changed" from="." to="." method="_on_position_offset_changed"]
 [connection signal="pressed" from="NewButtonSetter" to="." method="_on_new_button_setter_pressed"]
+[connection signal="toggled" from="IsButtonSelectableSetter" to="." method="_on_is_button_selectable_setter_toggled"]
 [connection signal="item_clicked" from="ButtonPickerDialog/ItemList" to="." method="_on_item_list_item_clicked"]

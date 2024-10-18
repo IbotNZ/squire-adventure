@@ -80,6 +80,8 @@ func run_dialogue_text():
 func run_dialogue_end():
 	for i in Dialogue_End_List:
 		i.new_visible_dialogue.button_selectable = i.is_dialogue_available
+	Dialogue_End_List.clear()
+	Current_Dialogue_Display.queue_free()
 
 
 func run_dialogue_hub():

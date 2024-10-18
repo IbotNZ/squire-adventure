@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_editor/scripts/dialogue_end_scripter.gd" id="1_51bjh"]
 
-[node name="DialogueEndScripter" type="GraphNode" node_paths=PackedStringArray("assign_button", "button_picker_dialog", "button_list")]
+[node name="DialogueEndScripter" type="GraphNode" node_paths=PackedStringArray("assign_button", "button_picker_dialog", "button_list", "button_selectable_setter")]
 offset_right = 195.0
 offset_bottom = 86.0
 title = "Dialogue End Script"
@@ -28,6 +28,7 @@ script = ExtResource("1_51bjh")
 assign_button = NodePath("NewButtonSetter")
 button_picker_dialog = NodePath("ButtonPickerDialog")
 button_list = NodePath("ButtonPickerDialog/ItemList")
+button_selectable_setter = NodePath("IsButtonSelectableSetter")
 
 [node name="NewButtonSetter" type="Button" parent="."]
 layout_mode = 2
@@ -39,10 +40,14 @@ text = "Is Button Selectable"
 
 [node name="ButtonPickerDialog" type="AcceptDialog" parent="."]
 initial_position = 4
+size = Vector2i(200, 400)
 
 [node name="ItemList" type="ItemList" parent="ButtonPickerDialog"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 351.0
+auto_height = true
 item_count = 1
 item_0/text = "Test"
 

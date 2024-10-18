@@ -65,14 +65,13 @@ func run_dialogue_text():
 	match text_node.node_type:
 		text_node.default:
 			Current_Dialogue_Node = text_node.next_dialogue_node
-			print("default")
 			run_current_node()
 		text_node.exposition:
 			Current_Dialogue_Node = Previous_Choice_Hub
 			run_current_node()
 		text_node.start:
+			Current_Dialogue_Node.button_selectable = false
 			Current_Dialogue_Node = text_node.next_dialogue_node
-			print("start")
 			run_current_node()
 		text_node.end:
 			run_dialogue_end()

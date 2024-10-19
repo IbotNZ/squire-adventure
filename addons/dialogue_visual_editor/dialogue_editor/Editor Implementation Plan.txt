@@ -1,3 +1,0 @@
-Dialogue Node
-	On node creation append a dialogue node to manager array
-	Create variations for Start End Default Exposition

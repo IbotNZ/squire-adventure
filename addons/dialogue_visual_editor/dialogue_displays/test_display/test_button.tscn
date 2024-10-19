@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwasrgsngyd24"]
-
-[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_displays/test_display/test_button.gd" id="1_riscj"]
-
-[node name="Button" type="Button"]
-custom_minimum_size = Vector2(0, 50)
-text = "Button Text"
-script = ExtResource("1_riscj")

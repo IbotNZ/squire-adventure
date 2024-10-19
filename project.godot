@@ -15,10 +15,6 @@ run/main_scene="res://test_2.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/dialogue_visual_editor/plugin.cfg")
-
 [input]
 
 "Right Click"={

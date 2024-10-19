@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dw6f8fsvwa1je"]
+[gd_scene load_steps=32 format=3 uid="uid://dw6f8fsvwa1je"]
 
 [ext_resource type="Script" path="res://game_scenes/location_figure.gd" id="1_30cuq"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_manager.gd" id="1_o7ls7"]
@@ -6,9 +6,93 @@
 [ext_resource type="Script" path="res://game_scenes/camera_gimble.gd" id="2_i0j85"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_node.gd" id="3_5njb5"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_choice.gd" id="3_njejb"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_variable.gd" id="4_loqww"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_hub.gd" id="4_nu630"]
 [ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_end_scripter.gd" id="6_fp32k"]
 [ext_resource type="PackedScene" uid="uid://bu7j0yeo46d3o" path="res://game_assets/BoardPiece01.glb" id="7_qmlay"]
+[ext_resource type="Script" path="res://addons/dialogue_visual_editor/dialogue_objects/dialogue_logic.gd" id="8_v1hel"]
+
+[sub_resource type="Resource" id="Resource_l70o8"]
+script = ExtResource("4_loqww")
+var_name = "Went Left"
+default_bool = false
+default_number = 0.0
+node_type = 0
+graph_position = Vector2(-80, -320)
+
+[sub_resource type="Resource" id="Resource_tvmtn"]
+script = ExtResource("3_5njb5")
+button_title = ""
+button_description = ""
+button_selectable = false
+text = ""
+node_type = 3
+graph_position = Vector2(1100, 60)
+
+[sub_resource type="Resource" id="Resource_mkdr8"]
+script = ExtResource("3_5njb5")
+button_title = ""
+button_description = ""
+button_selectable = false
+text = "End Dialogue"
+node_type = 3
+graph_position = Vector2(1460, -220)
+
+[sub_resource type="Resource" id="Resource_2jeb1"]
+script = ExtResource("8_v1hel")
+local_variable = SubResource("Resource_l70o8")
+local_value = true
+node_type = 0
+var_number = 0.0
+stat_number = 0.0
+node_connection_for_true = SubResource("Resource_mkdr8")
+node_connection_for_false = SubResource("Resource_tvmtn")
+graph_position = Vector2(660, -80)
+
+[sub_resource type="Resource" id="Resource_yq0se"]
+script = ExtResource("3_5njb5")
+button_title = ""
+button_description = ""
+button_selectable = false
+text = "The left path is smooth sailing."
+node_type = 0
+next_dialogue_node = SubResource("Resource_2jeb1")
+graph_position = Vector2(240, -220)
+
+[sub_resource type="Resource" id="Resource_lcql8"]
+script = ExtResource("3_njejb")
+label = "Left Path"
+next_node = SubResource("Resource_yq0se")
+
+[sub_resource type="Resource" id="Resource_3mrft"]
+script = ExtResource("3_5njb5")
+button_title = ""
+button_description = ""
+button_selectable = false
+text = "The right path is pretty rocky."
+node_type = 0
+next_dialogue_node = SubResource("Resource_2jeb1")
+graph_position = Vector2(260, 60)
+
+[sub_resource type="Resource" id="Resource_vci2f"]
+script = ExtResource("3_njejb")
+label = "Right Path"
+next_node = SubResource("Resource_3mrft")
+
+[sub_resource type="Resource" id="Resource_mrbca"]
+script = ExtResource("4_nu630")
+choice_list = Array[ExtResource("3_njejb")]([SubResource("Resource_lcql8"), SubResource("Resource_vci2f")])
+graph_position = Vector2(-100, -120)
+
+[sub_resource type="Resource" id="Resource_n6vdb"]
+script = ExtResource("3_5njb5")
+button_title = "Test Title"
+button_description = ""
+button_selectable = true
+text = "What Path will you take?"
+node_type = 2
+next_dialogue_node = SubResource("Resource_mrbca")
+graph_position = Vector2(-480, -160)
 
 [sub_resource type="Resource" id="Resource_t3ba7"]
 script = ExtResource("3_5njb5")
@@ -39,55 +123,14 @@ node_type = 2
 next_dialogue_node = SubResource("Resource_hm67v")
 graph_position = Vector2(-480, 260)
 
-[sub_resource type="Resource" id="Resource_mkdr8"]
-script = ExtResource("3_5njb5")
-button_title = ""
-button_description = ""
-button_selectable = false
-text = "End Dialogue"
-node_type = 3
-graph_position = Vector2(580, -120)
-
-[sub_resource type="Resource" id="Resource_ar8yq"]
+[sub_resource type="Resource" id="Resource_1sosk"]
 script = ExtResource("6_fp32k")
-new_visible_dialogue = SubResource("Resource_avorw")
-next_dialogue_node = SubResource("Resource_mkdr8")
+script_state = 1
+new_visible_dialogue = SubResource("Resource_n6vdb")
 is_dialogue_available = true
-graph_position = Vector2(260, -120)
-
-[sub_resource type="Resource" id="Resource_lcql8"]
-script = ExtResource("3_njejb")
-label = "End Dialogue"
-next_node = SubResource("Resource_ar8yq")
-
-[sub_resource type="Resource" id="Resource_3mrft"]
-script = ExtResource("3_5njb5")
-button_title = ""
-button_description = ""
-button_selectable = false
-text = "Exposition!"
-node_type = 1
-graph_position = Vector2(280, 60)
-
-[sub_resource type="Resource" id="Resource_vci2f"]
-script = ExtResource("3_njejb")
-label = "test"
-next_node = SubResource("Resource_3mrft")
-
-[sub_resource type="Resource" id="Resource_mrbca"]
-script = ExtResource("4_nu630")
-choice_list = Array[ExtResource("3_njejb")]([SubResource("Resource_lcql8"), SubResource("Resource_vci2f")])
-graph_position = Vector2(-100, -120)
-
-[sub_resource type="Resource" id="Resource_n6vdb"]
-script = ExtResource("3_5njb5")
-button_title = "Test Title"
-button_description = ""
-button_selectable = true
-text = "Test Text"
-node_type = 2
-next_dialogue_node = SubResource("Resource_mrbca")
-graph_position = Vector2(-480, -160)
+selected_variable = SubResource("Resource_l70o8")
+bool_value_change = true
+graph_position = Vector2(820, 400)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3wcsq"]
 size = Vector3(1, 0.2, 1)
@@ -125,7 +168,7 @@ _data = {
 
 [node name="DialogueManager" type="Node" parent="."]
 script = ExtResource("1_o7ls7")
-Dialogue_Node_list = Array[ExtResource("2_3gl8d")]([SubResource("Resource_n6vdb"), SubResource("Resource_mrbca"), SubResource("Resource_ar8yq"), SubResource("Resource_avorw"), SubResource("Resource_hm67v"), SubResource("Resource_mkdr8"), SubResource("Resource_t3ba7"), SubResource("Resource_3mrft")])
+Dialogue_Node_list = Array[ExtResource("2_3gl8d")]([SubResource("Resource_n6vdb"), SubResource("Resource_mrbca"), SubResource("Resource_avorw"), SubResource("Resource_hm67v"), SubResource("Resource_mkdr8"), SubResource("Resource_t3ba7"), SubResource("Resource_3mrft"), SubResource("Resource_yq0se"), SubResource("Resource_l70o8"), SubResource("Resource_2jeb1"), SubResource("Resource_tvmtn"), SubResource("Resource_1sosk")])
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 0, 0)

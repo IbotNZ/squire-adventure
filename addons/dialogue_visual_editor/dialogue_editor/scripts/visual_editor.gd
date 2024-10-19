@@ -111,21 +111,24 @@ func sync_with_dialogue_manager(resource_list: Array[DialogueType], manager:Dial
 			if i.linked_node is DialogueNode and i.linked_node.next_dialogue_node:
 				connect_node(i.name, 0, find_node_interface(i.linked_node.next_dialogue_node).name, 0)
 				connection_list.append(Connection.new(i.name, 0, find_node_interface(i.linked_node.next_dialogue_node).name, 0))
-			if i.linked_node is DialogueHub:
+			elif i.linked_node is DialogueHub:
 				var hub: DialogueHub = i.linked_node
 				for choice in hub.choice_list:
 					if choice.next_node != null:
 						connect_node(i.name, hub.choice_list.find(choice), find_node_interface(choice.next_node).name, 0)
 						connection_list.append(Connection.new(i.name, hub.choice_list.find(choice), find_node_interface(choice.next_node).name, 0))
-			if i.linked_node is DialogueLogic:
+			elif i.linked_node is DialogueLogic:
 				if i.linked_node.node_connection_for_true != null:
 					connect_node(i.name, 0, find_node_interface(i.linked_node.node_connection_for_true).name, 0)
 					connection_list.append(Connection.new(i.name, 0, find_node_interface(i.linked_node.node_connection_for_true).name, 0))
 				if i.linked_node.node_connection_for_false != null:
 					connect_node(i.name, 1, find_node_interface(i.linked_node.node_connection_for_false).name, 0)
 					connection_list.append(Connection.new(i.name, 1, find_node_interface(i.linked_node.node_connection_for_false).name, 0))
-			if i.linked_node is DialogueVariable:
+			elif i.linked_node is DialogueVariable:
 				pass
+			elif i.linked_node is DialogueEndScripter and i.linked_node.next_dialogue_node != null:
+				connect_node(i.name, 0, find_node_interface(i.linked_node.next_dialogue_node).name, 0)
+				connection_list.append(Connection.new(i.name, 0, find_node_interface(i.linked_node.next_dialogue_node).name, 0))
 
 
 func _on_editor_node_dragged(from: Vector2, to: Vector2, node_moved: GraphNode):

@@ -69,7 +69,8 @@ func _on_mode_selector_item_selected(index: int) -> void:
 
 
 func switch_script_mode(index: int):
-	linked_node.script_state = index
+	if linked_node != null:
+		linked_node.script_state = index
 	button_scripter.hide()
 	variable_scripter.hide()
 	match index:

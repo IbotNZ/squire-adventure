@@ -6,7 +6,7 @@ enum {local_var, character_stat, character_trait}
 
 # For selecting what variable to check
 @export var local_variable: DialogueVariable
-@export var local_value: bool = true
+@export var local_value: bool = false
 @export var node_type: int = local_var
 
 @export var var_number: float

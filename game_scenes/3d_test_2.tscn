@@ -125,7 +125,7 @@ graph_position = Vector2(-480, 260)
 
 [sub_resource type="Resource" id="Resource_1sosk"]
 script = ExtResource("6_fp32k")
-script_state = 1
+script_state = 0
 new_visible_dialogue = SubResource("Resource_n6vdb")
 is_dialogue_available = true
 selected_variable = SubResource("Resource_l70o8")

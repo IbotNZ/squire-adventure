@@ -4,6 +4,10 @@ extends EditorNode
 @onready var mode_selector := $ModeSelection/ModeSelector
 @onready var variable_selector := $VariableSelection/VariableSelector
 @onready var variable_logic := $VariableLogic
+@onready var local_var_number_selector_label := $VariableLogic/Label
+@onready var local_var_bool_selector_label := $VariableLogic/Label2
+@onready var local_var_num_picker := $VariableLogic/VarNumPicker
+@onready var local_var_bool_picker := $VariableLogic/VarBoolChecker
 @onready var stat_logic := $StatLogic
 @onready var trait_logic := $TraitLogic
 
@@ -34,6 +38,7 @@ func sync_with_node():
 	if current_variable:
 		_on_variable_selector_pressed()
 		variable_selector.select(get_variables().find(current_variable))
+		set_local_var_type(current_variable.node_type)
 	select_logic_type()
 
 
@@ -97,7 +102,27 @@ func _on_variable_selector_item_selected(index: int) -> void:
 				if i.var_name == selected_var_name:
 					current_variable = i
 					linked_node.local_variable = i
+					set_local_var_type(i.node_type)
 		character_stat:
 			pass
 		character_trait:
 			pass
+
+
+func set_local_var_type(node_type: int):
+	local_var_bool_picker.hide()
+	local_var_bool_selector_label.hide()
+	local_var_number_selector_label.hide()
+	local_var_num_picker.hide()
+	if node_type == 0: # Bool variable
+		local_var_bool_picker.show()
+		local_var_bool_selector_label.show()
+	elif node_type == 1: # Number variable
+		local_var_number_selector_label.show()
+		local_var_num_picker.show()
+
+func _on_var_bool_checker_item_selected(index: int) -> void:
+	if index == 0: # True
+		linked_node.local_value = true
+	elif index == 1: # False
+		linked_node.local_value = false

@@ -1,0 +1,2 @@
+For ease of programming and extensibility drasticly different scene types have
+their own dialogue nodes and logic.

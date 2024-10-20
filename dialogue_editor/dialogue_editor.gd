@@ -1,6 +1,7 @@
 extends Control
 
 @onready var visual_editor := $VisualEditor
+@onready var variable_editor := $VariableEditor
 @onready var right_click_menu := $MapSceneNodeList
 var right_click_menu_location: Vector2
 
@@ -15,6 +16,10 @@ var bool_logic_node := preload("res://dialogue_editor/editor_nodes/map_scene_nod
 var connection_list: Array[NodeConnection]
 
 var double_click_rect: Rect2
+
+enum mode {scene_editor, variable_editor}
+var editor_mode: int = mode.scene_editor
+@onready var editor_switcher := $EditorSwitcher
 
 class NodeConnection:
 	var from_node: StringName
@@ -33,15 +38,28 @@ class NodeConnection:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-		show_right_click_menu(get_local_mouse_position())
+		if editor_mode == mode.scene_editor:
+			show_right_click_menu(get_local_mouse_position())
 	elif event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
 		var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
 		if connection.size() > 0:
 			disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
 
 
+func change_editor_mode(selected_mode: mode):
+	editor_mode = selected_mode
+	if selected_mode == mode.scene_editor:
+		editor_switcher.text = "Edit Variables"
+		variable_editor.hide()
+		visual_editor.show()
+	elif selected_mode == mode.variable_editor:
+		editor_switcher.text = "Edit Game Scene"
+		variable_editor.show()
+		visual_editor.hide()
+
+
 func show_right_click_menu(location: Vector2):
-	right_click_menu_location = location
+	right_click_menu_location = (location + visual_editor.scroll_offset) / visual_editor.zoom
 	right_click_menu.position = location
 	right_click_menu.deselect_all()
 	right_click_menu.show()
@@ -114,3 +132,11 @@ func _on_visual_editor_delete_nodes_request(nodes: Array[StringName]) -> void:
 
 func _on_visual_editor_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	connect_editor_node(from_node, from_port, to_node, to_port)
+
+
+func _on_editor_switcher_pressed() -> void:
+	if editor_mode == mode.scene_editor:
+		change_editor_mode(mode.variable_editor)
+	elif  editor_mode == mode.variable_editor:
+		change_editor_mode(mode.scene_editor)
+	#editor_switcher.

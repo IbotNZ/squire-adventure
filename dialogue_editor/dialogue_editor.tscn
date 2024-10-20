@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://pg1s7eyi52oo"]
+
+[ext_resource type="Script" path="res://dialogue_editor/dialogue_editor.gd" id="1_iohr0"]
+
+[node name="DialogueEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iohr0")
+
+[node name="VisualEditor" type="GraphEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_offset = Vector2(-40, -40)
+
+[node name="MapSceneNodeList" type="ItemList" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 135.0
+offset_bottom = 197.0
+item_count = 7
+item_0/text = "Paragraph"
+item_1/text = "Exposition"
+item_2/text = "Hub"
+item_3/text = "Start"
+item_4/text = "End"
+item_5/text = "Bool Var Setter"
+item_6/text = "Bool Logic"
+
+[connection signal="connection_request" from="VisualEditor" to="." method="_on_visual_editor_connection_request"]
+[connection signal="delete_nodes_request" from="VisualEditor" to="." method="_on_visual_editor_delete_nodes_request"]
+[connection signal="item_clicked" from="MapSceneNodeList" to="." method="_on_map_scene_node_list_item_clicked"]

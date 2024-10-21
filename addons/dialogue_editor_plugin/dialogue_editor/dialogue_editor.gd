@@ -1,9 +1,12 @@
 @tool
 extends Control
 
+var editor_plugin: EditorPlugin
+
 @onready var visual_editor := $VisualEditor
 @onready var variable_editor := $VariableEditor
 @onready var right_click_menu := $MapSceneNodeList
+@onready var variable_right_click_menu := $VariableNodeList
 var right_click_menu_location: Vector2
 
 var paragraph_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/paragraph_node.tscn")
@@ -13,6 +16,7 @@ var start_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/e
 var end_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/end_node.tscn")
 var bool_var_setter_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable_setter.tscn")
 var bool_logic_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_logic.tscn")
+var bool_variable_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable.tscn")
 
 var connection_list: Array[NodeConnection]
 
@@ -21,6 +25,8 @@ var double_click_rect: Rect2
 enum mode {scene_editor, variable_editor}
 var editor_mode: int = mode.scene_editor
 @onready var editor_switcher := $EditorSwitcher
+
+var is_mouse_on_map_scene_menu: bool
 
 class NodeConnection:
 	var from_node: StringName
@@ -37,14 +43,29 @@ class NodeConnection:
 	# Function for connections shifting when hub choices change
 
 
+func _ready() -> void:
+	sync_variable_editor()
+
+
 func _input(event: InputEvent) -> void:
+	#if editor_plugin.get_editor_interface().get_editor_main_screen().name == "Dialogue Editor":
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-		if editor_mode == mode.scene_editor:
-			show_right_click_menu(get_local_mouse_position())
+		show_right_click_menu(get_local_mouse_position())
+	elif event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_map_scene_menu == false:
+		right_click_menu.hide()
+		variable_right_click_menu.hide()
 	elif event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
 		var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
 		if connection.size() > 0:
 			disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
+
+
+func sync_variable_editor():
+	var new_node: GraphNode
+	for i in GlobalVariables.stored_variables:
+		if i is DialogueBoolVariable:
+			new_node = bool_variable_node.instantiate()
+	variable_editor.add_child(new_node)
 
 
 func change_editor_mode(selected_mode: mode):
@@ -61,9 +82,14 @@ func change_editor_mode(selected_mode: mode):
 
 func show_right_click_menu(location: Vector2):
 	right_click_menu_location = (location + visual_editor.scroll_offset) / visual_editor.zoom
-	right_click_menu.position = location
-	right_click_menu.deselect_all()
-	right_click_menu.show()
+	if editor_mode == mode.scene_editor:
+		right_click_menu.position = location
+		right_click_menu.deselect_all()
+		right_click_menu.show()
+	elif editor_mode == mode.variable_editor:
+		variable_right_click_menu.position = location
+		variable_right_click_menu.deselect_all()
+		variable_right_click_menu.show()
 
 
 func delete_selected_nodes(nodes: Array[StringName]):
@@ -110,25 +136,26 @@ func disconnect_editor_node(from_node: StringName, from_port: int, to_node: Stri
 
 
 func _on_map_scene_node_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
-	var new_editor_node: GraphNode
-	match index:
-		0: # Paragraph
-			new_editor_node = paragraph_node.instantiate()
-		1: # Exposition
-			new_editor_node = exposition_node.instantiate()
-		2: # Hub
-			new_editor_node = hub_node.instantiate()
-		3: # Start
-			new_editor_node = start_node.instantiate()
-		4: # End
-			new_editor_node = end_node.instantiate()
-		5: # Bool Var Setter
-			new_editor_node = bool_var_setter_node.instantiate()
-		6: # Bool Logic
-			new_editor_node = bool_logic_node.instantiate()
-	visual_editor.add_child(new_editor_node)
-	new_editor_node.position_offset = right_click_menu_location
-	right_click_menu.hide()
+	if mouse_button_index == MOUSE_BUTTON_LEFT:
+		var new_editor_node: GraphNode
+		match index:
+			0: # Paragraph
+				new_editor_node = paragraph_node.instantiate()
+			1: # Exposition
+				new_editor_node = exposition_node.instantiate()
+			2: # Hub
+				new_editor_node = hub_node.instantiate()
+			3: # Start
+				new_editor_node = start_node.instantiate()
+			4: # End
+				new_editor_node = end_node.instantiate()
+			5: # Bool Var Setter
+				new_editor_node = bool_var_setter_node.instantiate()
+			6: # Bool Logic
+				new_editor_node = bool_logic_node.instantiate()
+		visual_editor.add_child(new_editor_node)
+		new_editor_node.position_offset = right_click_menu_location
+		right_click_menu.hide()
 
 
 func _on_visual_editor_delete_nodes_request(nodes: Array[StringName]) -> void:
@@ -145,3 +172,11 @@ func _on_editor_switcher_pressed() -> void:
 	elif  editor_mode == mode.variable_editor:
 		change_editor_mode(mode.scene_editor)
 	#editor_switcher.
+
+
+func _on_map_scene_node_list_mouse_entered() -> void:
+	is_mouse_on_map_scene_menu = true
+
+
+func _on_map_scene_node_list_mouse_exited() -> void:
+	is_mouse_on_map_scene_menu = false

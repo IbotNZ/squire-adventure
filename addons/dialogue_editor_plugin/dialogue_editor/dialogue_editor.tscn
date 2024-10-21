@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://pg1s7eyi52oo"]
 
-[ext_resource type="Script" path="res://dialogue_editor/dialogue_editor.gd" id="1_iohr0"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/dialogue_editor.gd" id="1_iohr0"]
 
 [node name="DialogueEditor" type="Control"]
 layout_mode = 3
@@ -9,6 +9,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_iohr0")
 
 [node name="VariableEditor" type="GraphEdit" parent="."]
@@ -19,7 +21,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scroll_offset = Vector2(-40, -40)
 
 [node name="VisualEditor" type="GraphEdit" parent="."]
 layout_mode = 1
@@ -28,7 +29,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scroll_offset = Vector2(-441, 0)
 
 [node name="MapSceneNodeList" type="ItemList" parent="."]
 visible = false

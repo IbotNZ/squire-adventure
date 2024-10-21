@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://dgilup7vycbia"]
 
-[ext_resource type="PackedScene" uid="uid://by0ufgsvgq2fn" path="res://dialogue_editor/editor_nodes/map_scene_nodes/hub_node.tscn" id="1_y5w2r"]
-[ext_resource type="PackedScene" uid="uid://5dy04mf1top1" path="res://dialogue_editor/editor_nodes/map_scene_nodes/bool_variable_setter.tscn" id="2_sycgv"]
-[ext_resource type="PackedScene" uid="uid://dss7rxy8gte66" path="res://dialogue_editor/editor_nodes/map_scene_nodes/bool_variable.tscn" id="3_js8g4"]
-[ext_resource type="PackedScene" uid="uid://dbipr7vdf8qkr" path="res://dialogue_editor/editor_nodes/map_scene_nodes/bool_logic.tscn" id="4_a537g"]
-[ext_resource type="PackedScene" uid="uid://c5djlddnvjq12" path="res://dialogue_editor/editor_nodes/map_scene_nodes/end_node.tscn" id="5_ublwh"]
-[ext_resource type="PackedScene" uid="uid://bte08x1wu5gml" path="res://dialogue_editor/editor_nodes/map_scene_nodes/exposition_node.tscn" id="6_pxrd6"]
-[ext_resource type="PackedScene" uid="uid://d4jppn0cam0f" path="res://dialogue_editor/editor_nodes/map_scene_nodes/start_node.tscn" id="7_wpofn"]
-[ext_resource type="PackedScene" uid="uid://2tssfwhvq1nn" path="res://dialogue_editor/editor_nodes/map_scene_nodes/paragraph_node.tscn" id="8_4b77u"]
+[ext_resource type="PackedScene" uid="uid://by0ufgsvgq2fn" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/hub_node.tscn" id="1_y5w2r"]
+[ext_resource type="PackedScene" uid="uid://5dy04mf1top1" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable_setter.tscn" id="2_sycgv"]
+[ext_resource type="PackedScene" uid="uid://dss7rxy8gte66" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable.tscn" id="3_js8g4"]
+[ext_resource type="PackedScene" uid="uid://dbipr7vdf8qkr" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_logic.tscn" id="4_a537g"]
+[ext_resource type="PackedScene" uid="uid://c5djlddnvjq12" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/end_node.tscn" id="5_ublwh"]
+[ext_resource type="PackedScene" uid="uid://bte08x1wu5gml" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/exposition_node.tscn" id="6_pxrd6"]
+[ext_resource type="PackedScene" uid="uid://d4jppn0cam0f" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/start_node.tscn" id="7_wpofn"]
+[ext_resource type="PackedScene" uid="uid://2tssfwhvq1nn" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/paragraph_node.tscn" id="8_4b77u"]
 
 [node name="DevEnvironment" type="Control"]
 layout_mode = 3

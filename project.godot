@@ -17,7 +17,11 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GlobalVariables="*res://dialogue_objects/variable_nodes/global_variables.tscn"
+GlobalVariables="*res://addons/dialogue_editor_plugin/dialogue_objects/variable_nodes/global_variables.tscn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_editor_plugin/plugin.cfg")
 
 [input]
 

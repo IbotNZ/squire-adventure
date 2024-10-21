@@ -1,3 +1,4 @@
+@tool
 extends Control
 
 @onready var visual_editor := $VisualEditor
@@ -5,13 +6,13 @@ extends Control
 @onready var right_click_menu := $MapSceneNodeList
 var right_click_menu_location: Vector2
 
-var paragraph_node := preload("res://dialogue_editor/editor_nodes/map_scene_nodes/paragraph_node.tscn")
-var exposition_node := preload("res://dialogue_editor/editor_nodes/map_scene_nodes/exposition_node.tscn")
-var hub_node := preload("res://dialogue_editor/editor_nodes/map_scene_nodes/hub_node.tscn")
-var start_node := preload("res://dialogue_editor/editor_nodes/map_scene_nodes/start_node.tscn")
-var end_node := preload("res://dialogue_editor/editor_nodes/map_scene_nodes/end_node.tscn")
-var bool_var_setter_node := preload("res://dialogue_editor/editor_nodes/map_scene_nodes/bool_variable_setter.tscn")
-var bool_logic_node := preload("res://dialogue_editor/editor_nodes/map_scene_nodes/bool_logic.tscn")
+var paragraph_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/paragraph_node.tscn")
+var exposition_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/exposition_node.tscn")
+var hub_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/hub_node.tscn")
+var start_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/start_node.tscn")
+var end_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/end_node.tscn")
+var bool_var_setter_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable_setter.tscn")
+var bool_logic_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_logic.tscn")
 
 var connection_list: Array[NodeConnection]
 

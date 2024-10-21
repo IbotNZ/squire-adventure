@@ -93,8 +93,12 @@ func get_connection(from_node: StringName, from_port: int, to_node: StringName, 
 func connect_editor_node(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
 	var new_connection := NodeConnection.new(from_node, from_port, to_node, to_port)
 	if not is_there_connection_conflict(new_connection):
+		for i in connection_list:
+			if i.from_node == new_connection.from_node:
+				disconnect_editor_node(i.from_node, i.from_port, i.to_node, i.to_port)
 		connection_list.append(new_connection)
 		visual_editor.connect_node(from_node, from_port, to_node, to_port)
+	
 	print(connection_list)
 
 

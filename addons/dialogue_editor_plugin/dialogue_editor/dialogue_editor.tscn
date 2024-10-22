@@ -75,4 +75,7 @@ metadata/_edit_use_anchors_ = true
 [connection signal="item_clicked" from="MapSceneNodeList" to="." method="_on_map_scene_node_list_item_clicked"]
 [connection signal="mouse_entered" from="MapSceneNodeList" to="." method="_on_map_scene_node_list_mouse_entered"]
 [connection signal="mouse_exited" from="MapSceneNodeList" to="." method="_on_map_scene_node_list_mouse_exited"]
+[connection signal="item_clicked" from="VariableNodeList" to="." method="_on_variable_node_list_item_clicked"]
+[connection signal="mouse_entered" from="VariableNodeList" to="." method="_on_variable_node_list_mouse_entered"]
+[connection signal="mouse_exited" from="VariableNodeList" to="." method="_on_variable_node_list_mouse_exited"]
 [connection signal="pressed" from="EditorSwitcher" to="." method="_on_editor_switcher_pressed"]

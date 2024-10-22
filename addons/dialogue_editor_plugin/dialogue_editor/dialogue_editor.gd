@@ -135,27 +135,52 @@ func disconnect_editor_node(from_node: StringName, from_port: int, to_node: Stri
 	visual_editor.disconnect_node(from_node, from_port, to_node, to_port)
 
 
-func _on_map_scene_node_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+func node_list_menu_clicked(index: int, mouse_button_index: int):
 	if mouse_button_index == MOUSE_BUTTON_LEFT:
 		var new_editor_node: GraphNode
-		match index:
-			0: # Paragraph
-				new_editor_node = paragraph_node.instantiate()
-			1: # Exposition
-				new_editor_node = exposition_node.instantiate()
-			2: # Hub
-				new_editor_node = hub_node.instantiate()
-			3: # Start
-				new_editor_node = start_node.instantiate()
-			4: # End
-				new_editor_node = end_node.instantiate()
-			5: # Bool Var Setter
-				new_editor_node = bool_var_setter_node.instantiate()
-			6: # Bool Logic
-				new_editor_node = bool_logic_node.instantiate()
-		visual_editor.add_child(new_editor_node)
-		new_editor_node.position_offset = right_click_menu_location
-		right_click_menu.hide()
+		if editor_mode == mode.scene_editor:
+			match index:
+				0: # Paragraph
+					new_editor_node = paragraph_node.instantiate()
+				1: # Exposition
+					new_editor_node = exposition_node.instantiate()
+				2: # Hub
+					new_editor_node = hub_node.instantiate()
+				3: # Start
+					new_editor_node = start_node.instantiate()
+				4: # End
+					new_editor_node = end_node.instantiate()
+				5: # Bool Var Setter
+					new_editor_node = bool_var_setter_node.instantiate()
+				6: # Bool Logic
+					new_editor_node = bool_logic_node.instantiate()
+			visual_editor.add_child(new_editor_node)
+			new_editor_node.position_offset = right_click_menu_location
+			right_click_menu.hide()
+		elif editor_mode == mode.variable_editor:
+			match index:
+				0: # Bool Variable
+					create_dialogue_node("bool_variable_node", variable_editor)
+			variable_right_click_menu.hide()
+
+
+func create_dialogue_node(node_type: StringName, graph_edit: GraphEdit):
+	var new_editor_node: GraphNode
+	var new_dialogue_resource: DialogueType
+	match node_type:
+		"bool_variable_node":
+			new_editor_node = bool_variable_node.instantiate()
+			new_dialogue_resource = DialogueBoolVariable.new()
+			#new_editor_node.
+	graph_edit.add_child(new_editor_node)
+	new_editor_node.position_offset = right_click_menu_location
+	print(new_dialogue_resource)
+	GlobalVariables.stored_variables.append(new_dialogue_resource)
+	print(GlobalVariables.stored_variables)
+
+
+func _on_map_scene_node_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+	node_list_menu_clicked(index, mouse_button_index)
 
 
 func _on_visual_editor_delete_nodes_request(nodes: Array[StringName]) -> void:
@@ -179,4 +204,17 @@ func _on_map_scene_node_list_mouse_entered() -> void:
 
 
 func _on_map_scene_node_list_mouse_exited() -> void:
+	is_mouse_on_map_scene_menu = false
+
+
+func _on_variable_node_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+	print("Test")
+	node_list_menu_clicked(index, mouse_button_index)
+
+
+func _on_variable_node_list_mouse_entered() -> void:
+	is_mouse_on_map_scene_menu = true
+
+
+func _on_variable_node_list_mouse_exited() -> void:
 	is_mouse_on_map_scene_menu = false

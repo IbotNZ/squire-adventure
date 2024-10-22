@@ -1,5 +1,6 @@
+@tool
 extends DialogueType
 class_name DialogueBoolVariable
 
-var variable_name: String
-var variable_value: bool = false
+@export var variable_name: String
+@export var variable_value: bool = false

@@ -102,7 +102,18 @@ func delete_selected_nodes(nodes: Array[StringName]):
 			for connection in connection_list:
 				if connection.from_node == i.name or connection.to_node == i.name:
 					connection_list.erase(connection)
+			if i is BoolVariableNode:
+				i.node_resource.queue_free()
 			i.queue_free()
+
+
+func delete_selected_variables(nodes: Array[StringName]):
+	for i in variable_editor.get_children():
+		if nodes.has(i.name):
+			if i is BoolVariableNode:
+				i.queue_free()
+				global_variables.stored_variables.erase(i.node_resource)
+				update_global_variables()
 
 
 func is_there_connection_conflict(a: NodeConnection):
@@ -128,6 +139,7 @@ func connect_editor_node(from_node: StringName, from_port: int, to_node: StringN
 			if i.from_node == new_connection.from_node:
 				disconnect_editor_node(i.from_node, i.from_port, i.to_node, i.to_port)
 		connection_list.append(new_connection)
+		
 		visual_editor.connect_node(from_node, from_port, to_node, to_port)
 	
 	#print(connection_list)
@@ -169,19 +181,35 @@ func node_list_menu_clicked(index: int, mouse_button_index: int):
 
 
 func create_dialogue_node(node_type: StringName, graph_edit: GraphEdit):
-	var new_editor_node: GraphNode
+	var new_editor_node: VisualEditorNode
 	var new_dialogue_resource: DialogueType
+	
 	match node_type:
 		"bool_variable_node":
 			new_editor_node = bool_variable_node.instantiate()
 			new_dialogue_resource = DialogueBoolVariable.new()
+			new_editor_node.node_resource = new_dialogue_resource
+	
 	graph_edit.add_child(new_editor_node)
+	new_editor_node.node_edited.connect(_on_editor_node_changed)
+	
 	if editor_mode == mode.scene_editor:
 		new_editor_node.position_offset = right_click_menu_location
 	elif editor_mode == mode.variable_editor:
 		new_editor_node.position_offset = right_click_variable_menu_location
+	
 	global_variables.stored_variables.append(new_dialogue_resource)
+	update_global_variables()
+
+
+func update_global_variables():
 	ResourceSaver.save(global_variables, "res://addons/dialogue_editor_plugin/dialogue_objects/variable_nodes/global_variable.tres")
+
+
+func _on_editor_node_changed(edited_node: VisualEditorNode, edited_resource: DialogueType):
+	print("Test")
+	if edited_resource is DialogueBoolVariable:
+		update_global_variables()
 
 
 func _on_map_scene_node_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
@@ -223,3 +251,12 @@ func _on_variable_node_list_mouse_entered() -> void:
 
 func _on_variable_node_list_mouse_exited() -> void:
 	is_mouse_on_map_scene_menu = false
+
+
+func _on_variable_editor_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
+	#connect_editor_node(from_node, from_port, to_node, to_port)
+	pass
+
+
+func _on_variable_editor_delete_nodes_request(nodes: Array[StringName]) -> void:
+	delete_selected_variables(nodes)

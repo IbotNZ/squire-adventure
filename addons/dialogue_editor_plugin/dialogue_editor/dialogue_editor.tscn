@@ -70,6 +70,8 @@ focus_mode = 0
 text = "Edit Variables"
 metadata/_edit_use_anchors_ = true
 
+[connection signal="connection_request" from="VariableEditor" to="." method="_on_variable_editor_connection_request"]
+[connection signal="delete_nodes_request" from="VariableEditor" to="." method="_on_variable_editor_delete_nodes_request"]
 [connection signal="connection_request" from="VisualEditor" to="." method="_on_visual_editor_connection_request"]
 [connection signal="delete_nodes_request" from="VisualEditor" to="." method="_on_visual_editor_delete_nodes_request"]
 [connection signal="item_clicked" from="MapSceneNodeList" to="." method="_on_map_scene_node_list_item_clicked"]

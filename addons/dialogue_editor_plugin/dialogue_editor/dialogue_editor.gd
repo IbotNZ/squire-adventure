@@ -3,11 +3,14 @@ extends Control
 
 var editor_plugin: EditorPlugin
 
+var global_variables: GlobalVariable = preload("res://addons/dialogue_editor_plugin/dialogue_objects/variable_nodes/global_variable.tres")
+
 @onready var visual_editor := $VisualEditor
 @onready var variable_editor := $VariableEditor
 @onready var right_click_menu := $MapSceneNodeList
 @onready var variable_right_click_menu := $VariableNodeList
 var right_click_menu_location: Vector2
+var right_click_variable_menu_location: Vector2
 
 var paragraph_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/paragraph_node.tscn")
 var exposition_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/exposition_node.tscn")
@@ -62,10 +65,10 @@ func _input(event: InputEvent) -> void:
 
 func sync_variable_editor():
 	var new_node: GraphNode
-	for i in GlobalVariables.stored_variables:
+	for i in global_variables.stored_variables:
 		if i is DialogueBoolVariable:
 			new_node = bool_variable_node.instantiate()
-	variable_editor.add_child(new_node)
+			variable_editor.add_child(new_node)
 
 
 func change_editor_mode(selected_mode: mode):
@@ -82,6 +85,7 @@ func change_editor_mode(selected_mode: mode):
 
 func show_right_click_menu(location: Vector2):
 	right_click_menu_location = (location + visual_editor.scroll_offset) / visual_editor.zoom
+	right_click_variable_menu_location = (location + variable_editor.scroll_offset) / variable_editor.zoom
 	if editor_mode == mode.scene_editor:
 		right_click_menu.position = location
 		right_click_menu.deselect_all()
@@ -126,7 +130,7 @@ func connect_editor_node(from_node: StringName, from_port: int, to_node: StringN
 		connection_list.append(new_connection)
 		visual_editor.connect_node(from_node, from_port, to_node, to_port)
 	
-	print(connection_list)
+	#print(connection_list)
 
 
 func disconnect_editor_node(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
@@ -171,12 +175,13 @@ func create_dialogue_node(node_type: StringName, graph_edit: GraphEdit):
 		"bool_variable_node":
 			new_editor_node = bool_variable_node.instantiate()
 			new_dialogue_resource = DialogueBoolVariable.new()
-			#new_editor_node.
 	graph_edit.add_child(new_editor_node)
-	new_editor_node.position_offset = right_click_menu_location
-	print(new_dialogue_resource)
-	GlobalVariables.stored_variables.append(new_dialogue_resource)
-	print(GlobalVariables.stored_variables)
+	if editor_mode == mode.scene_editor:
+		new_editor_node.position_offset = right_click_menu_location
+	elif editor_mode == mode.variable_editor:
+		new_editor_node.position_offset = right_click_variable_menu_location
+	global_variables.stored_variables.append(new_dialogue_resource)
+	ResourceSaver.save(global_variables, "res://addons/dialogue_editor_plugin/dialogue_objects/variable_nodes/global_variable.tres")
 
 
 func _on_map_scene_node_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:

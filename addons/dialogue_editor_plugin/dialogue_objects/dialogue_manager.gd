@@ -1,3 +1,4 @@
+@tool
 extends Node
 class_name DialogueManager
 
@@ -7,7 +8,7 @@ const global_variables_location := "res://addons/dialogue_editor_plugin/dialogue
 var save_game_location: String
 var global_variables := preload(global_variables_location)
 
-var dialogue_list: Array[DialogueType]
+@export var dialogue_list: Array[DialogueType]
 var current_node: DialogueType
 # For exposition node
 var most_recent_hub: DialogueHub

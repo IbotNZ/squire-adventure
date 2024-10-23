@@ -1,8 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7gup7pp3508i"]
+[gd_scene load_steps=7 format=3 uid="uid://c7gup7pp3508i"]
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_manager.gd" id="1_dcr00"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_type.gd" id="2_oc38g"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/map_scene_nodes/text/dialogue_exposition.gd" id="3_eif0v"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/map_scene_nodes/logic/dialogue_bool_logic.gd" id="4_qp62w"]
+
+[sub_resource type="Resource" id="Resource_tsfe3"]
+script = ExtResource("3_eif0v")
+graph_position = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_u8bdl"]
+script = ExtResource("4_qp62w")
+graph_position = Vector2(0, 0)
 
 [node name="DialogueManagerTest" type="Node3D"]
 
 [node name="DialogueManager" type="Node" parent="."]
 script = ExtResource("1_dcr00")
+dialogue_list = Array[ExtResource("2_oc38g")]([SubResource("Resource_tsfe3"), SubResource("Resource_u8bdl")])

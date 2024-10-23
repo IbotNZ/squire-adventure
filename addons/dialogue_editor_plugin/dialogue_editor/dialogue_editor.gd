@@ -1,5 +1,6 @@
 @tool
 extends Control
+class_name DialogueEditor
 
 var editor_plugin: EditorPlugin
 
@@ -56,10 +57,10 @@ func _input(event: InputEvent) -> void:
 	#if editor_plugin.get_editor_interface().get_editor_main_screen().name == "Dialogue Editor":
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
 		show_right_click_menu(get_local_mouse_position())
-	elif event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_map_scene_menu == false:
+	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_map_scene_menu == false:
 		right_click_menu.hide()
 		variable_right_click_menu.hide()
-	elif event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
 		var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
 		if connection.size() > 0:
 			disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
@@ -73,6 +74,9 @@ func clean_up():
 	visual_editor = new_editor
 	add_child(new_editor)
 	move_child(new_editor, 1)
+	
+	# Create the nodes to represent what's in
+	# sync_visual_editor(new_dialogue_manager)
 
 
 func sync_visual_editor(dialogue_manager: DialogueManager):
@@ -93,8 +97,9 @@ func sync_visual_editor(dialogue_manager: DialogueManager):
 		elif i is DialogueBoolSetter:
 			new_editor_node = bool_var_setter_node.instantiate()
 		new_editor_node.node_resource = i
+		visual_editor.add_child(new_editor_node)
 		
-		# Sync editor nodes
+		# Sync editor node connections
 
 
 func sync_variable_editor():
@@ -170,7 +175,7 @@ func connect_editor_node(from_node: StringName, from_port: int, to_node: StringN
 	var new_connection := NodeConnection.new(from_node, from_port, to_node, to_port)
 	if not is_there_connection_conflict(new_connection):
 		for i in connection_list:
-			if i.from_node == new_connection.from_node:
+			if i.from_node == new_connection.from_node and i.from_port == new_connection.from_port:
 				disconnect_editor_node(i.from_node, i.from_port, i.to_node, i.to_port)
 		connection_list.append(new_connection)
 		

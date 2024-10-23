@@ -12,29 +12,63 @@ var current_node: DialogueType
 # For exposition node
 var most_recent_hub: DialogueHub
 
-enum state {dialogue, logic}
+enum state {dialogue, logic, hub}
 var game_state: int
 
 func _input(event: InputEvent) -> void:
 	if game_state == state.dialogue:
 		if event.is_action_pressed("ui_accept"):
 			# Run next node
-			pass
+			run_node(current_node.next_node)
 
 func run_node(new_node: DialogueType):
 	current_node = new_node
 	if current_node is DialogueNode:
-		pass
+		run_paragraph()
 	elif current_node is DialogueExposition:
-		pass
+		run_exposition()
 	elif current_node is DialogueHub:
-		pass
+		run_hub()
 	elif current_node is DialogueStart:
-		pass
+		run_start()
 	elif current_node is DialogueEnd:
-		pass
+		run_end()
 	elif current_node is DialogueBoolSetter:
-		pass
+		run_bool_setter()
 	elif current_node is DialogueBoolLogic:
-		pass
-	
+		run_bool_logic()
+
+func run_paragraph():
+	print("Paragraph")
+	game_state = state.dialogue
+
+
+func run_exposition():
+	print("Exposition")
+	game_state = state.dialogue
+
+
+func run_start():
+	print("Start")
+	run_node(current_node.next_node)
+
+
+func run_end():
+	print("End")
+
+
+func run_bool_setter():
+	print("Bool Setter")
+	game_state = state.logic
+	run_node(current_node.next_node)
+
+
+func run_bool_logic():
+	print("Bool Logic")
+	game_state = state.logic
+	run_node(current_node.next_node)
+
+
+func run_hub():
+	print("Hub")
+	game_state = state.hub

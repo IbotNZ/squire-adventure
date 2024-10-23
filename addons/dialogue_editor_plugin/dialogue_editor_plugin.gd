@@ -21,13 +21,14 @@ func is_dialogue_manager(node_reference: Node):
 
 
 func _on_scene_changed(scene_root: Node):
-	var new_dialogue_manager: DialogueManager
 	main_panel_instance.clean_up()
-	#await Engine.get_main_loop().process_frame
-	for i in scene_root.get_children():
-		if i is DialogueManager:
-			new_dialogue_manager = i
-			main_panel_instance.sync_visual_editor(new_dialogue_manager)
+	if scene_root != null:
+		var new_dialogue_manager: DialogueManager
+		#await Engine.get_main_loop().process_frame
+		for i in scene_root.get_children():
+			if i is DialogueManager:
+				new_dialogue_manager = i
+				main_panel_instance.sync_visual_editor(new_dialogue_manager)
 	#await Engine.get_main_loop().process_frame
 	# If needing to hide editor on scenes with no manager check for any manager and hide editor if false
 	#if scene_root:

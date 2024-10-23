@@ -33,6 +33,7 @@ var editor_mode: int = mode.scene_editor
 @onready var editor_switcher := $EditorSwitcher
 
 var is_mouse_on_map_scene_menu: bool
+var is_mouse_on_editor: bool
 
 class NodeConnection:
 	var from_node: StringName
@@ -53,17 +54,26 @@ func _ready() -> void:
 	sync_variable_editor()
 
 
+func _on_mouse_entered():
+	is_mouse_on_editor = true
+
+
+func _on_mouse_exited():
+	is_mouse_on_editor = false
+
+
 func _input(event: InputEvent) -> void:
-	#if editor_plugin.get_editor_interface().get_editor_main_screen().name == "Dialogue Editor":
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-		show_right_click_menu(get_local_mouse_position())
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_map_scene_menu == false:
-		right_click_menu.hide()
-		variable_right_click_menu.hide()
-	if event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
-		var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
-		if connection.size() > 0:
-			disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
+	if is_mouse_on_editor:
+		#if editor_plugin.get_editor_interface().get_editor_main_screen().name == "Dialogue Editor":
+		if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
+			show_right_click_menu(get_local_mouse_position())
+		if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_map_scene_menu == false:
+			right_click_menu.hide()
+			variable_right_click_menu.hide()
+		if event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
+			var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
+			if connection.size() > 0:
+				disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
 
 
 func clean_up():
@@ -71,6 +81,8 @@ func clean_up():
 	visual_editor.queue_free()
 	new_editor.connection_request.connect(_on_visual_editor_connection_request)
 	new_editor.delete_nodes_request.connect(_on_visual_editor_delete_nodes_request)
+	new_editor.mouse_entered.connect(_on_mouse_entered)
+	new_editor.mouse_exited.connect(_on_mouse_exited)
 	visual_editor = new_editor
 	add_child(new_editor)
 	move_child(new_editor, 1)
@@ -97,6 +109,7 @@ func sync_visual_editor(dialogue_manager: DialogueManager):
 		elif i is DialogueBoolSetter:
 			new_editor_node = bool_var_setter_node.instantiate()
 		new_editor_node.node_resource = i
+		new_editor_node.position_offset = i.graph_position
 		visual_editor.add_child(new_editor_node)
 		
 		# Sync editor node connections
@@ -196,21 +209,21 @@ func node_list_menu_clicked(index: int, mouse_button_index: int):
 		if editor_mode == mode.scene_editor:
 			match index:
 				0: # Paragraph
-					new_editor_node = paragraph_node.instantiate()
+					create_dialogue_node("paragraph_node", visual_editor)
 				1: # Exposition
-					new_editor_node = exposition_node.instantiate()
+					create_dialogue_node("exposition_node", visual_editor)
 				2: # Hub
-					new_editor_node = hub_node.instantiate()
+					create_dialogue_node("hub_node", visual_editor)
 				3: # Start
-					new_editor_node = start_node.instantiate()
+					create_dialogue_node("start_node", visual_editor)
 				4: # End
-					new_editor_node = end_node.instantiate()
+					create_dialogue_node("end_node", visual_editor)
 				5: # Bool Var Setter
-					new_editor_node = bool_var_setter_node.instantiate()
+					create_dialogue_node("bool_var_setter_node", visual_editor)
 				6: # Bool Logic
-					new_editor_node = bool_logic_node.instantiate()
-			visual_editor.add_child(new_editor_node)
-			new_editor_node.position_offset = right_click_menu_location
+					create_dialogue_node("bool_logic_node", visual_editor)
+			#visual_editor.add_child(new_editor_node)
+			#new_editor_node.position_offset = right_click_menu_location
 			right_click_menu.hide()
 		elif editor_mode == mode.variable_editor:
 			match index:
@@ -228,17 +241,46 @@ func create_dialogue_node(node_type: StringName, graph_edit: GraphEdit):
 			new_editor_node = bool_variable_node.instantiate()
 			new_dialogue_resource = DialogueBoolVariable.new()
 			new_editor_node.node_resource = new_dialogue_resource
+		"bool_logic_node":
+			new_editor_node = bool_logic_node.instantiate()
+			new_dialogue_resource = DialogueBoolLogic.new()
+			new_editor_node.node_resource = new_dialogue_resource
+		"bool_var_setter_node":
+			new_editor_node = bool_logic_node.instantiate()
+			new_dialogue_resource = DialogueBoolSetter.new()
+			new_editor_node.node_resource = new_dialogue_resource
+		"start_node":
+			new_editor_node = start_node.instantiate()
+			new_dialogue_resource = DialogueStart.new()
+			new_editor_node.node_resource = new_dialogue_resource
+		"end_node":
+			new_editor_node = end_node.instantiate()
+			new_dialogue_resource = DialogueEnd.new()
+			new_editor_node.node_resource = new_dialogue_resource
+		"paragraph_node":
+			new_editor_node = paragraph_node.instantiate()
+			new_dialogue_resource = DialogueNode.new()
+			new_editor_node.node_resource = new_dialogue_resource
+		"exposition_node":
+			new_editor_node = exposition_node.instantiate()
+			new_dialogue_resource = DialogueExposition.new()
+			new_editor_node.node_resource = new_dialogue_resource
+		"hub_node":
+			new_editor_node = hub_node.instantiate()
+			new_dialogue_resource = DialogueHub.new()
+			new_editor_node.node_resource = new_dialogue_resource
+		
 	
 	graph_edit.add_child(new_editor_node)
-	new_editor_node.node_edited.connect(_on_editor_node_changed)
+	#new_editor_node.node_edited.connect(_on_editor_node_changed)
 	
 	if editor_mode == mode.scene_editor:
 		new_editor_node.position_offset = right_click_menu_location
 	elif editor_mode == mode.variable_editor:
 		new_editor_node.position_offset = right_click_variable_menu_location
-	
-	global_variables.stored_variables.append(new_dialogue_resource)
-	update_global_variables()
+		new_editor_node.node_edited.connect(_on_editor_node_changed)
+		global_variables.stored_variables.append(new_dialogue_resource)
+		update_global_variables()
 
 
 func update_global_variables():

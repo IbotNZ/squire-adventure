@@ -1,3 +1,4 @@
+@tool
 extends VisualEditorNode
 class_name HubNode
 
@@ -5,7 +6,12 @@ class_name HubNode
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	dragged.connect(_on_dragged)
+
+
+func _on_dragged(from: Vector2, to: Vector2):
+	node_resource.graph_position = to
+	node_edited.emit(self, node_resource)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dbipr7vdf8qkr"]
+[gd_scene load_steps=2 format=3 uid="uid://dbipr7vdf8qkr"]
+
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/scripts/bool_logic.gd" id="1_wdry5"]
 
 [node name="BoolLogic" type="GraphNode"]
 offset_right = 234.0
@@ -22,6 +24,7 @@ slot/1/right_type = 0
 slot/1/right_color = Color(0.827451, 0, 0, 1)
 slot/1/right_icon = null
 slot/1/draw_stylebox = true
+script = ExtResource("1_wdry5")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://2tssfwhvq1nn"]
+[gd_scene load_steps=2 format=3 uid="uid://2tssfwhvq1nn"]
+
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/scripts/paragraph_node.gd" id="1_ox04l"]
 
 [node name="ParagraphNode" type="GraphNode"]
 offset_right = 200.0
@@ -13,7 +15,10 @@ slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
+script = ExtResource("1_ox04l")
 
 [node name="ParagraphText" type="TextEdit" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+
+[connection signal="text_changed" from="ParagraphText" to="." method="_on_paragraph_text_text_changed"]

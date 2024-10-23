@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://by0ufgsvgq2fn"]
+[gd_scene load_steps=2 format=3 uid="uid://by0ufgsvgq2fn"]
+
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/scripts/hub_node.gd" id="1_twfdc"]
 
 [node name="HubNode" type="GraphNode"]
 offset_right = 200.0
@@ -40,6 +42,7 @@ slot/3/right_type = 0
 slot/3/right_color = Color(1, 1, 1, 1)
 slot/3/right_icon = null
 slot/3/draw_stylebox = true
+script = ExtResource("1_twfdc")
 
 [node name="SlotHolder" type="Control" parent="."]
 layout_mode = 2

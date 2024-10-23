@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dss7rxy8gte66"]
 
-[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable.gd" id="1_430qi"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/scripts/bool_variable.gd" id="1_430qi"]
 
 [node name="BoolVariable" type="GraphNode"]
 offset_right = 200.0

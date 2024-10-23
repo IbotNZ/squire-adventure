@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://d4jppn0cam0f"]
+[gd_scene load_steps=2 format=3 uid="uid://d4jppn0cam0f"]
+
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/scripts/start_node.gd" id="1_6iqse"]
 
 [node name="StartNode" type="GraphNode"]
 offset_right = 200.0
@@ -13,6 +15,7 @@ slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
+script = ExtResource("1_6iqse")
 
 [node name="DialogueContainerSetter" type="Button" parent="."]
 layout_mode = 2

@@ -1,15 +1,8 @@
-[gd_resource type="Resource" script_class="GlobalVariable" load_steps=5 format=3 uid="uid://2vb2ec2e8wt3"]
+[gd_resource type="Resource" script_class="GlobalVariable" load_steps=3 format=3 uid="uid://2vb2ec2e8wt3"]
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/variable_nodes/global_variable.gd" id="1_2o0q1"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_type.gd" id="2_ygabo"]
-[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/map_scene_nodes/logic/dialogue_bool_variable.gd" id="3_xd6o5"]
-
-[sub_resource type="Resource" id="Resource_8jgrc"]
-script = ExtResource("3_xd6o5")
-variable_name = "Test"
-variable_value = false
-graph_position = Vector2(0, 0)
 
 [resource]
 script = ExtResource("1_2o0q1")
-stored_variables = Array[ExtResource("2_ygabo")]([SubResource("Resource_8jgrc")])
+stored_variables = Array[ExtResource("2_ygabo")]([])

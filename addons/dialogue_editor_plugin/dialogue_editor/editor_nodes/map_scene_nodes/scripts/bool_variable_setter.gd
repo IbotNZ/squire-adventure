@@ -35,3 +35,8 @@ func _on_variable_setter_pressed() -> void:
 			variable_list.add_item(i.variable_name)
 			selectable_variable_list.append(i)
 	variable_select_dialog.popup()
+
+
+func _on_variable_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+	if mouse_button_index == MOUSE_BUTTON_LEFT:
+		node_resource.linked_variable = selectable_variable_list[index]

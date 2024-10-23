@@ -58,3 +58,4 @@ offset_bottom = 151.0
 
 [connection signal="pressed" from="VariableSetter" to="." method="_on_variable_setter_pressed"]
 [connection signal="item_selected" from="HBoxContainer2/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_clicked" from="VariableSelectDialog/VariableList" to="." method="_on_variable_list_item_clicked"]

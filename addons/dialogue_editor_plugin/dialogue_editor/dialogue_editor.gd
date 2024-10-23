@@ -4,6 +4,8 @@ extends Control
 var editor_plugin: EditorPlugin
 
 var global_variables: GlobalVariable = preload("res://addons/dialogue_editor_plugin/dialogue_objects/variable_nodes/global_variable.tres")
+var visual_editor_scene := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/visual_editor.tscn")
+var variable_editor_scene := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/variable_editor.tscn")
 
 @onready var visual_editor := $VisualEditor
 @onready var variable_editor := $VariableEditor
@@ -61,6 +63,38 @@ func _input(event: InputEvent) -> void:
 		var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
 		if connection.size() > 0:
 			disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
+
+
+func clean_up():
+	var new_editor := visual_editor_scene.instantiate()
+	visual_editor.queue_free()
+	new_editor.connection_request.connect(_on_visual_editor_connection_request)
+	new_editor.delete_nodes_request.connect(_on_visual_editor_delete_nodes_request)
+	visual_editor = new_editor
+	add_child(new_editor)
+	move_child(new_editor, 1)
+
+
+func sync_visual_editor(dialogue_manager: DialogueManager):
+	var new_editor_node: VisualEditorNode
+	for i in dialogue_manager.dialogue_list:
+		if i is DialogueStart:
+			new_editor_node = start_node.instantiate()
+		elif i is DialogueEnd:
+			new_editor_node = end_node.instantiate()
+		elif i is DialogueNode:
+			new_editor_node = paragraph_node.instantiate()
+		elif i is DialogueExposition:
+			new_editor_node = exposition_node.instantiate()
+		elif i is DialogueHub:
+			new_editor_node = hub_node.instantiate()
+		elif i is DialogueBoolLogic:
+			new_editor_node = bool_logic_node.instantiate()
+		elif i is DialogueBoolSetter:
+			new_editor_node = bool_var_setter_node.instantiate()
+		new_editor_node.node_resource = i
+		
+		# Sync editor nodes
 
 
 func sync_variable_editor():

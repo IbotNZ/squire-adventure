@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://pg1s7eyi52oo"]
+[gd_scene load_steps=4 format=3 uid="uid://pg1s7eyi52oo"]
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/dialogue_editor.gd" id="1_iohr0"]
+[ext_resource type="PackedScene" uid="uid://cbv0eij2go5j6" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/variable_editor.tscn" id="2_lrfh6"]
+[ext_resource type="PackedScene" uid="uid://dvnoees4qokg" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/visual_editor.tscn" id="3_2p7xu"]
 
 [node name="DialogueEditor" type="Control"]
 layout_mode = 3
@@ -13,22 +15,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_iohr0")
 
-[node name="VariableEditor" type="GraphEdit" parent="."]
-visible = false
+[node name="VariableEditor" parent="." instance=ExtResource("2_lrfh6")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
-[node name="VisualEditor" type="GraphEdit" parent="."]
+[node name="VisualEditor" parent="." instance=ExtResource("3_2p7xu")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MapSceneNodeList" type="ItemList" parent="."]
 visible = false
@@ -70,10 +61,6 @@ focus_mode = 0
 text = "Edit Variables"
 metadata/_edit_use_anchors_ = true
 
-[connection signal="connection_request" from="VariableEditor" to="." method="_on_variable_editor_connection_request"]
-[connection signal="delete_nodes_request" from="VariableEditor" to="." method="_on_variable_editor_delete_nodes_request"]
-[connection signal="connection_request" from="VisualEditor" to="." method="_on_visual_editor_connection_request"]
-[connection signal="delete_nodes_request" from="VisualEditor" to="." method="_on_visual_editor_delete_nodes_request"]
 [connection signal="item_clicked" from="MapSceneNodeList" to="." method="_on_map_scene_node_list_item_clicked"]
 [connection signal="mouse_entered" from="MapSceneNodeList" to="." method="_on_map_scene_node_list_mouse_entered"]
 [connection signal="mouse_exited" from="MapSceneNodeList" to="." method="_on_map_scene_node_list_mouse_exited"]

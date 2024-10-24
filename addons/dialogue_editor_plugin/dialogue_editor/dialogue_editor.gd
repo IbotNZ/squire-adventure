@@ -8,7 +8,7 @@ var global_variables: GlobalVariable = preload("res://addons/dialogue_editor_plu
 var visual_editor_scene := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/visual_editor.tscn")
 var variable_editor_scene := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/variable_editor.tscn")
 
-@onready var visual_editor := $VisualEditor
+@onready var visual_editor: GraphEdit = $VisualEditor
 @onready var variable_editor := $VariableEditor
 @onready var right_click_menu := $MapSceneNodeList
 @onready var variable_right_click_menu := $VariableNodeList
@@ -34,6 +34,8 @@ var editor_mode: int = mode.scene_editor
 
 var is_mouse_on_map_scene_menu: bool
 var is_mouse_on_editor: bool
+
+var current_dialogue_manager: DialogueManager
 
 class NodeConnection:
 	var from_node: StringName
@@ -78,6 +80,7 @@ func _input(event: InputEvent) -> void:
 
 func clean_up():
 	var new_editor := visual_editor_scene.instantiate()
+	current_dialogue_manager = null
 	visual_editor.queue_free()
 	new_editor.connection_request.connect(_on_visual_editor_connection_request)
 	new_editor.delete_nodes_request.connect(_on_visual_editor_delete_nodes_request)
@@ -92,6 +95,7 @@ func clean_up():
 
 
 func sync_visual_editor(dialogue_manager: DialogueManager):
+	current_dialogue_manager = dialogue_manager
 	var new_editor_node: VisualEditorNode
 	for i in dialogue_manager.dialogue_list:
 		if i is DialogueStart:
@@ -111,8 +115,31 @@ func sync_visual_editor(dialogue_manager: DialogueManager):
 		new_editor_node.node_resource = i
 		new_editor_node.position_offset = i.graph_position
 		visual_editor.add_child(new_editor_node)
-		
-		# Sync editor node connections
+	
+	await Engine.get_main_loop().process_frame
+	# Sync editor node connections
+	for i in visual_editor.get_children():
+		if i is VisualEditorNode:
+			if i.node_resource.next_node != null:
+				var target = get_visual_editor_resource_connection(i.node_resource.next_node)
+				# Some nodes need custom logic
+				if i is BoolLogicNode:
+					pass
+				elif i is HubNode:
+					pass
+				else:
+					#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
+					#visual_editor.connect_node(i.name, 0, target.name, 0)
+					connect_editor_node(i.name, 0, target.name, 0)
+
+
+func get_visual_editor_resource_connection(searching_resource: DialogueType):
+	var target
+	for i in visual_editor.get_children():
+		if i is VisualEditorNode:
+			if i.node_resource == searching_resource:
+				target = i
+	return target
 
 
 func sync_variable_editor():
@@ -184,13 +211,46 @@ func get_connection(from_node: StringName, from_port: int, to_node: StringName, 
 	return target_connection
 
 
+func get_visual_editor_node(node_name: StringName):
+	var node_reference
+	for i in visual_editor.get_children():
+		if i.name == node_name:
+			node_reference = i
+	return node_reference
+
+
+func get_visual_editor_node_resource(node_name: StringName):
+	var node_reference = get_visual_editor_node(node_name)
+	return node_reference.node_resource
+
+
 func connect_editor_node(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
 	var new_connection := NodeConnection.new(from_node, from_port, to_node, to_port)
 	if not is_there_connection_conflict(new_connection):
 		for i in connection_list:
 			if i.from_node == new_connection.from_node and i.from_port == new_connection.from_port:
 				disconnect_editor_node(i.from_node, i.from_port, i.to_node, i.to_port)
+				connection_list.erase(i)
+		
+		for i in visual_editor.get_children():
+			if i.name == from_node:
+				if i is BoolLogicNode:
+					pass
+				if i is BoolVarSetterNode:
+					i.node_resource.next_node = get_visual_editor_node_resource(to_node)
+				if i is ParagraphNode:
+					i.node_resource.next_node = get_visual_editor_node_resource(to_node)
+				if i is ExpositionNode:
+					pass
+				if i is StartNode:
+					i.node_resource.next_node = get_visual_editor_node_resource(to_node)
+				if i is EndNode:
+					pass
+				if i is HubNode:
+					pass
+		
 		connection_list.append(new_connection)
+		
 		
 		visual_editor.connect_node(from_node, from_port, to_node, to_port)
 	
@@ -276,6 +336,8 @@ func create_dialogue_node(node_type: StringName, graph_edit: GraphEdit):
 	
 	if editor_mode == mode.scene_editor:
 		new_editor_node.position_offset = right_click_menu_location
+		if current_dialogue_manager != null:
+			current_dialogue_manager.dialogue_list.append(new_dialogue_resource)
 	elif editor_mode == mode.variable_editor:
 		new_editor_node.position_offset = right_click_variable_menu_location
 		new_editor_node.node_edited.connect(_on_editor_node_changed)

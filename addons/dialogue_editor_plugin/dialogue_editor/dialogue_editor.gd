@@ -2,6 +2,8 @@
 extends Control
 class_name DialogueEditor
 
+@export var state_machine: Node
+
 var editor_plugin: EditorPlugin
 
 var global_variables: GlobalVariable = preload("res://addons/dialogue_editor_plugin/dialogue_objects/variable_nodes/global_variable.tres")
@@ -56,26 +58,17 @@ func _ready() -> void:
 	sync_variable_editor()
 
 
+func _input(event: InputEvent) -> void:
+	if current_dialogue_manager != null:
+		state_machine.on_input(event)
+
+
 func _on_mouse_entered():
 	is_mouse_on_editor = true
 
 
 func _on_mouse_exited():
 	is_mouse_on_editor = false
-
-
-func _input(event: InputEvent) -> void:
-	if is_mouse_on_editor:
-		#if editor_plugin.get_editor_interface().get_editor_main_screen().name == "Dialogue Editor":
-		if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-			show_right_click_menu(get_local_mouse_position())
-		if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_map_scene_menu == false:
-			right_click_menu.hide()
-			variable_right_click_menu.hide()
-		if event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
-			var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
-			if connection.size() > 0:
-				disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
 
 
 func clean_up():
@@ -89,48 +82,10 @@ func clean_up():
 	visual_editor = new_editor
 	add_child(new_editor)
 	move_child(new_editor, 1)
-	
-	# Create the nodes to represent what's in
-	# sync_visual_editor(new_dialogue_manager)
 
 
 func sync_visual_editor(dialogue_manager: DialogueManager):
-	current_dialogue_manager = dialogue_manager
-	var new_editor_node: VisualEditorNode
-	for i in dialogue_manager.dialogue_list:
-		if i is DialogueStart:
-			new_editor_node = start_node.instantiate()
-		elif i is DialogueEnd:
-			new_editor_node = end_node.instantiate()
-		elif i is DialogueNode:
-			new_editor_node = paragraph_node.instantiate()
-		elif i is DialogueExposition:
-			new_editor_node = exposition_node.instantiate()
-		elif i is DialogueHub:
-			new_editor_node = hub_node.instantiate()
-		elif i is DialogueBoolLogic:
-			new_editor_node = bool_logic_node.instantiate()
-		elif i is DialogueBoolSetter:
-			new_editor_node = bool_var_setter_node.instantiate()
-		new_editor_node.node_resource = i
-		new_editor_node.position_offset = i.graph_position
-		visual_editor.add_child(new_editor_node)
-	
-	await Engine.get_main_loop().process_frame
-	# Sync editor node connections
-	for i in visual_editor.get_children():
-		if i is VisualEditorNode:
-			if i.node_resource.next_node != null:
-				var target = get_visual_editor_resource_connection(i.node_resource.next_node)
-				# Some nodes need custom logic
-				if i is BoolLogicNode:
-					pass
-				elif i is HubNode:
-					pass
-				else:
-					#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
-					#visual_editor.connect_node(i.name, 0, target.name, 0)
-					connect_editor_node(i.name, 0, target.name, 0)
+	state_machine.sync_visual_editor(dialogue_manager)
 
 
 func get_visual_editor_resource_connection(searching_resource: DialogueType):
@@ -162,17 +117,17 @@ func change_editor_mode(selected_mode: mode):
 		visual_editor.hide()
 
 
-func show_right_click_menu(location: Vector2):
-	right_click_menu_location = (location + visual_editor.scroll_offset) / visual_editor.zoom
-	right_click_variable_menu_location = (location + variable_editor.scroll_offset) / variable_editor.zoom
-	if editor_mode == mode.scene_editor:
-		right_click_menu.position = location
-		right_click_menu.deselect_all()
-		right_click_menu.show()
-	elif editor_mode == mode.variable_editor:
-		variable_right_click_menu.position = location
-		variable_right_click_menu.deselect_all()
-		variable_right_click_menu.show()
+#func show_right_click_menu(location: Vector2):
+#	right_click_menu_location = (location + visual_editor.scroll_offset) / visual_editor.zoom
+#	right_click_variable_menu_location = (location + variable_editor.scroll_offset) / variable_editor.zoom
+#	if editor_mode == mode.scene_editor:
+#		right_click_menu.position = location
+#		right_click_menu.deselect_all()
+#		right_click_menu.show()
+#	elif editor_mode == mode.variable_editor:
+#		variable_right_click_menu.position = location
+#		variable_right_click_menu.deselect_all()
+#		variable_right_click_menu.show()
 
 
 func delete_selected_nodes(nodes: Array[StringName]):

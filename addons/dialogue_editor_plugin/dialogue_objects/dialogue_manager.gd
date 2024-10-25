@@ -4,8 +4,6 @@ class_name DialogueManager
 
 # The manager for processing dialogue node functions
 
-@export_enum("Linear Scene", "Intro Scene") var dialogue_scene_type: int
-
 const global_variables_location := "res://addons/dialogue_editor_plugin/dialogue_objects/variable_nodes/global_variable.tres"
 var save_game_location: String
 var global_variables := preload(global_variables_location)

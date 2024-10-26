@@ -165,9 +165,12 @@ func change_editor_mode(selected_mode: mode):
 		visual_editor.hide()
 
 
+# Deprecated. State machine now handles showing the menu.
 func show_right_click_menu(location: Vector2):
 	right_click_menu_location = (location + visual_editor.scroll_offset) / visual_editor.zoom
 	right_click_variable_menu_location = (location + variable_editor.scroll_offset) / variable_editor.zoom
+	print(right_click_menu_location)
+	print("Test")
 	if editor_mode == mode.scene_editor:
 		state_machine.show_right_click_menu(location)
 	elif editor_mode == mode.variable_editor:
@@ -182,7 +185,11 @@ func delete_selected_nodes(nodes: Array[StringName]):
 			for connection in connection_list:
 				if connection.from_node == i.name or connection.to_node == i.name:
 					connection_list.erase(connection)
-			#if i is BoolVariableNode:
+			
+			# Should defer to state machine to handle multiple node types being checked for ports
+			for dialogue in current_dialogue_manager.dialogue_list:
+				if dialogue.next_node == i.node_resource:
+					dialogue.next_node = null
 			current_dialogue_manager.dialogue_list.erase(i.node_resource)
 			i.queue_free()
 

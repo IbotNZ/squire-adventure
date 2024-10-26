@@ -5,6 +5,7 @@ extends Node
 @onready var right_click_menu: ItemList = $"../../MapSceneNodeList"
 
 var is_mouse_on_menu: bool
+var right_click_menu_location: Vector2
 
 var connection_list: Array
 
@@ -42,6 +43,7 @@ func sync_editor():
 
 # On right click show the appropriate menu to create new nodes from
 func show_right_click_menu(location: Vector2):
+	right_click_menu_location = (location + root.visual_editor.scroll_offset) / root.visual_editor.zoom
 	right_click_menu.position = location
 	right_click_menu.deselect_all()
 	right_click_menu.show()
@@ -159,7 +161,7 @@ func create_dialogue_node(node_type: StringName):
 	
 	
 	#if root.current_dialogue_manager != null:
-	new_editor_node.position_offset = root.right_click_menu_location
+	new_editor_node.position_offset = right_click_menu_location
 	root.current_dialogue_manager.dialogue_list.append(new_dialogue_resource)
 	#elif editor_mode == mode.variable_editor:
 	#	new_editor_node.position_offset = right_click_variable_menu_location

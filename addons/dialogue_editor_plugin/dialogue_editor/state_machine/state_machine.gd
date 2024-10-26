@@ -35,11 +35,11 @@ func sync_editor():
 
 
 # On right click show the appropriate menu to create new nodes from
-func show_right_click_menu():
+func show_right_click_menu(location: Vector2):
 	if root.current_dialogue_manager != null:
 		match root.current_dialogue_manager.dialogue_scene_type:
 			0: # Linear Scene
-				linear_scene_state.show_right_click_menu()
+				linear_scene_state.show_right_click_menu(location)
 			1: # Intro Scene
 				pass
 
@@ -87,11 +87,11 @@ func node_list_menu_clicked(index: int, mouse_button_index: int):
 
 
 # Could work without state machine but it will prevent an overly long script
-func create_dialogue_node(node_type: StringName, graph_edit: GraphEdit):
+func create_dialogue_node(node_type: StringName):
 	if root.current_dialogue_manager != null:
 		match root.current_dialogue_manager.dialogue_scene_type:
 			0: # Linear Scene
-				linear_scene_state.create_dialogue_node(node_type, graph_edit)
+				linear_scene_state.create_dialogue_node(node_type)
 			1: # Intro Scene
 				pass
 

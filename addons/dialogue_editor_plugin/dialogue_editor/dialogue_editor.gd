@@ -4,6 +4,8 @@ class_name DialogueEditor
 
 var editor_plugin: EditorPlugin
 
+@onready var state_machine := $StateMachine
+
 var global_variables: GlobalVariable = preload("res://addons/dialogue_editor_plugin/dialogue_objects/variable_nodes/global_variable.tres")
 var visual_editor_scene := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/visual_editor.tscn")
 var variable_editor_scene := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/variable_editor.tscn")
@@ -66,16 +68,17 @@ func _on_mouse_exited():
 
 func _input(event: InputEvent) -> void:
 	if is_mouse_on_editor:
+		state_machine.on_input(event)
 		#if editor_plugin.get_editor_interface().get_editor_main_screen().name == "Dialogue Editor":
-		if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-			show_right_click_menu(get_local_mouse_position())
-		if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_map_scene_menu == false:
-			right_click_menu.hide()
-			variable_right_click_menu.hide()
-		if event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
-			var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
-			if connection.size() > 0:
-				disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
+		#if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
+		#	show_right_click_menu(get_local_mouse_position())
+		#if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_map_scene_menu == false:
+		#	right_click_menu.hide()
+		#	variable_right_click_menu.hide()
+		#if event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
+		#	var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
+		#	if connection.size() > 0:
+		#		disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
 
 
 func clean_up():
@@ -166,9 +169,7 @@ func show_right_click_menu(location: Vector2):
 	right_click_menu_location = (location + visual_editor.scroll_offset) / visual_editor.zoom
 	right_click_variable_menu_location = (location + variable_editor.scroll_offset) / variable_editor.zoom
 	if editor_mode == mode.scene_editor:
-		right_click_menu.position = location
-		right_click_menu.deselect_all()
-		right_click_menu.show()
+		state_machine.show_right_click_menu(location)
 	elif editor_mode == mode.variable_editor:
 		variable_right_click_menu.position = location
 		variable_right_click_menu.deselect_all()
@@ -181,8 +182,8 @@ func delete_selected_nodes(nodes: Array[StringName]):
 			for connection in connection_list:
 				if connection.from_node == i.name or connection.to_node == i.name:
 					connection_list.erase(connection)
-			if i is BoolVariableNode:
-				i.node_resource.queue_free()
+			#if i is BoolVariableNode:
+			current_dialogue_manager.dialogue_list.erase(i.node_resource)
 			i.queue_free()
 
 
@@ -225,36 +226,7 @@ func get_visual_editor_node_resource(node_name: StringName):
 
 
 func connect_editor_node(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-	var new_connection := NodeConnection.new(from_node, from_port, to_node, to_port)
-	if not is_there_connection_conflict(new_connection):
-		for i in connection_list:
-			if i.from_node == new_connection.from_node and i.from_port == new_connection.from_port:
-				disconnect_editor_node(i.from_node, i.from_port, i.to_node, i.to_port)
-				connection_list.erase(i)
-		
-		for i in visual_editor.get_children():
-			if i.name == from_node:
-				if i is BoolLogicNode:
-					pass
-				if i is BoolVarSetterNode:
-					i.node_resource.next_node = get_visual_editor_node_resource(to_node)
-				if i is ParagraphNode:
-					i.node_resource.next_node = get_visual_editor_node_resource(to_node)
-				if i is ExpositionNode:
-					pass
-				if i is StartNode:
-					i.node_resource.next_node = get_visual_editor_node_resource(to_node)
-				if i is EndNode:
-					pass
-				if i is HubNode:
-					pass
-		
-		connection_list.append(new_connection)
-		
-		
-		visual_editor.connect_node(from_node, from_port, to_node, to_port)
-	
-	#print(connection_list)
+	state_machine.connect_editor_node(from_node,from_port,to_node,to_port)
 
 
 func disconnect_editor_node(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
@@ -267,24 +239,7 @@ func node_list_menu_clicked(index: int, mouse_button_index: int):
 	if mouse_button_index == MOUSE_BUTTON_LEFT:
 		var new_editor_node: GraphNode
 		if editor_mode == mode.scene_editor:
-			match index:
-				0: # Paragraph
-					create_dialogue_node("paragraph_node", visual_editor)
-				1: # Exposition
-					create_dialogue_node("exposition_node", visual_editor)
-				2: # Hub
-					create_dialogue_node("hub_node", visual_editor)
-				3: # Start
-					create_dialogue_node("start_node", visual_editor)
-				4: # End
-					create_dialogue_node("end_node", visual_editor)
-				5: # Bool Var Setter
-					create_dialogue_node("bool_var_setter_node", visual_editor)
-				6: # Bool Logic
-					create_dialogue_node("bool_logic_node", visual_editor)
-			#visual_editor.add_child(new_editor_node)
-			#new_editor_node.position_offset = right_click_menu_location
-			right_click_menu.hide()
+			state_machine.node_list_menu_clicked(index, mouse_button_index)
 		elif editor_mode == mode.variable_editor:
 			match index:
 				0: # Bool Variable

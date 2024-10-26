@@ -11,19 +11,37 @@ extends Node
 
 # Variable editor should get it's own state
 
+@onready var root: DialogueEditor = $".."
+@onready var linear_scene_state := $LinearSceneState
+
 # Handles input
-func on_input():
-	pass
+func on_input(event: InputEvent):
+	if root.current_dialogue_manager != null:
+		match root.current_dialogue_manager.dialogue_scene_type:
+			0: # Linear Scene
+				linear_scene_state.on_input(event)
+			1: # Intro Scene
+				pass
 
 
 # Takes dialogue resources from manager and creates the editor nodes that represent them
 func sync_editor():
-	pass
+	if root.current_dialogue_manager != null:
+		match root.current_dialogue_manager.dialogue_scene_type:
+			0: # Linear Scene
+				linear_scene_state.sync_editor()
+			1: # Intro Scene
+				pass
 
 
 # On right click show the appropriate menu to create new nodes from
 func show_right_click_menu():
-	pass
+	if root.current_dialogue_manager != null:
+		match root.current_dialogue_manager.dialogue_scene_type:
+			0: # Linear Scene
+				linear_scene_state.show_right_click_menu()
+			1: # Intro Scene
+				pass
 
 
 # Delete selected nodes may not need unique logic depending on state
@@ -39,23 +57,43 @@ func show_right_click_menu():
 # Takes connection and applies the necessary changes to resources
 # Also removes conflicting connections. One from port can only have one connection.
 func connect_editor_node(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-	pass
+	if root.current_dialogue_manager != null:
+		match root.current_dialogue_manager.dialogue_scene_type:
+			0: # Linear Scene
+				linear_scene_state.connect_editor_node(from_node,from_port,to_node,to_port)
+			1: # Intro Scene
+				pass
 
 
 # May not be necessary but good to keep in same script as function to connect nodes
 func disconnect_editor_node(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-	pass
+	if root.current_dialogue_manager != null:
+		match root.current_dialogue_manager.dialogue_scene_type:
+			0: # Linear Scene
+				linear_scene_state.disconnect_editor_node(from_node,from_port,to_node,to_port)
+			1: # Intro Scene
+				pass
 
 
 # As different menus will be used between scenes unique logic is necessary
 # Connect the signal from the appropriate node on ready
 func node_list_menu_clicked(index: int, mouse_button_index: int):
-	pass
+	if root.current_dialogue_manager != null:
+		match root.current_dialogue_manager.dialogue_scene_type:
+			0: # Linear Scene
+				linear_scene_state.node_list_menu_clicked(index, mouse_button_index)
+			1: # Intro Scene
+				pass
 
 
 # Could work without state machine but it will prevent an overly long script
 func create_dialogue_node(node_type: StringName, graph_edit: GraphEdit):
-	pass
+	if root.current_dialogue_manager != null:
+		match root.current_dialogue_manager.dialogue_scene_type:
+			0: # Linear Scene
+				linear_scene_state.create_dialogue_node(node_type, graph_edit)
+			1: # Intro Scene
+				pass
 
 
 # Update global variables

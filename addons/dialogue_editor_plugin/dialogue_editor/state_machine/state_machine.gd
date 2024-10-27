@@ -45,6 +45,9 @@ func show_right_click_menu(location: Vector2):
 
 
 # Delete selected nodes may not need unique logic depending on state
+func delete_selected_nodes(nodes: Array[StringName]):
+	linear_scene_state.delete_selected_nodes(nodes)
+
 
 # Is there connection conflict
 

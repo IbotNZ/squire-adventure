@@ -99,41 +99,42 @@ func clean_up():
 
 func sync_visual_editor(dialogue_manager: DialogueManager):
 	current_dialogue_manager = dialogue_manager
-	var new_editor_node: VisualEditorNode
-	for i in dialogue_manager.dialogue_list:
-		if i is DialogueStart:
-			new_editor_node = start_node.instantiate()
-		elif i is DialogueEnd:
-			new_editor_node = end_node.instantiate()
-		elif i is DialogueNode:
-			new_editor_node = paragraph_node.instantiate()
-		elif i is DialogueExposition:
-			new_editor_node = exposition_node.instantiate()
-		elif i is DialogueHub:
-			new_editor_node = hub_node.instantiate()
-		elif i is DialogueBoolLogic:
-			new_editor_node = bool_logic_node.instantiate()
-		elif i is DialogueBoolSetter:
-			new_editor_node = bool_var_setter_node.instantiate()
-		new_editor_node.node_resource = i
-		new_editor_node.position_offset = i.graph_position
-		visual_editor.add_child(new_editor_node)
-	
-	await Engine.get_main_loop().process_frame
+	state_machine.sync_editor()
+	#var new_editor_node: VisualEditorNode
+	#for i in dialogue_manager.dialogue_list:
+	#	if i is DialogueStart:
+	#		new_editor_node = start_node.instantiate()
+	#	elif i is DialogueEnd:
+	#		new_editor_node = end_node.instantiate()
+	#	elif i is DialogueNode:
+	#		new_editor_node = paragraph_node.instantiate()
+	#	elif i is DialogueExposition:
+	#		new_editor_node = exposition_node.instantiate()
+	#	elif i is DialogueHub:
+	#		new_editor_node = hub_node.instantiate()
+	#	elif i is DialogueBoolLogic:
+	#		new_editor_node = bool_logic_node.instantiate()
+	#	elif i is DialogueBoolSetter:
+	#		new_editor_node = bool_var_setter_node.instantiate()
+	#	new_editor_node.node_resource = i
+	#	new_editor_node.position_offset = i.graph_position
+	#	visual_editor.add_child(new_editor_node)
+	#
+	#await Engine.get_main_loop().process_frame
 	# Sync editor node connections
-	for i in visual_editor.get_children():
-		if i is VisualEditorNode:
-			if i.node_resource.next_node != null:
-				var target = get_visual_editor_resource_connection(i.node_resource.next_node)
-				# Some nodes need custom logic
-				if i is BoolLogicNode:
-					pass
-				elif i is HubNode:
-					pass
-				else:
-					#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
-					#visual_editor.connect_node(i.name, 0, target.name, 0)
-					connect_editor_node(i.name, 0, target.name, 0)
+	#for i in visual_editor.get_children():
+	#	if i is VisualEditorNode:
+	#		if i.node_resource.next_node != null:
+	#			var target = get_visual_editor_resource_connection(i.node_resource.next_node)
+	#			# Some nodes need custom logic
+	#			if i is BoolLogicNode:
+	#				pass
+	#			elif i is HubNode:
+	#				pass
+	#			else:
+	#				#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
+	#				#visual_editor.connect_node(i.name, 0, target.name, 0)
+	#				connect_editor_node(i.name, 0, target.name, 0)
 
 
 func get_visual_editor_resource_connection(searching_resource: DialogueType):
@@ -180,18 +181,19 @@ func show_right_click_menu(location: Vector2):
 
 
 func delete_selected_nodes(nodes: Array[StringName]):
-	for i in visual_editor.get_children():
-		if nodes.has(i.name):
-			for connection in connection_list:
-				if connection.from_node == i.name or connection.to_node == i.name:
-					connection_list.erase(connection)
-			
-			# Should defer to state machine to handle multiple node types being checked for ports
-			for dialogue in current_dialogue_manager.dialogue_list:
-				if dialogue.next_node == i.node_resource:
-					dialogue.next_node = null
-			current_dialogue_manager.dialogue_list.erase(i.node_resource)
-			i.queue_free()
+	state_machine.delete_selected_nodes(nodes)
+	#for i in visual_editor.get_children():
+	#	if nodes.has(i.name):
+	#		for connection in connection_list:
+	#			if connection.from_node == i.name or connection.to_node == i.name:
+	#				connection_list.erase(connection)
+	#		
+	#		# Should defer to state machine to handle multiple node types being checked for ports
+	#		for dialogue in current_dialogue_manager.dialogue_list:
+	#			if dialogue.next_node == i.node_resource:
+	#				dialogue.next_node = null
+	#		current_dialogue_manager.dialogue_list.erase(i.node_resource)
+	#		i.queue_free()
 
 
 func delete_selected_variables(nodes: Array[StringName]):

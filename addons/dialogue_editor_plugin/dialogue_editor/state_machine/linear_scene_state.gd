@@ -38,7 +38,46 @@ func _on_mouse_exit_right_click_menu():
 
 # Takes dialogue resources from manager and creates the editor nodes that represent them
 func sync_editor():
-	pass
+	connection_list.clear()
+	var new_editor_node: VisualEditorNode
+	for i in root.current_dialogue_manager.dialogue_list:
+		if i is DialogueStart:
+			new_editor_node = root.start_node.instantiate()
+		elif i is DialogueEnd:
+			new_editor_node = root.end_node.instantiate()
+		elif i is DialogueNode:
+			new_editor_node = root.paragraph_node.instantiate()
+		elif i is DialogueExposition:
+			new_editor_node = root.exposition_node.instantiate()
+		elif i is DialogueHub:
+			new_editor_node = root.hub_node.instantiate()
+		elif i is DialogueBoolLogic:
+			new_editor_node = root.bool_logic_node.instantiate()
+		elif i is DialogueBoolSetter:
+			new_editor_node = root.bool_var_setter_node.instantiate()
+		new_editor_node.node_resource = i
+		new_editor_node.position_offset = i.graph_position
+		root.visual_editor.add_child(new_editor_node)
+	
+	await Engine.get_main_loop().process_frame
+	# Sync editor node connections
+	for i in root.visual_editor.get_children():
+		if i is VisualEditorNode:
+			var target = root.get_visual_editor_resource_connection(i.node_resource.next_node)
+			# Some nodes need custom logic
+			if i is BoolLogicNode:
+				if i.node_resource.next_node != null:
+					connect_editor_node(i.name, 0, target.name, 0)
+				if i.node_resource.node_connection_for_false != null:
+					target = root.get_visual_editor_resource_connection(i.node_resource.node_connection_for_false)
+					connect_editor_node(i.name, 1, target.name, 0)
+			elif i is HubNode:
+				pass
+			else:
+				if i.node_resource.next_node != null:
+					#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
+					#visual_editor.connect_node(i.name, 0, target.name, 0)
+					connect_editor_node(i.name, 0, target.name, 0)
 
 
 # On right click show the appropriate menu to create new nodes from
@@ -54,20 +93,22 @@ func show_right_click_menu(location: Vector2):
 func connect_editor_node(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
 	var new_connection := [from_node, from_port, to_node, to_port]
 	if not connection_list.has(new_connection):
-		print("No connection conflict")
 		for i in connection_list: # Searching list with a filter lambda function would likely be more performant
 			if i[0] == from_node and i[1] == from_port:
 				disconnect_editor_node(i[0], i[1], i[2], i[3])
-				#connection_list.erase(i)
 		
 		for i in root.visual_editor.get_children():
 			if i.name == from_node:
+				var next_node_resource: Resource = root.get_visual_editor_node_resource(to_node)
 				if i is BoolLogicNode:
-					pass
+					if from_port == 0:
+						i.node_resource.next_node = next_node_resource
+					else:
+						i.node_resource.node_connection_for_false = next_node_resource
 				if i is BoolVarSetterNode:
-					i.node_resource.next_node = root.get_visual_editor_node_resource(to_node)
+					i.node_resource.next_node = next_node_resource
 				if i is ParagraphNode:
-					i.node_resource.next_node = root.get_visual_editor_node_resource(to_node)
+					i.node_resource.next_node = next_node_resource
 				if i is ExpositionNode:
 					pass
 				if i is StartNode:
@@ -89,8 +130,36 @@ func disconnect_editor_node(from_node: StringName, from_port: int, to_node: Stri
 	root.visual_editor.disconnect_node(from_node, from_port, to_node, to_port)
 	
 	# Will have to add logic for node types that don't have just one connection port
-	var node_resource:DialogueType = root.get_visual_editor_node_resource(from_node)
-	node_resource.next_node = null
+	var from_node_reference = root.get_visual_editor_node(from_node)
+	var from_node_resource = root.get_visual_editor_node_resource(from_node)
+	if from_node_resource is DialogueBoolLogic:
+		if from_port == 0:
+			from_node_resource.next_node = null
+		else:
+			from_node_resource.node_connection_for_false = null
+	else:
+		from_node_resource.next_node = null
+
+
+func delete_selected_nodes(nodes: Array[StringName]):
+	for i in root.visual_editor.get_children():
+		if nodes.has(i.name):
+			for connection in connection_list:
+				if connection[0] == i.name or connection[2] == i.name:
+					connection_list.erase(connection)
+			
+			# Should defer to state machine to handle multiple node types being checked for ports
+			for dialogue in root.current_dialogue_manager.dialogue_list:
+				if dialogue is DialogueBoolLogic:
+					if dialogue.next_node == i.node_resource:
+						dialogue.next_node = null
+					if dialogue.node_connection_for_false == i.node_resource:
+						dialogue.node_connection_for_false = null
+				else:
+					if dialogue.next_node == i.node_resource:
+						dialogue.next_node = null
+			root.current_dialogue_manager.dialogue_list.erase(i.node_resource)
+			i.queue_free()
 
 
 # Connect the signal from the appropriate node on ready

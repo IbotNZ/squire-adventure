@@ -9,12 +9,12 @@
 script = ExtResource("4_qp62w")
 graph_position = Vector2(100, -160)
 
-[sub_resource type="Resource" id="Resource_0lnb4"]
+[sub_resource type="Resource" id="Resource_kuxb2"]
 script = ExtResource("4_56oco")
-graph_position = Vector2(-500, -180)
+graph_position = Vector2(-420, -80)
 
 [node name="DialogueManagerTest" type="Node3D"]
 
 [node name="DialogueManager" type="Node" parent="."]
 script = ExtResource("1_dcr00")
-dialogue_list = Array[ExtResource("2_oc38g")]([SubResource("Resource_u8bdl"), SubResource("Resource_0lnb4")])
+dialogue_list = Array[ExtResource("2_oc38g")]([SubResource("Resource_u8bdl"), SubResource("Resource_kuxb2")])

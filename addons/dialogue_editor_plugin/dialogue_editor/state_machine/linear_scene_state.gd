@@ -73,7 +73,15 @@ func sync_editor():
 					connect_editor_node(i.name, 1, target.name, 0)
 			elif i is HubNode:
 				i.choice_deleted.connect(on_hub_choice_deleted)
-				#print("Should disconnect")
+				var choice_counter: int = 1
+				for choice in i.node_resource.get_choices():
+					#print(choice)
+					i.sync_new_choice(choice_counter)
+					choice_counter += 1
+					print(choice)
+					if choice[2] != null:
+						var choice_target = root.get_visual_editor_resource_connection(choice[2])
+						root.visual_editor.connect_node(i.name, choice[1] - 1, choice_target.name, 0)
 			else:
 				if i.node_resource.next_node != null:
 					#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
@@ -146,7 +154,10 @@ func connect_editor_node(from_node: StringName, from_port: int, to_node: StringN
 				if i is EndNode:
 					pass
 				if i is HubNode:
-					pass
+					for choice in i.node_resource.choice_list:
+						if choice.choice_port == from_port + 1:
+							choice.connected_node = next_node_resource
+						print(i.node_resource.get_choices())
 		
 		connection_list.append(new_connection)
 		
@@ -167,6 +178,10 @@ func disconnect_editor_node(from_node: StringName, from_port: int, to_node: Stri
 			from_node_resource.next_node = null
 		else:
 			from_node_resource.node_connection_for_false = null
+	if from_node_resource is DialogueHub:
+		for i in from_node_resource.choice_list:
+			if i.choice_port == from_port + 1:
+				i.connected_node = null
 	else:
 		from_node_resource.next_node = null
 

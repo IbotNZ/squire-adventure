@@ -26,6 +26,10 @@ func _process(delta: float) -> void:
 
 
 func _on_new_choice_button_pressed() -> void:
+	create_new_choice()
+
+
+func create_new_choice():
 	var new_choice: ChoiceContainer = choice_container_scene.instantiate()
 	add_child(new_choice)
 	# Move new child to start index plus number of objects in node choice list array
@@ -39,6 +43,20 @@ func _on_new_choice_button_pressed() -> void:
 	new_choice.deletion_request.connect(on_choice_deletion_request)
 	
 	node_resource.add_choice("", new_choice_position, null)
+
+
+func sync_new_choice(index: int):
+	var new_choice: ChoiceContainer = choice_container_scene.instantiate()
+	add_child(new_choice)
+	# Move new child to start index plus number of objects in node choice list array
+	var new_choice_position = index
+	move_child(new_choice, new_choice_position)
+	choice_container_count += 1
+	set_slot(new_choice_position, false, 0, Color("White"), true, 0, Color("White"))
+	
+	new_choice.port_position = new_choice_position
+	new_choice.title_changed.connect(on_choice_title_change)
+	new_choice.deletion_request.connect(on_choice_deletion_request)
 
 
 func on_choice_title_change(new_text: String, choice_container: ChoiceContainer):
@@ -61,4 +79,4 @@ func on_choice_deletion_request(node_to_delete: ChoiceContainer):
 	node_to_delete.queue_free()
 	choice_container_count -= 1
 	
-	choice_deleted.emit(self, index)
+	choice_deleted.emit(self, index - 1)

@@ -5,13 +5,13 @@ class_name ChoiceContainer
 @onready var choice_text := $ChoiceText
 var port_position: int
 
-signal title_changed(new_text: String, index: int)
-signal deletion_request(node_to_delete: ChoiceContainer, index: int)
+signal title_changed(new_text: String, choice_container: ChoiceContainer)
+signal deletion_request(node_to_delete: ChoiceContainer)
 
 
 func _on_choice_text_text_changed() -> void:
-	title_changed.emit(choice_text.text, port_position)
+	title_changed.emit(choice_text.text, self)
 
 
 func _on_choice_remove_button_pressed() -> void:
-	deletion_request.emit(self, port_position)
+	deletion_request.emit(self)

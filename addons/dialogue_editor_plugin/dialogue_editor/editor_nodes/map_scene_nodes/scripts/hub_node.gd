@@ -35,24 +35,26 @@ func _on_new_choice_button_pressed() -> void:
 	set_slot(new_choice_position, false, 0, Color("White"), true, 0, Color("White"))
 	
 	new_choice.port_position = new_choice_position
-	
-	node_resource.add_choice("", new_choice_position, null)
-	
 	new_choice.title_changed.connect(on_choice_title_change)
 	new_choice.deletion_request.connect(on_choice_deletion_request)
+	
+	node_resource.add_choice("", new_choice_position, null)
 
 
-func on_choice_title_change(new_text: String, index: int):
+func on_choice_title_change(new_text: String, choice_container: ChoiceContainer):
+	var index := choice_container.get_index()
 	for i in node_resource.choice_list:
 		if i.choice_port == index:
 			i.choice_name = new_text
 
 
 # When a choice is deleted the main scene should shuffle connections below it on index upwards
-func on_choice_deletion_request(node_to_delete: ChoiceContainer, index: int):
+func on_choice_deletion_request(node_to_delete: ChoiceContainer):
+	var index := node_to_delete.get_index()
 	for i in node_resource.choice_list:
-		print(i.choice_port)
-		print(index)
+		#print(i.choice_port)
+		#print(index)
+		#print(i.choice_port)
 		if i.choice_port == index:
 			clear_slot(node_resource.choice_list.size())
 			node_resource.choice_list.erase(i)

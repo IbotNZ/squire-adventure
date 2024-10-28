@@ -73,6 +73,7 @@ func sync_editor():
 					connect_editor_node(i.name, 1, target.name, 0)
 			elif i is HubNode:
 				i.choice_deleted.connect(on_hub_choice_deleted)
+				#print("Should disconnect")
 			else:
 				if i.node_resource.next_node != null:
 					#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
@@ -83,11 +84,11 @@ func sync_editor():
 func on_hub_choice_deleted(hub: HubNode, index: int):
 	var ports_to_change: Array[Array]
 	var choices_to_change: Array
-	
+	print("Index " + str(index))
 	for i in connection_list:
 		if i[0] == hub.name and i[1] == index:
 			disconnect_editor_node(i[0], i[1], i[2], i[3])
-		elif i[0] == hub.name and i[1] >= index:
+		elif i[0] == hub.name and i[1] > index:
 			i[1] -= 1
 	#for i in connection_list:
 	#	if i[0] == hub.name and i[1] >= index:
@@ -96,8 +97,12 @@ func on_hub_choice_deleted(hub: HubNode, index: int):
 	#	i[1] -= 1
 	
 	for i in hub.node_resource.choice_list:
-		if i.choice_port >= index:
+		#print(i)
+		if i.choice_port > index:
+			print(i.choice_port)
 			i.choice_port -= 1
+			print(i.choice_port)
+			print("")
 	#for i in hub.node_resource.choice_list:
 	#	if i.choice_port >= index:
 	#		choices_to_change.append(i)
@@ -247,6 +252,7 @@ func create_dialogue_node(node_type: StringName):
 			new_editor_node = root.hub_node.instantiate()
 			new_dialogue_resource = DialogueHub.new()
 			new_editor_node.node_resource = new_dialogue_resource
+			new_editor_node.choice_deleted.connect(on_hub_choice_deleted)
 		
 	
 	root.visual_editor.add_child(new_editor_node)

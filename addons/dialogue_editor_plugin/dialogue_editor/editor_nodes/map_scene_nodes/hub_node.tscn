@@ -5,7 +5,7 @@
 
 [node name="HubNode" type="GraphNode"]
 offset_right = 200.0
-offset_bottom = 120.0
+offset_bottom = 94.0
 title = "Hub"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -48,14 +48,15 @@ script = ExtResource("1_twfdc")
 [node name="SlotHolder" type="Control" parent="."]
 layout_mode = 2
 
-[node name="ChoiceContainer" parent="." instance=ExtResource("2_yqg6c")]
-layout_mode = 2
-
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
 
 [node name="NewChoiceButton" type="Button" parent="."]
 layout_mode = 2
 text = "New Choice +"
+
+[node name="ChoiceContainer" parent="." instance=ExtResource("2_yqg6c")]
+visible = false
+layout_mode = 2
 
 [connection signal="pressed" from="NewChoiceButton" to="." method="_on_new_choice_button_pressed"]

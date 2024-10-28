@@ -2,6 +2,8 @@
 extends VisualEditorNode
 class_name HubNode
 
+signal choice_deleted(hub: HubNode, index: int)
+
 @export var node_resource: DialogueHub
 
 const choice_container_scene := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/choice_container.tscn")
@@ -32,6 +34,8 @@ func _on_new_choice_button_pressed() -> void:
 	choice_container_count += 1
 	set_slot(new_choice_position, false, 0, Color("White"), true, 0, Color("White"))
 	
+	new_choice.port_position = new_choice_position
+	
 	node_resource.add_choice("", new_choice_position, null)
 	
 	new_choice.title_changed.connect(on_choice_title_change)
@@ -44,7 +48,15 @@ func on_choice_title_change(new_text: String, index: int):
 			i.choice_name = new_text
 
 
+# When a choice is deleted the main scene should shuffle connections below it on index upwards
 func on_choice_deletion_request(node_to_delete: ChoiceContainer, index: int):
 	for i in node_resource.choice_list:
+		print(i.choice_port)
+		print(index)
 		if i.choice_port == index:
+			clear_slot(node_resource.choice_list.size())
 			node_resource.choice_list.erase(i)
+	node_to_delete.queue_free()
+	choice_container_count -= 1
+	
+	choice_deleted.emit(self, index)

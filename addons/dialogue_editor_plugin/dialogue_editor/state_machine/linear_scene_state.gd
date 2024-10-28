@@ -72,12 +72,37 @@ func sync_editor():
 					target = root.get_visual_editor_resource_connection(i.node_resource.node_connection_for_false)
 					connect_editor_node(i.name, 1, target.name, 0)
 			elif i is HubNode:
-				pass
+				i.choice_deleted.connect(on_hub_choice_deleted)
 			else:
 				if i.node_resource.next_node != null:
 					#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
 					#visual_editor.connect_node(i.name, 0, target.name, 0)
 					connect_editor_node(i.name, 0, target.name, 0)
+
+
+func on_hub_choice_deleted(hub: HubNode, index: int):
+	var ports_to_change: Array[Array]
+	var choices_to_change: Array
+	
+	for i in connection_list:
+		if i[0] == hub.name and i[1] == index:
+			disconnect_editor_node(i[0], i[1], i[2], i[3])
+		elif i[0] == hub.name and i[1] >= index:
+			i[1] -= 1
+	#for i in connection_list:
+	#	if i[0] == hub.name and i[1] >= index:
+	#		ports_to_change.append(i)
+	#for i in ports_to_change:
+	#	i[1] -= 1
+	
+	for i in hub.node_resource.choice_list:
+		if i.choice_port >= index:
+			i.choice_port -= 1
+	#for i in hub.node_resource.choice_list:
+	#	if i.choice_port >= index:
+	#		choices_to_change.append(i)
+	#for i in choices_to_change:
+	#	i.choice_port
 
 
 # On right click show the appropriate menu to create new nodes from

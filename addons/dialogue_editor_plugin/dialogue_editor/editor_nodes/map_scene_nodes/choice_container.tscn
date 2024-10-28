@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2l5h4uggj5t"]
+
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/choice_container.gd" id="1_7s3gt"]
+
+[node name="ChoiceContainer" type="HBoxContainer"]
+script = ExtResource("1_7s3gt")
+
+[node name="ChoiceText" type="TextEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Choice Text"
+scroll_fit_content_height = true
+
+[node name="ChoiceRemoveButton" type="Button" parent="."]
+layout_mode = 2
+text = "X"
+
+[connection signal="text_changed" from="ChoiceText" to="." method="_on_choice_text_text_changed"]
+[connection signal="pressed" from="ChoiceRemoveButton" to="." method="_on_choice_remove_button_pressed"]

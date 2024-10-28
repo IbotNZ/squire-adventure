@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://by0ufgsvgq2fn"]
+[gd_scene load_steps=3 format=3 uid="uid://by0ufgsvgq2fn"]
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/scripts/hub_node.gd" id="1_twfdc"]
+[ext_resource type="PackedScene" uid="uid://d2l5h4uggj5t" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/choice_container.tscn" id="2_yqg6c"]
 
 [node name="HubNode" type="GraphNode"]
 offset_right = 200.0
@@ -47,18 +48,8 @@ script = ExtResource("1_twfdc")
 [node name="SlotHolder" type="Control" parent="."]
 layout_mode = 2
 
-[node name="ChoiceContainer" type="HBoxContainer" parent="."]
+[node name="ChoiceContainer" parent="." instance=ExtResource("2_yqg6c")]
 layout_mode = 2
-
-[node name="ChoiceText" type="TextEdit" parent="ChoiceContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Choice Text"
-scroll_fit_content_height = true
-
-[node name="ChoiceRemoveButton" type="Button" parent="ChoiceContainer"]
-layout_mode = 2
-text = "X"
 
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
@@ -66,3 +57,5 @@ layout_mode = 2
 [node name="NewChoiceButton" type="Button" parent="."]
 layout_mode = 2
 text = "New Choice +"
+
+[connection signal="pressed" from="NewChoiceButton" to="." method="_on_new_choice_button_pressed"]

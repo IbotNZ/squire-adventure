@@ -1,2 +1,0 @@
-extends DialogueType
-class_name DialogueChoice

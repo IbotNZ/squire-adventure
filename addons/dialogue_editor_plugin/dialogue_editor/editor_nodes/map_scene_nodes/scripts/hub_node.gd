@@ -38,37 +38,57 @@ func create_new_choice():
 	choice_container_count += 1
 	set_slot(new_choice_position, false, 0, Color("White"), true, 0, Color("White"))
 	
-	new_choice.port_position = new_choice_position
-	new_choice.title_changed.connect(on_choice_title_change)
+	var new_choice_resource := DialogueChoice.new()
+	new_choice_resource.choice_port = new_choice_position
+	node_resource.choice_list.append(new_choice_resource)
+	new_choice.node_reference = new_choice_resource
+	
+	#new_choice.port_position = new_choice_position
+	#new_choice.title_changed.connect(on_choice_title_change)
 	new_choice.deletion_request.connect(on_choice_deletion_request)
 	
-	node_resource.add_choice("", new_choice_position, null)
+	#node_resource.add_choice("", new_choice_position, null)
 
 
-func sync_new_choice(index: int):
-	var new_choice: ChoiceContainer = choice_container_scene.instantiate()
-	add_child(new_choice)
-	# Move new child to start index plus number of objects in node choice list array
-	var new_choice_position = index
-	move_child(new_choice, new_choice_position)
-	choice_container_count += 1
-	set_slot(new_choice_position, false, 0, Color("White"), true, 0, Color("White"))
-	
-	new_choice.port_position = new_choice_position
-	new_choice.title_changed.connect(on_choice_title_change)
-	new_choice.deletion_request.connect(on_choice_deletion_request)
-
-
-func on_choice_title_change(new_text: String, choice_container: ChoiceContainer):
-	var index := choice_container.get_index()
+func sync_choices():
+	var new_choice_list: Array[ChoiceContainer]
 	for i in node_resource.choice_list:
-		if i.choice_port == index:
-			i.choice_name = new_text
+		var new_choice: ChoiceContainer = choice_container_scene.instantiate()
+		new_choice.deletion_request.connect(on_choice_deletion_request)
+		new_choice.node_reference = i
+		add_child(new_choice)
+		new_choice_list.append(new_choice)
+	for i in new_choice_list:
+		move_child(i, i.node_reference.choice_port)
+		print(i.node_reference.choice_port)
+		set_slot(i.node_reference.choice_port, false, 0, Color("White"), true, 0, Color("White"))
+
+
+#func sync_new_choice(index: int):
+#	var new_choice: ChoiceContainer = choice_container_scene.instantiate()
+#	add_child(new_choice)
+#	# Move new child to start index plus number of objects in node choice list array
+#	var new_choice_position = index
+#	move_child(new_choice, new_choice_position)
+#	choice_container_count += 1
+#	set_slot(new_choice_position, false, 0, Color("White"), true, 0, Color("White"))
+#	
+#	new_choice.port_position = new_choice_position
+#	new_choice.title_changed.connect(on_choice_title_change)
+#	new_choice.deletion_request.connect(on_choice_deletion_request)
+
+
+#func on_choice_title_change(new_text: String, choice_container: ChoiceContainer):
+#	var index := choice_container.get_index()
+#	for i in node_resource.choice_list:
+#		if i.choice_port == index:
+#			i.choice_name = new_text
 
 
 # When a choice is deleted the main scene should shuffle connections below it on index upwards
 func on_choice_deletion_request(node_to_delete: ChoiceContainer):
-	var index := node_to_delete.get_index()
+	#var index := node_to_delete.get_index()
+	var index := node_to_delete.node_reference.choice_port
 	for i in node_resource.choice_list:
 		#print(i.choice_port)
 		#print(index)
@@ -77,6 +97,6 @@ func on_choice_deletion_request(node_to_delete: ChoiceContainer):
 			clear_slot(node_resource.choice_list.size())
 			node_resource.choice_list.erase(i)
 	node_to_delete.queue_free()
-	choice_container_count -= 1
+	print("Delete Request")
 	
-	choice_deleted.emit(self, index - 1)
+	choice_deleted.emit(self, index)

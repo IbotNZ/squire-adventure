@@ -2,6 +2,8 @@
 extends HBoxContainer
 class_name ChoiceContainer
 
+var node_reference: DialogueChoice
+
 @onready var choice_text := $ChoiceText
 var port_position: int
 

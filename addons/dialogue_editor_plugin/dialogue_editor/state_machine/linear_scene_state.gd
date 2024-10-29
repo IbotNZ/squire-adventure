@@ -74,14 +74,18 @@ func sync_editor():
 			elif i is HubNode:
 				i.choice_deleted.connect(on_hub_choice_deleted)
 				var choice_counter: int = 1
-				for choice in i.node_resource.get_choices():
+				i.sync_choices()
+				for choice: DialogueChoice in i.node_resource.choice_list:
+					if choice.connected_node != null:
+						var choice_target = root.get_visual_editor_resource_connection(choice.connected_node)
+						root.visual_editor.connect_node(i.name, choice.choice_port - 1, choice_target.name, 0)
 					#print(choice)
-					i.sync_new_choice(choice_counter)
-					choice_counter += 1
-					print(choice)
-					if choice[2] != null:
-						var choice_target = root.get_visual_editor_resource_connection(choice[2])
-						root.visual_editor.connect_node(i.name, choice[1] - 1, choice_target.name, 0)
+					#i.sync_new_choice(choice_counter)
+					#choice_counter += 1
+					#print(choice)
+					#if choice[2] != null:
+					#	var choice_target = root.get_visual_editor_resource_connection(choice[2])
+					#	root.visual_editor.connect_node(i.name, choice[1] - 1, choice_target.name, 0)
 			else:
 				if i.node_resource.next_node != null:
 					#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
@@ -157,7 +161,7 @@ func connect_editor_node(from_node: StringName, from_port: int, to_node: StringN
 					for choice in i.node_resource.choice_list:
 						if choice.choice_port == from_port + 1:
 							choice.connected_node = next_node_resource
-						print(i.node_resource.get_choices())
+						#print(i.node_resource.get_choices())
 		
 		connection_list.append(new_connection)
 		
@@ -200,6 +204,10 @@ func delete_selected_nodes(nodes: Array[StringName]):
 						dialogue.next_node = null
 					if dialogue.node_connection_for_false == i.node_resource:
 						dialogue.node_connection_for_false = null
+				elif dialogue is DialogueHub:
+					for choice: DialogueChoice in dialogue.choice_list:
+						if choice.connected_node == i.node_resource:
+							choice.connected_node = null
 				else:
 					if dialogue.next_node == i.node_resource:
 						dialogue.next_node = null

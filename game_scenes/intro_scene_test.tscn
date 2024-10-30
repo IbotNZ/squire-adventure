@@ -42,121 +42,132 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g585j")
 
-[node name="DialogueWindow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow"]
-custom_minimum_size = Vector2(500, 0)
+[node name="ScrollContainer" type="ScrollContainer" parent="DialogueManager/IntroDialogueWindow"]
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.282986
-anchor_right = 0.717014
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 250.0
-offset_right = -250.0
+offset_left = -4.0
+offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 20
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="DialogueWindow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 20
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow"]
 visible = false
 layout_mode = 2
 
-[node name="TitleContainer" type="HBoxContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer"]
+[node name="TitleContainer" type="HBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 layout_mode = 2
 
-[node name="TitleText" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer/TitleContainer"]
+[node name="TitleText" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 30
 text = "Title"
 fit_content = true
 
-[node name="TitleDescription" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer/TitleContainer"]
+[node name="TitleDescription" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Description"
 fit_content = true
 
-[node name="VisibleSeparator" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer"]
+[node name="VisibleSeparator" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_fa1mh")
 
-[node name="InvisibleSeparator" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer"]
+[node name="InvisibleSeparator" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="MainContent" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer"]
+[node name="MainContent" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. "
 
-[node name="InvisibleSeparator2" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer"]
+[node name="InvisibleSeparator2" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="ScrollContainer" type="ScrollContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 
-[node name="ChoiceContainer" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="ChoiceContainer" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="Button" type="Button" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer/ScrollContainer/MarginContainer/ChoiceContainer"]
+[node name="Button" type="Button" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/ScrollContainer/MarginContainer/ChoiceContainer"]
 layout_mode = 2
 text = "1. Button Example"
 flat = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow"]
 layout_mode = 2
 
-[node name="TitleRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2"]
+[node name="TitleRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2/TitleRow"]
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow"]
 layout_mode = 2
+size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
+[node name="Label" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
 text = "Title:"
 
-[node name="VSeparator" type="VSeparator" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxLine_aagdf")
 
-[node name="Label2" type="Label" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
+[node name="Label2" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Description"
 
-[node name="MainTextRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2"]
+[node name="MainTextRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2/MainTextRow"]
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/MainTextRow"]
 layout_mode = 2
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. "
-fit_content = true
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. 
 
-[node name="ChoiceRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2"]
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. "
+
+[node name="ChoiceRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+size_flags_vertical = 2
 
-[node name="ChoiceVBox" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2/ChoiceRow"]
+[node name="ChoiceVBox" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow"]
 layout_mode = 2
 
-[node name="TestButton" type="Button" parent="DialogueManager/IntroDialogueWindow/DialogueWindow/VBoxContainer2/ChoiceRow/ChoiceVBox"]
+[node name="TestButton" type="Button" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow/ChoiceVBox"]
 layout_mode = 2
 text = "1. Example button"
 flat = true

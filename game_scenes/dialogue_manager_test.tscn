@@ -1,15 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7gup7pp3508i"]
+[gd_scene load_steps=11 format=3 uid="uid://c7gup7pp3508i"]
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_manager.gd" id="1_dcr00"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_type.gd" id="2_oc38g"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/map_scene_nodes/choice/dialogue_choice.gd" id="3_t6qvo"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/map_scene_nodes/choice/dialogue_hub.gd" id="4_xwtli"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/map_scene_nodes/text/dialogue_node.gd" id="5_uclqt"]
+
+[sub_resource type="Resource" id="Resource_letio"]
+script = ExtResource("3_t6qvo")
+choice_name = ""
+choice_port = 1
+graph_position = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_hpd0v"]
+script = ExtResource("3_t6qvo")
+choice_name = ""
+choice_port = 2
+graph_position = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_nkqfr"]
+script = ExtResource("3_t6qvo")
+choice_name = ""
+choice_port = 3
+graph_position = Vector2(0, 0)
 
 [sub_resource type="Resource" id="Resource_lkss7"]
 script = ExtResource("4_xwtli")
-graph_position = Vector2(-400, -80)
+choice_list = Array[ExtResource("3_t6qvo")]([SubResource("Resource_letio"), SubResource("Resource_hpd0v"), SubResource("Resource_nkqfr")])
+graph_position = Vector2(-360, -180)
+
+[sub_resource type="Resource" id="Resource_73rw6"]
+script = ExtResource("5_uclqt")
+graph_position = Vector2(0, -160)
 
 [node name="DialogueManagerTest" type="Node3D"]
 
 [node name="DialogueManager" type="Node" parent="."]
 script = ExtResource("1_dcr00")
-dialogue_list = Array[ExtResource("2_oc38g")]([SubResource("Resource_lkss7")])
+dialogue_list = Array[ExtResource("2_oc38g")]([SubResource("Resource_lkss7"), SubResource("Resource_73rw6")])

@@ -12,7 +12,7 @@ class_name DialogueHub
 #		choice_port = port
 #		connected_node = node
 
-var choice_list: Array[DialogueChoice]
+@export var choice_list: Array[DialogueChoice]
 
 
 #func add_choice(name: String, port: int, node: DialogueType):

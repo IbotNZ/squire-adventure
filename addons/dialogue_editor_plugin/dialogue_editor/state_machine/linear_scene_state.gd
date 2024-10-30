@@ -276,8 +276,8 @@ func create_dialogue_node(node_type: StringName):
 			new_dialogue_resource = DialogueHub.new()
 			new_editor_node.node_resource = new_dialogue_resource
 			new_editor_node.choice_deleted.connect(on_hub_choice_deleted)
-		
 	
+	new_dialogue_resource.graph_position = right_click_menu_location
 	root.visual_editor.add_child(new_editor_node)
 	#new_editor_node.node_edited.connect(_on_editor_node_changed)
 	

@@ -2,6 +2,6 @@
 extends DialogueType
 class_name DialogueChoice
 
-var choice_name: String = ""
-var choice_port: int
-var connected_node: DialogueType
+@export var choice_name: String = ""
+@export var choice_port: int
+@export var connected_node: DialogueType

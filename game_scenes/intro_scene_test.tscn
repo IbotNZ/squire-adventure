@@ -1,0 +1,97 @@
+[gd_scene load_steps=3 format=3 uid="uid://dacmuasfod74h"]
+
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_manager.gd" id="1_0dkqr"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_fa1mh"]
+color = Color(0.408329, 0.408329, 0.408329, 1)
+thickness = 2
+
+[node name="IntroSceneTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueManager" type="Node" parent="."]
+script = ExtResource("1_0dkqr")
+dialogue_scene_type = 1
+
+[node name="IntroDialogueWindow" type="Control" parent="DialogueManager"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 3
+anchor_left = 0.304688
+anchor_right = 0.695313
+anchor_bottom = 1.0
+offset_left = 225.0
+offset_right = -225.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="IntroMarginContainer" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer"]
+layout_mode = 2
+
+[node name="TitleContainer" type="HBoxContainer" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleText" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 30
+text = "Title"
+fit_content = true
+
+[node name="TitleDescription" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Description"
+fit_content = true
+
+[node name="VisibleSeparator" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_fa1mh")
+
+[node name="InvisibleSeparator" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="MainContent" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. "
+
+[node name="InvisibleSeparator2" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="ChoiceContainer" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="DialogueManager/IntroDialogueWindow/IntroMarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ChoiceContainer"]
+layout_mode = 2
+text = "1. Button Example"
+flat = true

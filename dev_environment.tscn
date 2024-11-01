@@ -23,58 +23,185 @@ layout_mode = 0
 offset_right = 200.0
 offset_bottom = 120.0
 
-[node name="HubNode" parent="." instance=ExtResource("1_y5w2r")]
+[node name="LinearNodes" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HubNode" parent="LinearNodes" instance=ExtResource("1_y5w2r")]
 layout_mode = 0
 offset_left = 38.0
 offset_top = 59.0
 offset_right = 238.0
 offset_bottom = 190.0
 
-[node name="BoolVariableSetter" parent="." instance=ExtResource("2_sycgv")]
+[node name="BoolVariableSetter" parent="LinearNodes" instance=ExtResource("2_sycgv")]
 layout_mode = 0
 offset_left = 840.0
 offset_top = 62.0
 offset_right = 1041.0
 offset_bottom = 182.0
 
-[node name="BoolVariable" parent="." instance=ExtResource("3_js8g4")]
+[node name="BoolVariable" parent="LinearNodes" instance=ExtResource("3_js8g4")]
 layout_mode = 0
 offset_left = 879.0
 offset_top = 270.0
 offset_right = 1083.0
 offset_bottom = 393.0
 
-[node name="BoolLogic" parent="." instance=ExtResource("4_a537g")]
+[node name="BoolLogic" parent="LinearNodes" instance=ExtResource("4_a537g")]
 layout_mode = 0
 offset_left = 589.0
 offset_top = 275.0
 offset_right = 823.0
 offset_bottom = 395.0
 
-[node name="EndNode" parent="." instance=ExtResource("5_ublwh")]
+[node name="EndNode" parent="LinearNodes" instance=ExtResource("5_ublwh")]
 layout_mode = 0
 offset_left = 572.0
 offset_top = 56.0
 offset_right = 772.0
 offset_bottom = 206.0
 
-[node name="ExpositionNode" parent="." instance=ExtResource("6_pxrd6")]
+[node name="ExpositionNode" parent="LinearNodes" instance=ExtResource("6_pxrd6")]
 layout_mode = 0
 offset_left = 315.0
 offset_top = 281.0
 offset_right = 515.0
 offset_bottom = 401.0
 
-[node name="StartNode" parent="." instance=ExtResource("7_wpofn")]
+[node name="StartNode" parent="LinearNodes" instance=ExtResource("7_wpofn")]
 layout_mode = 0
 offset_left = 39.0
 offset_top = 281.0
 offset_right = 239.0
 offset_bottom = 401.0
 
-[node name="ParagraphNode" parent="." instance=ExtResource("8_4b77u")]
+[node name="ParagraphNode" parent="LinearNodes" instance=ExtResource("8_4b77u")]
 layout_mode = 0
 offset_left = 292.0
 offset_top = 69.0
 offset_right = 492.0
 offset_bottom = 189.0
+
+[node name="IntroNodes" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IntroSection" type="GraphNode" parent="IntroNodes"]
+layout_mode = 0
+offset_right = 361.0
+offset_bottom = 172.0
+title = "Main Body Text"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+
+[node name="SectionTextEdit" type="TextEdit" parent="IntroNodes/IntroSection"]
+layout_mode = 2
+placeholder_text = "Write what event this section is about."
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="HSeparator" type="HSeparator" parent="IntroNodes/IntroSection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IntroChoiceHolder" type="HBoxContainer" parent="IntroNodes/IntroSection"]
+layout_mode = 2
+
+[node name="ChoiceTitleEdit" type="TextEdit" parent="IntroNodes/IntroSection/IntroChoiceHolder"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Choice title."
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="DeleteChoiceButton" type="Button" parent="IntroNodes/IntroSection/IntroChoiceHolder"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "X"
+
+[node name="AddChoiceButton" type="Button" parent="IntroNodes/IntroSection"]
+layout_mode = 2
+text = "Add Choice +"
+
+[node name="IntroStart" type="GraphNode" parent="IntroNodes"]
+visible = false
+layout_mode = 0
+offset_right = 133.0
+offset_bottom = 90.0
+title = "Intro Start"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="NodePort" type="Control" parent="IntroNodes/IntroStart"]
+layout_mode = 2
+
+[node name="IntroEnd" type="GraphNode" parent="IntroNodes"]
+visible = false
+layout_mode = 2
+offset_right = 200.0
+offset_bottom = 86.0
+title = "Intro End"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="Button" type="Button" parent="IntroNodes/IntroEnd"]
+layout_mode = 2
+text = "Assign Next Scene"

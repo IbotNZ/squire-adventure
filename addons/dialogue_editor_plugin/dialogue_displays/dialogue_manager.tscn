@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dacmuasfod74h"]
+[gd_scene load_steps=9 format=3 uid="uid://oq6kmrivkb3s"]
 
-[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_manager.gd" id="1_0dkqr"]
-[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/dialogue_windows/intro_dialogue_window.gd" id="2_6yvth"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_manager.gd" id="1_05trk"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/dialogue_windows/intro_dialogue_window.gd" id="2_reybs"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_fa1mh"]
 color = Color(0.408329, 0.408329, 0.408329, 1)
@@ -100,19 +100,11 @@ _data = {
 "fade_out": SubResource("Animation_g1tw0")
 }
 
-[node name="IntroSceneTest" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="DialogueManager" type="Node" parent="."]
-script = ExtResource("1_0dkqr")
+[node name="DialogueManager" type="Node"]
+script = ExtResource("1_05trk")
 dialogue_scene_type = 1
 
-[node name="IntroDialogueWindow" type="Control" parent="DialogueManager"]
+[node name="IntroDialogueWindow" type="Control" parent="."]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 3
 anchors_preset = 15
@@ -120,9 +112,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_6yvth")
+script = ExtResource("2_reybs")
 
-[node name="Background" type="ColorRect" parent="DialogueManager/IntroDialogueWindow"]
+[node name="Background" type="ColorRect" parent="IntroDialogueWindow"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,7 +123,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.118581, 0.118581, 0.118581, 1)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="DialogueManager/IntroDialogueWindow"]
+[node name="ScrollContainer" type="ScrollContainer" parent="IntroDialogueWindow"]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 1
 anchors_preset = 13
@@ -145,7 +137,7 @@ grow_vertical = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="DialogueWindow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer"]
+[node name="DialogueWindow" type="MarginContainer" parent="IntroDialogueWindow/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -155,119 +147,119 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 20
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow"]
+[node name="VBoxContainer" type="VBoxContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow"]
 visible = false
 layout_mode = 2
 
-[node name="TitleContainer" type="HBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
+[node name="TitleContainer" type="HBoxContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 layout_mode = 2
 
-[node name="TitleText" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/TitleContainer"]
+[node name="TitleText" type="RichTextLabel" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 30
 text = "Title"
 fit_content = true
 
-[node name="TitleDescription" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/TitleContainer"]
+[node name="TitleDescription" type="RichTextLabel" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Description"
 fit_content = true
 
-[node name="VisibleSeparator" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
+[node name="VisibleSeparator" type="HSeparator" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_fa1mh")
 
-[node name="InvisibleSeparator" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
+[node name="InvisibleSeparator" type="HSeparator" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="MainContent" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
+[node name="MainContent" type="RichTextLabel" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. "
 
-[node name="InvisibleSeparator2" type="HSeparator" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
+[node name="InvisibleSeparator2" type="HSeparator" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="ScrollContainer" type="ScrollContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 
-[node name="ChoiceContainer" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="ChoiceContainer" type="VBoxContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="Button" type="Button" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/ScrollContainer/MarginContainer/ChoiceContainer"]
+[node name="Button" type="Button" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer/ScrollContainer/MarginContainer/ChoiceContainer"]
 layout_mode = 2
 text = "1. Button Example"
 flat = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow"]
 layout_mode = 2
 
-[node name="TitleRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
+[node name="TitleRow" type="MarginContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow"]
+[node name="HBoxContainer" type="HBoxContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
+[node name="Label" type="Label" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
 text = "Title:"
 
-[node name="VSeparator" type="VSeparator" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxLine_aagdf")
 
-[node name="Label2" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
+[node name="Label2" type="Label" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Description"
 
-[node name="MainTextRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
+[node name="MainTextRow" type="MarginContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/MainTextRow"]
+[node name="RichTextLabel" type="RichTextLabel" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/MainTextRow"]
 layout_mode = 2
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. 
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. "
 
-[node name="ChoiceRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
+[node name="ChoiceRow" type="MarginContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="ChoiceVBox" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow"]
+[node name="ChoiceVBox" type="VBoxContainer" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow"]
 layout_mode = 2
 
-[node name="TestButton" type="Button" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow/ChoiceVBox"]
+[node name="TestButton" type="Button" parent="IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow/ChoiceVBox"]
 layout_mode = 2
 text = "1. Example button"
 flat = true
 alignment = 0
 
-[node name="TransitionPlayer" type="AnimationPlayer" parent="DialogueManager"]
+[node name="TransitionPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_tvbpd")
 }
 
-[node name="ColorRect" type="ColorRect" parent="DialogueManager/TransitionPlayer"]
+[node name="ColorRect" type="ColorRect" parent="TransitionPlayer"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dacmuasfod74h"]
+[gd_scene load_steps=18 format=3 uid="uid://dacmuasfod74h"]
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_manager.gd" id="1_0dkqr"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/dialogue_windows/intro_dialogue_window.gd" id="2_6yvth"]
@@ -10,11 +10,76 @@ thickness = 2
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_aagdf"]
 color = Color(0, 0, 0, 0)
 
-[sub_resource type="Animation" id="Animation_es2io"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oljkc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6asnc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3r01h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jnlwk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kit6t"]
+
+[sub_resource type="Animation" id="Animation_u7in3"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("ScrollContainer/DialogueWindow/VBoxContainer2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bg2rj"]
+resource_name = "swap_in_section"
+
+[sub_resource type="Animation" id="Animation_ojumg"]
+resource_name = "swap_out_section"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScrollContainer/DialogueWindow/VBoxContainer2:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.75, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.46667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"swap_intro_section"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_khmym"]
+_data = {
+"RESET": SubResource("Animation_u7in3"),
+"swap_in_section": SubResource("Animation_bg2rj"),
+"swap_out_section": SubResource("Animation_ojumg")
+}
+
+[sub_resource type="Animation" id="Animation_es2io"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
 tracks/0/path = NodePath("TransitionPlayer/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -36,13 +101,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TransitionPlayer/ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_bjbtq"]
 resource_name = "fade_in"
 length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("TransitionPlayer/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -64,13 +141,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TransitionPlayer/ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_g1tw0"]
 resource_name = "fade_out"
 length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("TransitionPlayer/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -91,6 +180,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TransitionPlayer/ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0.00566115, 0.00566115, 0.00566115, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tvbpd"]
@@ -223,7 +324,7 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
+[node name="TitleLabel" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
 text = "Title:"
 
@@ -232,7 +333,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxLine_aagdf")
 
-[node name="Label2" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
+[node name="DescriptionLabel" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Description"
@@ -245,6 +346,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/MainTextRow"]
 layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. 
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. "
@@ -252,8 +354,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec
 [node name="ChoiceRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="ChoiceVBox" type="VBoxContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow"]
+visible = false
 layout_mode = 2
 
 [node name="TestButton" type="Button" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow/ChoiceVBox"]
@@ -261,6 +368,25 @@ layout_mode = 2
 text = "1. Example button"
 flat = true
 alignment = 0
+
+[node name="ChoiceList" type="ItemList" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow"]
+layout_mode = 2
+theme_override_colors/guide_color = Color(0, 0, 0, 0)
+theme_override_constants/v_separation = 10
+theme_override_styles/focus = SubResource("StyleBoxEmpty_oljkc")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6asnc")
+theme_override_styles/hovered = SubResource("StyleBoxEmpty_3r01h")
+theme_override_styles/selected = SubResource("StyleBoxEmpty_jnlwk")
+theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_kit6t")
+auto_height = true
+item_count = 2
+item_0/text = "1. Test"
+item_1/text = "2. Test"
+
+[node name="SectionTransitionPlayer" type="AnimationPlayer" parent="DialogueManager/IntroDialogueWindow"]
+libraries = {
+"": SubResource("AnimationLibrary_khmym")
+}
 
 [node name="TransitionPlayer" type="AnimationPlayer" parent="DialogueManager"]
 libraries = {
@@ -274,4 +400,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)

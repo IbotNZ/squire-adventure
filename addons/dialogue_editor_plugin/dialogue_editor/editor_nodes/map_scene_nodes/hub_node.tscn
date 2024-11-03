@@ -56,7 +56,6 @@ layout_mode = 2
 text = "New Choice +"
 
 [node name="ChoiceContainer" parent="." instance=ExtResource("2_yqg6c")]
-visible = false
 layout_mode = 2
 
 [connection signal="pressed" from="NewChoiceButton" to="." method="_on_new_choice_button_pressed"]

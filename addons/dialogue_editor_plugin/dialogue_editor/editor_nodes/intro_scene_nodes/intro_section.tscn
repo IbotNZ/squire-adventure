@@ -1,0 +1,125 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdklcjui375n"]
+
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_section.gd" id="1_8m360"]
+[ext_resource type="PackedScene" uid="uid://dmwg705efgmni" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_choice_holder.tscn" id="2_8wwme"]
+
+[node name="IntroSection" type="GraphNode"]
+offset_right = 361.0
+offset_bottom = 172.0
+title = "Main Body Text"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+slot/5/left_enabled = false
+slot/5/left_type = 0
+slot/5/left_color = Color(1, 1, 1, 1)
+slot/5/left_icon = null
+slot/5/right_enabled = true
+slot/5/right_type = 0
+slot/5/right_color = Color(1, 1, 1, 1)
+slot/5/right_icon = null
+slot/5/draw_stylebox = true
+slot/6/left_enabled = false
+slot/6/left_type = 0
+slot/6/left_color = Color(1, 1, 1, 1)
+slot/6/left_icon = null
+slot/6/right_enabled = false
+slot/6/right_type = 0
+slot/6/right_color = Color(1, 1, 1, 1)
+slot/6/right_icon = null
+slot/6/draw_stylebox = true
+slot/7/left_enabled = false
+slot/7/left_type = 0
+slot/7/left_color = Color(1, 1, 1, 1)
+slot/7/left_icon = null
+slot/7/right_enabled = false
+slot/7/right_type = 0
+slot/7/right_color = Color(1, 1, 1, 1)
+slot/7/right_icon = null
+slot/7/draw_stylebox = true
+script = ExtResource("1_8m360")
+
+[node name="SectionTitleEdit" type="TextEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Title text."
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="SectionDescriptionEdit" type="TextEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Description to go with title."
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SectionTextEdit" type="TextEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Write what event this section is about."
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="HSeparator2" type="HSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ChoiceTitleEdit2" type="TextEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Choice title."
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="IntroChoiceHolder" parent="." instance=ExtResource("2_8wwme")]
+visible = false
+layout_mode = 2
+
+[node name="AddChoiceButton" type="Button" parent="."]
+layout_mode = 2
+text = "Add Choice +"
+
+[connection signal="pressed" from="AddChoiceButton" to="." method="_on_add_choice_button_pressed"]

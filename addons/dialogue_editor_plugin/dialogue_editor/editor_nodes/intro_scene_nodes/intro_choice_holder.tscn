@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dmwg705efgmni"]
+
+[node name="IntroChoiceHolder" type="HBoxContainer"]
+
+[node name="ChoiceTitleEdit" type="TextEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Choice title."
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="DeleteChoiceButton" type="Button" parent="."]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "X"

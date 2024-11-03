@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgilup7vycbia"]
+[gd_scene load_steps=10 format=3 uid="uid://dgilup7vycbia"]
 
 [ext_resource type="PackedScene" uid="uid://by0ufgsvgq2fn" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/hub_node.tscn" id="1_y5w2r"]
 [ext_resource type="PackedScene" uid="uid://5dy04mf1top1" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable_setter.tscn" id="2_sycgv"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bte08x1wu5gml" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/exposition_node.tscn" id="6_pxrd6"]
 [ext_resource type="PackedScene" uid="uid://d4jppn0cam0f" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/start_node.tscn" id="7_wpofn"]
 [ext_resource type="PackedScene" uid="uid://2tssfwhvq1nn" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/paragraph_node.tscn" id="8_4b77u"]
+[ext_resource type="PackedScene" uid="uid://cdklcjui375n" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_section.tscn" id="9_r3crj"]
 
 [node name="DevEnvironment" type="Control"]
 layout_mode = 3
@@ -96,76 +97,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="IntroSection" type="GraphNode" parent="IntroNodes"]
+[node name="IntroSection" parent="IntroNodes" instance=ExtResource("9_r3crj")]
 layout_mode = 0
-offset_right = 361.0
-offset_bottom = 172.0
-title = "Main Body Text"
-slot/0/left_enabled = false
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
-slot/0/left_icon = null
-slot/0/right_enabled = false
-slot/0/right_type = 0
-slot/0/right_color = Color(1, 1, 1, 1)
-slot/0/right_icon = null
-slot/0/draw_stylebox = true
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color(1, 1, 1, 1)
-slot/1/left_icon = null
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color(1, 1, 1, 1)
-slot/1/right_icon = null
-slot/1/draw_stylebox = true
-slot/2/left_enabled = false
-slot/2/left_type = 0
-slot/2/left_color = Color(1, 1, 1, 1)
-slot/2/left_icon = null
-slot/2/right_enabled = false
-slot/2/right_type = 0
-slot/2/right_color = Color(1, 1, 1, 1)
-slot/2/right_icon = null
-slot/2/draw_stylebox = true
-slot/3/left_enabled = false
-slot/3/left_type = 0
-slot/3/left_color = Color(1, 1, 1, 1)
-slot/3/left_icon = null
-slot/3/right_enabled = false
-slot/3/right_type = 0
-slot/3/right_color = Color(1, 1, 1, 1)
-slot/3/right_icon = null
-slot/3/draw_stylebox = true
-
-[node name="SectionTextEdit" type="TextEdit" parent="IntroNodes/IntroSection"]
-layout_mode = 2
-placeholder_text = "Write what event this section is about."
-wrap_mode = 1
-scroll_fit_content_height = true
-
-[node name="HSeparator" type="HSeparator" parent="IntroNodes/IntroSection"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="IntroChoiceHolder" type="HBoxContainer" parent="IntroNodes/IntroSection"]
-layout_mode = 2
-
-[node name="ChoiceTitleEdit" type="TextEdit" parent="IntroNodes/IntroSection/IntroChoiceHolder"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Choice title."
-wrap_mode = 1
-scroll_fit_content_height = true
-
-[node name="DeleteChoiceButton" type="Button" parent="IntroNodes/IntroSection/IntroChoiceHolder"]
-custom_minimum_size = Vector2(35, 0)
-layout_mode = 2
-text = "X"
-
-[node name="AddChoiceButton" type="Button" parent="IntroNodes/IntroSection"]
-layout_mode = 2
-text = "Add Choice +"
 
 [node name="IntroStart" type="GraphNode" parent="IntroNodes"]
 visible = false

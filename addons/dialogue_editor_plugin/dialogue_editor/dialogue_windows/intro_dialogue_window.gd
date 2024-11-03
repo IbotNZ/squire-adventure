@@ -23,13 +23,8 @@ var choice_ref_array: Array[DialogueType]
 @onready var root := $".."
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func on_ready() -> void:
+	run_node(root.current_node)
 
 
 func on_input():
@@ -55,8 +50,8 @@ func run_node(new_node: DialogueType):
 
 
 func run_intro_start():
-	var node: IntroStart
-	run_node(node)
+	var node: IntroStart = root.current_node
+	run_node(node.next_node)
 
 
 func run_intro_end():
@@ -94,3 +89,9 @@ func swap_intro_section():
 
 func run_variable_setter():
 	pass
+
+
+func _on_choice_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+	if mouse_button_index == MOUSE_BUTTON_LEFT:
+		var index_ref := choice_ref_array[index]
+		run_node(index_ref)

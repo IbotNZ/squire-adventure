@@ -11,7 +11,7 @@ var save_game_location: String
 var global_variables := preload(global_variables_location)
 
 @export var dialogue_list: Array[DialogueType]
-var current_node: DialogueType
+@export var current_node: DialogueType
 # For exposition node
 #var most_recent_hub: DialogueHub
 

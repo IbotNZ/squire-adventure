@@ -402,3 +402,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[connection signal="item_clicked" from="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/ChoiceRow/ChoiceList" to="DialogueManager/IntroDialogueWindow" method="_on_choice_list_item_clicked"]

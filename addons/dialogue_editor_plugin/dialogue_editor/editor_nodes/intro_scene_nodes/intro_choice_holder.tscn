@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://dmwg705efgmni"]
+[gd_scene load_steps=2 format=3 uid="uid://dmwg705efgmni"]
+
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_choice_holder.gd" id="1_xujlw"]
 
 [node name="IntroChoiceHolder" type="HBoxContainer"]
+script = ExtResource("1_xujlw")
 
 [node name="ChoiceTitleEdit" type="TextEdit" parent="."]
 layout_mode = 2
@@ -13,3 +16,6 @@ scroll_fit_content_height = true
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 text = "X"
+
+[connection signal="text_changed" from="ChoiceTitleEdit" to="." method="_on_choice_title_edit_text_changed"]
+[connection signal="pressed" from="DeleteChoiceButton" to="." method="_on_delete_choice_button_pressed"]

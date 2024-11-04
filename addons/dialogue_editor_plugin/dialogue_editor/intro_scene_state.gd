@@ -67,7 +67,8 @@ func sync_editor():
 				for choice: DialogueChoice in i.node_resource.choice_list:
 					if choice.connected_node != null:
 						var choice_target = root.get_visual_editor_resource_connection(choice.connected_node)
-						root.visual_editor.connect_node(i.name, choice.choice_port - 1, choice_target.name, 0)
+						#print(choice.choice_port)
+						root.visual_editor.connect_node(i.name, choice.choice_port - 6, choice_target.name, 0)
 			else:
 				if i.node_resource.next_node != null:
 					connect_editor_node(i.name, 0, target.name, 0)
@@ -115,7 +116,10 @@ func connect_editor_node(from_node: StringName, from_port: int, to_node: StringN
 					pass
 				if i is IntroSectionNode:
 					for choice in i.node_resource.choice_list:
-						if choice.choice_port == from_port + 1:
+						#print(choice.choice_port)
+						#print(from_port + 6)
+						#print(" ")
+						if choice.choice_port == from_port + 6:
 							choice.connected_node = next_node_resource
 		
 		connection_list.append(new_connection)
@@ -133,7 +137,7 @@ func disconnect_editor_node(from_node: StringName, from_port: int, to_node: Stri
 	var from_node_resource = root.get_visual_editor_node_resource(from_node)
 	if from_node_resource is IntroSection:
 		for i in from_node_resource.choice_list:
-			if i.choice_port == from_port + 1:
+			if i.choice_port == from_port + 6:
 				i.connected_node = null
 	else:
 		from_node_resource.next_node = null

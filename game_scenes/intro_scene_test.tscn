@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dacmuasfod74h"]
+[gd_scene load_steps=24 format=3 uid="uid://dacmuasfod74h"]
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_manager.gd" id="1_0dkqr"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_type.gd" id="2_0g3ok"]
@@ -6,22 +6,19 @@
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/map_scene_nodes/choice/dialogue_choice.gd" id="3_31uvh"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/intro_scene_nodes/intro_section.gd" id="4_3w1nb"]
 
-[sub_resource type="Resource" id="Resource_273h6"]
-script = ExtResource("3_31uvh")
-choice_name = ""
-choice_port = 0
-graph_position = Vector2(0, 0)
+[sub_resource type="Resource" id="Resource_u2mad"]
+script = ExtResource("4_3w1nb")
+title_text = ""
+title_description = ""
+main_text = ""
+choice_list = Array[ExtResource("3_31uvh")]([])
+graph_position = Vector2(39, -234)
 
-[sub_resource type="Resource" id="Resource_anvtw"]
+[sub_resource type="Resource" id="Resource_bmdfm"]
 script = ExtResource("3_31uvh")
 choice_name = ""
-choice_port = 0
-graph_position = Vector2(0, 0)
-
-[sub_resource type="Resource" id="Resource_257he"]
-script = ExtResource("3_31uvh")
-choice_name = ""
-choice_port = 0
+choice_port = 7
+connected_node = SubResource("Resource_u2mad")
 graph_position = Vector2(0, 0)
 
 [sub_resource type="Resource" id="Resource_0b7d1"]
@@ -29,8 +26,8 @@ script = ExtResource("4_3w1nb")
 title_text = ""
 title_description = ""
 main_text = ""
-choice_list = Array[ExtResource("3_31uvh")]([SubResource("Resource_273h6"), SubResource("Resource_anvtw"), SubResource("Resource_257he")])
-graph_position = Vector2(-428, -138)
+choice_list = Array[ExtResource("3_31uvh")]([SubResource("Resource_bmdfm")])
+graph_position = Vector2(-560, -140)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_fa1mh"]
 color = Color(0.408329, 0.408329, 0.408329, 1)
@@ -241,7 +238,7 @@ grow_vertical = 2
 [node name="DialogueManager" type="Node" parent="."]
 script = ExtResource("1_0dkqr")
 dialogue_scene_type = 1
-dialogue_list = Array[ExtResource("2_0g3ok")]([SubResource("Resource_0b7d1")])
+dialogue_list = Array[ExtResource("2_0g3ok")]([SubResource("Resource_0b7d1"), SubResource("Resource_u2mad")])
 
 [node name="IntroDialogueWindow" type="Control" parent="DialogueManager"]
 custom_minimum_size = Vector2(450, 0)

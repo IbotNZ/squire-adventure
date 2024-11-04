@@ -19,3 +19,5 @@ script = ExtResource("1_21urs")
 
 [node name="NodePort" type="Control" parent="."]
 layout_mode = 2
+
+[connection signal="dragged" from="." to="." method="_on_dragged"]

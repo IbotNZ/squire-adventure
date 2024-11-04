@@ -20,6 +20,11 @@ var global_variables := preload(global_variables_location)
 
 @onready var intro_dialogue_window := $IntroDialogueWindow
 
+
+func _ready() -> void:
+	intro_dialogue_window.on_ready()
+
+
 func _input(event: InputEvent) -> void:
 	intro_dialogue_window.on_input()
 	#if game_state == state.dialogue:

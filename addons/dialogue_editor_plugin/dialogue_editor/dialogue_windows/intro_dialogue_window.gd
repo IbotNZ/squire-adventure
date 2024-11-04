@@ -11,7 +11,7 @@ class_name IntroDialogueWindow
 # When running a section node set this value and the animation will switch to
 # it halfway through it's animation
 var new_section: IntroSection
-var section_transition_player := $SectionTransitionPlayer
+@onready var section_transition_player := $SectionTransitionPlayer
 
 var choice_ref_array: Array[DialogueType]
 
@@ -24,7 +24,12 @@ var choice_ref_array: Array[DialogueType]
 
 # Called when the node enters the scene tree for the first time.
 func on_ready() -> void:
-	run_node(root.current_node)
+	var start_node: IntroStart
+	for i in root.dialogue_list:
+		if i is IntroStart:
+			start_node = i
+	if start_node != null:
+		run_node(start_node)
 
 
 func on_input():
@@ -60,31 +65,36 @@ func run_intro_end():
 
 
 func run_intro_section(is_previous_node_start: bool):
-	new_section = root.current_node.next_node
+	new_section = root.current_node
 	# Play animation to switch out sections
 	# Set the section text
 	# Set the section choices
-	section_transition_player.play("swap_in_section")
+	if is_previous_node_start:
+		swap_intro_section()
+		section_transition_player.play("swap_in_section")
+	else:
+		section_transition_player.play("swap_out_section")
 	
 	# If previous node was start then just go straight to the new section
 
 
 func swap_intro_section():
-	if new_section != null:
-		# Called after animation is halfway done
-		# New text values
-		title.text = new_section.title_text
-		description.text = new_section.title_description
-		main_text.text = new_section.main_text
-		
-		# Remove previous choices
-		choice_ref_array.clear()
-		choice_list.clear()
-		
-		# Replace with new choices
-		for i in new_section.choice_list:
-			choice_ref_array.append(i.connected_node)
-			choice_list.add_item(i.choice_name)
+	print(new_section)
+	#if root.current_node != null:
+	# Called after animation is halfway done
+	# New text values
+	title.text = new_section.title_text
+	description.text = new_section.title_description
+	main_text.text = new_section.main_text
+	
+	# Remove previous choices
+	choice_ref_array.clear()
+	choice_list.clear()
+	
+	# Replace with new choices
+	for i in new_section.choice_list:
+		choice_ref_array.append(i.connected_node)
+		choice_list.add_item(i.choice_name)
 
 
 func run_variable_setter():

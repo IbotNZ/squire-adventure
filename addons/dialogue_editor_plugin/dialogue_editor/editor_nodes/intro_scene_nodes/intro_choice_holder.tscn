@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_choice_holder.gd" id="1_xujlw"]
 
-[node name="IntroChoiceHolder" type="HBoxContainer"]
+[node name="IntroChoiceHolder" type="HBoxContainer" node_paths=PackedStringArray("choice_title_edit")]
 script = ExtResource("1_xujlw")
+choice_title_edit = NodePath("ChoiceTitleEdit")
 
 [node name="ChoiceTitleEdit" type="TextEdit" parent="."]
 layout_mode = 2

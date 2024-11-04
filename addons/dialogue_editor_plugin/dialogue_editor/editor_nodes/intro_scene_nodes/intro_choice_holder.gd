@@ -5,7 +5,7 @@ class_name IntroChoiceHolder
 signal delete_request(target_node: Node)
 
 @export var node_resource: DialogueChoice
-@onready var choice_title_edit := $ChoiceTitleEdit
+@export @onready var choice_title_edit := $ChoiceTitleEdit
 
 
 func _on_choice_title_edit_text_changed() -> void:

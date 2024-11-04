@@ -19,6 +19,10 @@ func _ready() -> void:
 
 
 func sync_choices():
+	section_title_edit.text = node_resource.title_text
+	section_description_edit.text = node_resource.title_description
+	section_text_edit.text = node_resource.main_text
+	
 	var new_choice_list: Array[IntroChoiceHolder]
 	for i in node_resource.choice_list:
 		var new_choice: IntroChoiceHolder = choice_holder_scene.instantiate()
@@ -26,6 +30,7 @@ func sync_choices():
 		new_choice.node_resource = i
 		#add_child(new_choice)
 		new_choice_list.append(new_choice)
+		new_choice.choice_title_edit.text = i.choice_name
 	for i in new_choice_list:
 		var move_index = get_child_count() - 2
 		add_child(i)

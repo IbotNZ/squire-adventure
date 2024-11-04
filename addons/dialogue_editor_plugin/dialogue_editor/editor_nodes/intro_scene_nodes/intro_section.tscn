@@ -114,9 +114,10 @@ placeholder_text = "Choice title."
 wrap_mode = 1
 scroll_fit_content_height = true
 
-[node name="IntroChoiceHolder" parent="." instance=ExtResource("2_8wwme")]
+[node name="IntroChoiceHolder" parent="." node_paths=PackedStringArray("choice_title_edit") instance=ExtResource("2_8wwme")]
 visible = false
 layout_mode = 2
+choice_title_edit = NodePath("ChoiceTitleEdit")
 
 [node name="AddChoiceButton" type="Button" parent="."]
 layout_mode = 2

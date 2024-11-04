@@ -123,4 +123,7 @@ layout_mode = 2
 text = "Add Choice +"
 
 [connection signal="dragged" from="." to="." method="_on_dragged"]
+[connection signal="text_changed" from="SectionTitleEdit" to="." method="_on_section_title_edit_text_changed"]
+[connection signal="text_changed" from="SectionDescriptionEdit" to="." method="_on_section_description_edit_text_changed"]
+[connection signal="text_changed" from="SectionTextEdit" to="." method="_on_section_text_edit_text_changed"]
 [connection signal="pressed" from="AddChoiceButton" to="." method="_on_add_choice_button_pressed"]

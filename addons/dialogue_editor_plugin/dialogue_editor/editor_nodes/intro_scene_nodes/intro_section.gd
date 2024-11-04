@@ -8,6 +8,11 @@ signal choice_deleted(hub: IntroSectionNode, index: int)
 const new_choice_position: int = -2
 const choice_holder_scene := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_choice_holder.tscn")
 
+@onready var section_title_edit: TextEdit = $SectionTitleEdit
+@onready var section_description_edit: TextEdit = $SectionDescriptionEdit
+@onready var section_text_edit: TextEdit = $SectionTextEdit
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -51,3 +56,15 @@ func on_choice_delete_request(target_node: Node):
 
 func _on_dragged(from: Vector2, to: Vector2) -> void:
 	node_resource.graph_position = to
+
+
+func _on_section_title_edit_text_changed() -> void:
+	node_resource.title_text = section_title_edit.text
+
+
+func _on_section_description_edit_text_changed() -> void:
+	node_resource.title_description = section_description_edit.text
+
+
+func _on_section_text_edit_text_changed() -> void:
+	node_resource.main_text = section_text_edit.text

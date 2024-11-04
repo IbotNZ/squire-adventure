@@ -26,8 +26,8 @@ var bool_var_setter_node := preload("res://addons/dialogue_editor_plugin/dialogu
 var bool_logic_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_logic.tscn")
 var bool_variable_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable.tscn")
 
-#var intro_start_node := preload()
-#var intro_end_node := preload()
+var intro_start_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_start.tscn")
+var intro_end_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_end.tscn")
 var intro_section_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_section.tscn")
 
 var connection_list: Array[NodeConnection]
@@ -73,16 +73,6 @@ func _on_mouse_exited():
 func _input(event: InputEvent) -> void:
 	if is_mouse_on_editor:
 		state_machine.on_input(event)
-		#if editor_plugin.get_editor_interface().get_editor_main_screen().name == "Dialogue Editor":
-		#if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-		#	show_right_click_menu(get_local_mouse_position())
-		#if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_mouse_on_map_scene_menu == false:
-		#	right_click_menu.hide()
-		#	variable_right_click_menu.hide()
-		#if event is InputEventMouseButton and event.is_double_click() and event.button_index == MOUSE_BUTTON_LEFT:
-		#	var connection: Dictionary = visual_editor.get_closest_connection_at_point(get_local_mouse_position())
-		#	if connection.size() > 0:
-		#		disconnect_editor_node(connection.get("from_node"), connection.get("from_port"), connection.get("to_node"), connection.get("to_port"))
 
 
 func clean_up():
@@ -96,49 +86,11 @@ func clean_up():
 	visual_editor = new_editor
 	add_child(new_editor)
 	move_child(new_editor, 1)
-	
-	# Create the nodes to represent what's in
-	# sync_visual_editor(new_dialogue_manager)
 
 
 func sync_visual_editor(dialogue_manager: DialogueManager):
 	current_dialogue_manager = dialogue_manager
 	state_machine.sync_editor()
-	#var new_editor_node: VisualEditorNode
-	#for i in dialogue_manager.dialogue_list:
-	#	if i is DialogueStart:
-	#		new_editor_node = start_node.instantiate()
-	#	elif i is DialogueEnd:
-	#		new_editor_node = end_node.instantiate()
-	#	elif i is DialogueNode:
-	#		new_editor_node = paragraph_node.instantiate()
-	#	elif i is DialogueExposition:
-	#		new_editor_node = exposition_node.instantiate()
-	#	elif i is DialogueHub:
-	#		new_editor_node = hub_node.instantiate()
-	#	elif i is DialogueBoolLogic:
-	#		new_editor_node = bool_logic_node.instantiate()
-	#	elif i is DialogueBoolSetter:
-	#		new_editor_node = bool_var_setter_node.instantiate()
-	#	new_editor_node.node_resource = i
-	#	new_editor_node.position_offset = i.graph_position
-	#	visual_editor.add_child(new_editor_node)
-	#
-	#await Engine.get_main_loop().process_frame
-	# Sync editor node connections
-	#for i in visual_editor.get_children():
-	#	if i is VisualEditorNode:
-	#		if i.node_resource.next_node != null:
-	#			var target = get_visual_editor_resource_connection(i.node_resource.next_node)
-	#			# Some nodes need custom logic
-	#			if i is BoolLogicNode:
-	#				pass
-	#			elif i is HubNode:
-	#				pass
-	#			else:
-	#				#connection_list.append(NodeConnection.new(i.name, 0, target.name, 0))
-	#				#visual_editor.connect_node(i.name, 0, target.name, 0)
-	#				connect_editor_node(i.name, 0, target.name, 0)
 
 
 func get_visual_editor_resource_connection(searching_resource: DialogueType):
@@ -186,18 +138,6 @@ func show_right_click_menu(location: Vector2):
 
 func delete_selected_nodes(nodes: Array[StringName]):
 	state_machine.delete_selected_nodes(nodes)
-	#for i in visual_editor.get_children():
-	#	if nodes.has(i.name):
-	#		for connection in connection_list:
-	#			if connection.from_node == i.name or connection.to_node == i.name:
-	#				connection_list.erase(connection)
-	#		
-	#		# Should defer to state machine to handle multiple node types being checked for ports
-	#		for dialogue in current_dialogue_manager.dialogue_list:
-	#			if dialogue.next_node == i.node_resource:
-	#				dialogue.next_node = null
-	#		current_dialogue_manager.dialogue_list.erase(i.node_resource)
-	#		i.queue_free()
 
 
 func delete_selected_variables(nodes: Array[StringName]):

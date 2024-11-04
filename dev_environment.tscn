@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dgilup7vycbia"]
+[gd_scene load_steps=12 format=3 uid="uid://dgilup7vycbia"]
 
 [ext_resource type="PackedScene" uid="uid://by0ufgsvgq2fn" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/hub_node.tscn" id="1_y5w2r"]
 [ext_resource type="PackedScene" uid="uid://5dy04mf1top1" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable_setter.tscn" id="2_sycgv"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://d4jppn0cam0f" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/start_node.tscn" id="7_wpofn"]
 [ext_resource type="PackedScene" uid="uid://2tssfwhvq1nn" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/paragraph_node.tscn" id="8_4b77u"]
 [ext_resource type="PackedScene" uid="uid://cdklcjui375n" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_section.tscn" id="9_r3crj"]
+[ext_resource type="PackedScene" uid="uid://dflgsfv0wxql7" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_start.tscn" id="10_j3chm"]
+[ext_resource type="PackedScene" uid="uid://dq2g0bjbo1itg" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_end.tscn" id="11_c4ux7"]
 
 [node name="DevEnvironment" type="Control"]
 layout_mode = 3
@@ -98,43 +100,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="IntroSection" parent="IntroNodes" instance=ExtResource("9_r3crj")]
-layout_mode = 0
-
-[node name="IntroStart" type="GraphNode" parent="IntroNodes"]
 visible = false
 layout_mode = 0
-offset_right = 133.0
-offset_bottom = 90.0
-title = "Intro Start"
-slot/0/left_enabled = false
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
-slot/0/left_icon = null
-slot/0/right_enabled = true
-slot/0/right_type = 0
-slot/0/right_color = Color(1, 1, 1, 1)
-slot/0/right_icon = null
-slot/0/draw_stylebox = true
 
-[node name="NodePort" type="Control" parent="IntroNodes/IntroStart"]
-layout_mode = 2
+[node name="IntroStart" parent="IntroNodes" instance=ExtResource("10_j3chm")]
+layout_mode = 0
 
-[node name="IntroEnd" type="GraphNode" parent="IntroNodes"]
-visible = false
-layout_mode = 2
-offset_right = 200.0
-offset_bottom = 86.0
-title = "Intro End"
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
-slot/0/left_icon = null
-slot/0/right_enabled = false
-slot/0/right_type = 0
-slot/0/right_color = Color(1, 1, 1, 1)
-slot/0/right_icon = null
-slot/0/draw_stylebox = true
-
-[node name="Button" type="Button" parent="IntroNodes/IntroEnd"]
-layout_mode = 2
-text = "Assign Next Scene"
+[node name="IntroEnd" parent="IntroNodes" instance=ExtResource("11_c4ux7")]
+layout_mode = 0

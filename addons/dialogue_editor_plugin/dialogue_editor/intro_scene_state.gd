@@ -44,6 +44,10 @@ func sync_editor():
 	for i in root.current_dialogue_manager.dialogue_list:
 		if i is IntroSection:
 			new_editor_node = root.intro_section_node.instantiate()
+		elif i is IntroStart:
+			new_editor_node = root.intro_start_node.instantiate()
+		elif i is IntroEnd:
+			new_editor_node = root.intro_end_node.instantiate()
 		new_editor_node.node_resource = i
 		new_editor_node.position_offset = i.graph_position
 		root.visual_editor.add_child(new_editor_node)
@@ -54,13 +58,7 @@ func sync_editor():
 		if i is VisualEditorNode:
 			var target = root.get_visual_editor_resource_connection(i.node_resource.next_node)
 			# Some nodes need custom logic
-			if i is BoolLogicNode:
-				if i.node_resource.next_node != null:
-					connect_editor_node(i.name, 0, target.name, 0)
-				if i.node_resource.node_connection_for_false != null:
-					target = root.get_visual_editor_resource_connection(i.node_resource.node_connection_for_false)
-					connect_editor_node(i.name, 1, target.name, 0)
-			elif i is IntroSectionNode:
+			if i is IntroSectionNode:
 				i.choice_deleted.connect(on_hub_choice_deleted)
 				var choice_counter: int = 1
 				i.sync_choices()
@@ -109,10 +107,9 @@ func connect_editor_node(from_node: StringName, from_port: int, to_node: StringN
 		for i in root.visual_editor.get_children():
 			if i.name == from_node:
 				var next_node_resource: Resource = root.get_visual_editor_node_resource(to_node)
-				if i is StartNode:
-					#i.node_resource.next_node = root.get_visual_editor_node_resource(to_node)
-					pass
-				if i is EndNode:
+				if i is IntroStartNode:
+					i.node_resource.next_node = root.get_visual_editor_node_resource(to_node)
+				if i is IntroEndNode:
 					pass
 				if i is IntroSectionNode:
 					for choice in i.node_resource.choice_list:
@@ -184,12 +181,12 @@ func create_dialogue_node(node_type: StringName):
 	
 	match node_type:
 		"intro_start_node":
-			new_editor_node = root.start_node.instantiate()
-			new_dialogue_resource = DialogueStart.new()
+			new_editor_node = root.intro_start_node.instantiate()
+			new_dialogue_resource = IntroStart.new()
 			new_editor_node.node_resource = new_dialogue_resource
 		"intro_end_node":
-			new_editor_node = root.end_node.instantiate()
-			new_dialogue_resource = DialogueEnd.new()
+			new_editor_node = root.intro_end_node.instantiate()
+			new_dialogue_resource = IntroEnd.new()
 			new_editor_node.node_resource = new_dialogue_resource
 		"intro_section_node":
 			new_editor_node = root.intro_section_node.instantiate()

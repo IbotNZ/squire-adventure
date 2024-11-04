@@ -1,10 +1,12 @@
-[gd_scene load_steps=24 format=3 uid="uid://dacmuasfod74h"]
+[gd_scene load_steps=28 format=3 uid="uid://dacmuasfod74h"]
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_manager.gd" id="1_0dkqr"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/dialogue_type.gd" id="2_0g3ok"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/dialogue_windows/intro_dialogue_window.gd" id="2_6yvth"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/map_scene_nodes/choice/dialogue_choice.gd" id="3_31uvh"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/intro_scene_nodes/intro_section.gd" id="4_3w1nb"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/intro_scene_nodes/intro_start.gd" id="5_86k4u"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_objects/intro_scene_nodes/intro_end.gd" id="6_ehjrf"]
 
 [sub_resource type="Resource" id="Resource_u2mad"]
 script = ExtResource("4_3w1nb")
@@ -27,6 +29,14 @@ title_description = ""
 main_text = ""
 choice_list = Array[ExtResource("3_31uvh")]([SubResource("Resource_hp1xq")])
 graph_position = Vector2(-600, -160)
+
+[sub_resource type="Resource" id="Resource_aaex8"]
+script = ExtResource("5_86k4u")
+graph_position = Vector2(-104, 24)
+
+[sub_resource type="Resource" id="Resource_v6ef0"]
+script = ExtResource("6_ehjrf")
+graph_position = Vector2(-854.144, -19.5954)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_fa1mh"]
 color = Color(0.408329, 0.408329, 0.408329, 1)
@@ -237,7 +247,7 @@ grow_vertical = 2
 [node name="DialogueManager" type="Node" parent="."]
 script = ExtResource("1_0dkqr")
 dialogue_scene_type = 1
-dialogue_list = Array[ExtResource("2_0g3ok")]([SubResource("Resource_u2mad"), SubResource("Resource_nbp21")])
+dialogue_list = Array[ExtResource("2_0g3ok")]([SubResource("Resource_u2mad"), SubResource("Resource_nbp21"), SubResource("Resource_aaex8"), SubResource("Resource_v6ef0")])
 
 [node name="IntroDialogueWindow" type="Control" parent="DialogueManager"]
 custom_minimum_size = Vector2(450, 0)

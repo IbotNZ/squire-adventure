@@ -74,17 +74,17 @@ func sync_editor():
 					connect_editor_node(i.name, 0, target.name, 0)
 
 
-func on_hub_choice_deleted(hub: IntroSection, index: int):
+func on_hub_choice_deleted(hub: IntroSectionNode, index: int):
 	var ports_to_change: Array[Array]
 	var choices_to_change: Array
 	print("Index " + str(index))
 	for i in connection_list:
-		if i[0] == hub.name and i[1] == index:
+		if i[0] == hub.name and i[1] == index - 6:
 			disconnect_editor_node(i[0], i[1], i[2], i[3])
-		elif i[0] == hub.name and i[1] > index:
+		elif i[0] == hub.name and i[1] > index - 6:
 			i[1] -= 1
 	
-	for i in hub.choice_list:
+	for i in hub.node_resource.choice_list:
 		if i.choice_port > index:
 			i.choice_port -= 1
 

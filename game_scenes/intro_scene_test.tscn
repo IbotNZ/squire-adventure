@@ -14,20 +14,19 @@ main_text = ""
 choice_list = Array[ExtResource("3_31uvh")]([])
 graph_position = Vector2(39, -234)
 
-[sub_resource type="Resource" id="Resource_bmdfm"]
+[sub_resource type="Resource" id="Resource_hp1xq"]
 script = ExtResource("3_31uvh")
 choice_name = ""
 choice_port = 7
-connected_node = SubResource("Resource_u2mad")
 graph_position = Vector2(0, 0)
 
-[sub_resource type="Resource" id="Resource_0b7d1"]
+[sub_resource type="Resource" id="Resource_nbp21"]
 script = ExtResource("4_3w1nb")
 title_text = ""
 title_description = ""
 main_text = ""
-choice_list = Array[ExtResource("3_31uvh")]([SubResource("Resource_bmdfm")])
-graph_position = Vector2(-560, -140)
+choice_list = Array[ExtResource("3_31uvh")]([SubResource("Resource_hp1xq")])
+graph_position = Vector2(-600, -160)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_fa1mh"]
 color = Color(0.408329, 0.408329, 0.408329, 1)
@@ -238,7 +237,7 @@ grow_vertical = 2
 [node name="DialogueManager" type="Node" parent="."]
 script = ExtResource("1_0dkqr")
 dialogue_scene_type = 1
-dialogue_list = Array[ExtResource("2_0g3ok")]([SubResource("Resource_0b7d1"), SubResource("Resource_u2mad")])
+dialogue_list = Array[ExtResource("2_0g3ok")]([SubResource("Resource_u2mad"), SubResource("Resource_nbp21")])
 
 [node name="IntroDialogueWindow" type="Control" parent="DialogueManager"]
 custom_minimum_size = Vector2(450, 0)

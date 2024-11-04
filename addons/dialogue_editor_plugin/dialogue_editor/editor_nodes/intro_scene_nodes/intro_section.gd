@@ -2,7 +2,7 @@
 extends VisualEditorNode
 class_name IntroSectionNode
 
-signal choice_deleted(hub: IntroSection, index: int)
+signal choice_deleted(hub: IntroSectionNode, index: int)
 
 @export var node_resource: IntroSection
 const new_choice_position: int = -2
@@ -46,7 +46,7 @@ func on_choice_delete_request(target_node: Node):
 	target_node.queue_free()
 	node_resource.choice_list.erase(target_node.node_resource)
 	set_slot(get_child_count() - 3, false, 0, Color("white"), false, 0, Color("white"))
-	choice_deleted.emit(node_resource, target_index)
+	choice_deleted.emit(self, target_index)
 
 
 func _on_dragged(from: Vector2, to: Vector2) -> void:

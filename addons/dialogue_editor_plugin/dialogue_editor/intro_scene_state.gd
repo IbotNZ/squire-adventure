@@ -10,6 +10,9 @@ var right_click_menu_location: Vector2
 
 var connection_list: Array
 
+const LINK_CORRECTION := -7
+const SLOT_CORRECTION := 7
+
 
 func _ready() -> void:
 	right_click_menu.mouse_entered.connect(_on_mouse_enter_right_click_menu)
@@ -66,7 +69,7 @@ func sync_editor():
 					if choice.connected_node != null:
 						var choice_target = root.get_visual_editor_resource_connection(choice.connected_node)
 						#print(choice.choice_port)
-						root.visual_editor.connect_node(i.name, choice.choice_port - 6, choice_target.name, 0)
+						root.visual_editor.connect_node(i.name, choice.choice_port + LINK_CORRECTION, choice_target.name, 0)
 			else:
 				if i.node_resource.next_node != null:
 					connect_editor_node(i.name, 0, target.name, 0)
@@ -77,9 +80,9 @@ func on_hub_choice_deleted(hub: IntroSectionNode, index: int):
 	var choices_to_change: Array
 	print("Index " + str(index))
 	for i in connection_list:
-		if i[0] == hub.name and i[1] == index - 6:
+		if i[0] == hub.name and i[1] == index + LINK_CORRECTION:
 			disconnect_editor_node(i[0], i[1], i[2], i[3])
-		elif i[0] == hub.name and i[1] > index - 6:
+		elif i[0] == hub.name and i[1] > index + LINK_CORRECTION:
 			i[1] -= 1
 	
 	for i in hub.node_resource.choice_list:
@@ -116,7 +119,7 @@ func connect_editor_node(from_node: StringName, from_port: int, to_node: StringN
 						#print(choice.choice_port)
 						#print(from_port + 6)
 						#print(" ")
-						if choice.choice_port == from_port + 6:
+						if choice.choice_port == from_port + 5:
 							choice.connected_node = next_node_resource
 		
 		connection_list.append(new_connection)
@@ -134,7 +137,7 @@ func disconnect_editor_node(from_node: StringName, from_port: int, to_node: Stri
 	var from_node_resource = root.get_visual_editor_node_resource(from_node)
 	if from_node_resource is IntroSection:
 		for i in from_node_resource.choice_list:
-			if i.choice_port == from_port + 6:
+			if i.choice_port == from_port + 5:
 				i.connected_node = null
 	else:
 		from_node_resource.next_node = null

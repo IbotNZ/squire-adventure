@@ -32,7 +32,7 @@ func sync_choices():
 		new_choice_list.append(new_choice)
 		new_choice.choice_title_edit.text = i.choice_name
 	for i in new_choice_list:
-		var move_index = get_child_count() - 2
+		var move_index = get_child_count() - 3
 		add_child(i)
 		move_child(i, move_index)
 		set_slot(move_index, false, 0, Color("White"), true, 0, Color("White"))

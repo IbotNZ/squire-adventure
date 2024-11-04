@@ -56,7 +56,7 @@ slot/5/left_enabled = false
 slot/5/left_type = 0
 slot/5/left_color = Color(1, 1, 1, 1)
 slot/5/left_icon = null
-slot/5/right_enabled = true
+slot/5/right_enabled = false
 slot/5/right_type = 0
 slot/5/right_color = Color(1, 1, 1, 1)
 slot/5/right_icon = null
@@ -108,16 +108,16 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="ChoiceTitleEdit2" type="TextEdit" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Choice title."
 wrap_mode = 1
 scroll_fit_content_height = true
 
-[node name="IntroChoiceHolder" parent="." node_paths=PackedStringArray("choice_title_edit") instance=ExtResource("2_8wwme")]
+[node name="IntroChoiceHolder" parent="." instance=ExtResource("2_8wwme")]
 visible = false
 layout_mode = 2
-choice_title_edit = NodePath("ChoiceTitleEdit")
 
 [node name="AddChoiceButton" type="Button" parent="."]
 layout_mode = 2

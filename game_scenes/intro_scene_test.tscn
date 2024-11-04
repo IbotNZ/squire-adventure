@@ -10,15 +10,15 @@
 
 [sub_resource type="Resource" id="Resource_evuda"]
 script = ExtResource("3_31uvh")
-choice_name = "Test2"
+choice_name = "What?"
 choice_port = 7
 graph_position = Vector2(0, 0)
 
 [sub_resource type="Resource" id="Resource_u2mad"]
 script = ExtResource("4_3w1nb")
-title_text = "Test2"
-title_description = "Test2"
-main_text = "Test2"
+title_text = "Hello"
+title_description = "Testing Testing"
+main_text = "aksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkddddddddddddddd"
 choice_list = Array[ExtResource("3_31uvh")]([SubResource("Resource_evuda")])
 graph_position = Vector2(-60, -160)
 
@@ -281,6 +281,7 @@ grow_vertical = 2
 script = ExtResource("1_0dkqr")
 dialogue_scene_type = 1
 dialogue_list = Array[ExtResource("2_0g3ok")]([SubResource("Resource_u2mad"), SubResource("Resource_nbp21"), SubResource("Resource_aaex8"), SubResource("Resource_v6ef0")])
+current_node = SubResource("Resource_nbp21")
 
 [node name="IntroDialogueWindow" type="Control" parent="DialogueManager"]
 custom_minimum_size = Vector2(450, 0)
@@ -395,7 +396,7 @@ size_flags_vertical = 0
 
 [node name="TitleLabel" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
-text = "Title:"
+text = "Test"
 
 [node name="VSeparator" type="VSeparator" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
@@ -405,7 +406,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_aagdf")
 [node name="DescriptionLabel" type="Label" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/TitleRow/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Description"
+text = "Test"
 
 [node name="MainTextRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
@@ -416,9 +417,7 @@ theme_override_constants/margin_bottom = 10
 [node name="RichTextLabel" type="RichTextLabel" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2/MainTextRow"]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. 
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut erat nec leo faucibus consequat. Cras cursus mi ornare faucibus aliquam. Praesent quis diam laoreet, malesuada purus sodales, ultrices nisl. Suspendisse potenti. Sed blandit luctus libero, ut laoreet nunc faucibus id. Nulla mi sapien, egestas et sapien sed, pellentesque rutrum lacus. Sed sit amet elementum ipsum. Fusce dictum ante vitae magna lobortis vehicula. Pellentesque ullamcorper fermentum augue. Morbi mollis ultricies arcu, a consequat tellus blandit sed. Morbi in fringilla risus. "
+text = "Test"
 
 [node name="ChoiceRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
@@ -448,9 +447,8 @@ theme_override_styles/hovered = SubResource("StyleBoxEmpty_3r01h")
 theme_override_styles/selected = SubResource("StyleBoxEmpty_jnlwk")
 theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_kit6t")
 auto_height = true
-item_count = 2
-item_0/text = "1. Test"
-item_1/text = "2. Test"
+item_count = 1
+item_0/text = "Test"
 
 [node name="SectionTransitionPlayer" type="AnimationPlayer" parent="DialogueManager/IntroDialogueWindow"]
 libraries = {
@@ -463,6 +461,7 @@ libraries = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="DialogueManager/TransitionPlayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

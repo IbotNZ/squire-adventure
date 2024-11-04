@@ -13,6 +13,8 @@ extends Node
 
 @onready var root: DialogueEditor = $".."
 @onready var linear_scene_state := $LinearSceneState
+@onready var intro_scene_state := $IntroSceneState
+
 
 # Handles input
 func on_input(event: InputEvent):
@@ -21,7 +23,7 @@ func on_input(event: InputEvent):
 			0: # Linear Scene
 				linear_scene_state.on_input(event)
 			1: # Intro Scene
-				pass
+				intro_scene_state.on_input(event)
 
 
 # Takes dialogue resources from manager and creates the editor nodes that represent them
@@ -31,7 +33,7 @@ func sync_editor():
 			0: # Linear Scene
 				linear_scene_state.sync_editor()
 			1: # Intro Scene
-				pass
+				intro_scene_state.sync_editor()
 
 
 # On right click show the appropriate menu to create new nodes from
@@ -41,12 +43,17 @@ func show_right_click_menu(location: Vector2):
 			0: # Linear Scene
 				linear_scene_state.show_right_click_menu(location)
 			1: # Intro Scene
-				pass
+				intro_scene_state.show_right_click_menu(location)
 
 
 # Delete selected nodes may not need unique logic depending on state
 func delete_selected_nodes(nodes: Array[StringName]):
-	linear_scene_state.delete_selected_nodes(nodes)
+	match root.current_dialogue_manager.dialogue_scene_type:
+			0: # Linear Scene
+				linear_scene_state.delete_selected_nodes(nodes)
+			1: # Intro Scene
+				intro_scene_state.delete_selected_nodes(nodes)
+	
 
 
 # Is there connection conflict
@@ -65,7 +72,7 @@ func connect_editor_node(from_node: StringName, from_port: int, to_node: StringN
 			0: # Linear Scene
 				linear_scene_state.connect_editor_node(from_node,from_port,to_node,to_port)
 			1: # Intro Scene
-				pass
+				intro_scene_state.connect_editor_node(from_node,from_port,to_node,to_port)
 
 
 # May not be necessary but good to keep in same script as function to connect nodes
@@ -75,7 +82,7 @@ func disconnect_editor_node(from_node: StringName, from_port: int, to_node: Stri
 			0: # Linear Scene
 				linear_scene_state.disconnect_editor_node(from_node,from_port,to_node,to_port)
 			1: # Intro Scene
-				pass
+				intro_scene_state.disconnect_editor_node(from_node,from_port,to_node,to_port)
 
 
 # As different menus will be used between scenes unique logic is necessary
@@ -86,7 +93,7 @@ func node_list_menu_clicked(index: int, mouse_button_index: int):
 			0: # Linear Scene
 				linear_scene_state.node_list_menu_clicked(index, mouse_button_index)
 			1: # Intro Scene
-				pass
+				intro_scene_state.node_list_menu_clicked(index, mouse_button_index)
 
 
 # Could work without state machine but it will prevent an overly long script
@@ -96,7 +103,7 @@ func create_dialogue_node(node_type: StringName):
 			0: # Linear Scene
 				linear_scene_state.create_dialogue_node(node_type)
 			1: # Intro Scene
-				pass
+				intro_scene_state.create_dialogue_node(node_type)
 
 
 # Update global variables

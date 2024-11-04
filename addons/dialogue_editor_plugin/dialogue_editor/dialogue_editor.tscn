@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://pg1s7eyi52oo"]
+[gd_scene load_steps=7 format=3 uid="uid://pg1s7eyi52oo"]
 
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/dialogue_editor.gd" id="1_iohr0"]
 [ext_resource type="PackedScene" uid="uid://cbv0eij2go5j6" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/variable_editor.tscn" id="2_lrfh6"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/state_machine/state_machine.gd" id="2_s5ets"]
 [ext_resource type="PackedScene" uid="uid://dvnoees4qokg" path="res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/editors/visual_editor.tscn" id="3_2p7xu"]
 [ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/state_machine/linear_scene_state.gd" id="3_s0wm6"]
+[ext_resource type="Script" path="res://addons/dialogue_editor_plugin/dialogue_editor/intro_scene_state.gd" id="4_fy7pu"]
 
 [node name="DialogueEditor" type="Control"]
 layout_mode = 3
@@ -22,6 +23,9 @@ script = ExtResource("2_s5ets")
 
 [node name="LinearSceneState" type="Node" parent="StateMachine"]
 script = ExtResource("3_s0wm6")
+
+[node name="IntroSceneState" type="Node" parent="StateMachine"]
+script = ExtResource("4_fy7pu")
 
 [node name="VariableEditor" parent="." instance=ExtResource("2_lrfh6")]
 layout_mode = 1
@@ -54,6 +58,16 @@ auto_height = true
 item_count = 1
 item_0/text = "Bool Variable"
 
+[node name="IntroNodeList" type="ItemList" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 94.0
+offset_bottom = 91.0
+item_count = 3
+item_0/text = "Section"
+item_1/text = "Start"
+item_2/text = "End"
+
 [node name="EditorSwitcher" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -75,4 +89,5 @@ metadata/_edit_use_anchors_ = true
 [connection signal="item_clicked" from="VariableNodeList" to="." method="_on_variable_node_list_item_clicked"]
 [connection signal="mouse_entered" from="VariableNodeList" to="." method="_on_variable_node_list_mouse_entered"]
 [connection signal="mouse_exited" from="VariableNodeList" to="." method="_on_variable_node_list_mouse_exited"]
+[connection signal="item_clicked" from="IntroNodeList" to="." method="_on_intro_node_list_item_clicked"]
 [connection signal="pressed" from="EditorSwitcher" to="." method="_on_editor_switcher_pressed"]

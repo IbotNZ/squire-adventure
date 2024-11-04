@@ -2,7 +2,7 @@
 extends DialogueType
 class_name IntroSection
 
-var title_text: String
-var title_description: String
-var main_text: String
-var choice_list: Array[DialogueChoice]
+@export var title_text: String
+@export var title_description: String
+@export var main_text: String
+@export var choice_list: Array[DialogueChoice]

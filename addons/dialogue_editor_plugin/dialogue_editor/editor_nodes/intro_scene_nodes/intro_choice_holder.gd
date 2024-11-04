@@ -1,5 +1,6 @@
 @tool
 extends HBoxContainer
+class_name IntroChoiceHolder
 
 signal delete_request(target_node: Node)
 
@@ -13,3 +14,7 @@ func _on_choice_title_edit_text_changed() -> void:
 
 func _on_delete_choice_button_pressed() -> void:
 	delete_request.emit(self)
+
+
+func set_resource(new_resource: DialogueChoice):
+	node_resource = new_resource

@@ -26,6 +26,10 @@ var bool_var_setter_node := preload("res://addons/dialogue_editor_plugin/dialogu
 var bool_logic_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_logic.tscn")
 var bool_variable_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/map_scene_nodes/bool_variable.tscn")
 
+#var intro_start_node := preload()
+#var intro_end_node := preload()
+var intro_section_node := preload("res://addons/dialogue_editor_plugin/dialogue_editor/editor_nodes/intro_scene_nodes/intro_section.tscn")
+
 var connection_list: Array[NodeConnection]
 
 var double_click_rect: Rect2
@@ -367,3 +371,7 @@ func _on_variable_editor_connection_request(from_node: StringName, from_port: in
 
 func _on_variable_editor_delete_nodes_request(nodes: Array[StringName]) -> void:
 	delete_selected_variables(nodes)
+
+
+func _on_intro_node_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+	node_list_menu_clicked(index, mouse_button_index)

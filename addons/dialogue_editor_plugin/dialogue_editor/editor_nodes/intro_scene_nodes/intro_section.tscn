@@ -7,7 +7,7 @@
 offset_right = 361.0
 offset_bottom = 172.0
 title = "Main Body Text"
-slot/0/left_enabled = false
+slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
 slot/0/left_icon = null
@@ -122,4 +122,5 @@ layout_mode = 2
 layout_mode = 2
 text = "Add Choice +"
 
+[connection signal="dragged" from="." to="." method="_on_dragged"]
 [connection signal="pressed" from="AddChoiceButton" to="." method="_on_add_choice_button_pressed"]

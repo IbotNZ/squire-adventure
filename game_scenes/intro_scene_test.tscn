@@ -18,7 +18,7 @@ graph_position = Vector2(0, 0)
 script = ExtResource("4_3w1nb")
 title_text = "Hello"
 title_description = "Testing Testing"
-main_text = "aksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkddddddddddddddd"
+main_text = "aksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkdddddddddddddddaksldjalsjdoilwjadioljsalkddddddddddddddd"
 choice_list = Array[ExtResource("3_31uvh")]([SubResource("Resource_evuda")])
 graph_position = Vector2(-60, -160)
 
@@ -309,8 +309,8 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -4.0
-offset_right = 4.0
+offset_left = -225.0
+offset_right = 225.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
@@ -410,7 +410,6 @@ text = "Test"
 
 [node name="MainTextRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 10
 
@@ -418,6 +417,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 text = "Test"
+fit_content = true
 
 [node name="ChoiceRow" type="MarginContainer" parent="DialogueManager/IntroDialogueWindow/ScrollContainer/DialogueWindow/VBoxContainer2"]
 layout_mode = 2
